@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selcore</title>
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="signForm.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    .signInForm h1,
+    .signUpForm h1 {
+      grid-column: 1/3;
+      padding: 10px 0;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #ffffff;
+      font-size: 4rem;
+      text-shadow: 2px 2px 5px #000;
+    }
+  </style>
+  <body>
+    <header>
+      <a class="logo" href="index.html"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 15 15"
+        >
+          <path d="M0 0h15v15H0z" fill="none" />
+          <path
+            fill="#ffffff"
+            d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+          />
+        </svg>
+        <span>SELCORE</span>
+      </a>
+    </header>
+    <main>
+      <section class="userHeroSec">
+        <div>
+          <h1>for more expereince join us</h1>
+          <p>create your own memories with us</p>
+          <button class="toSign">join us</button>
+        </div>
+      </section>
+      <section class="userSec2">
+        <div class="signForms">
+          <div class="selectform">
+            <button class="signUp">sign up</button>
+            <button class="signIn">sign in</button>
+            <a class="goBack" href="index.html">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="2em"
+                height="2em"
+                viewBox="0 0 12 24"
+              >
+                <path d="M0 0h12v24H0z" fill="none" />
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  d="M10.157 12.711L4.5 18.368l-1.414-1.414l4.95-4.95l-4.95-4.95L4.5 5.64l5.657 5.657a1 1 0 0 1 0 1.414"
+                />
+              </svg>
+              go back
+            </a>
+          </div>
+          <div class="signUpForm">
+            <h1>Selcore</h1>
+            <form id="signupForm">
+              <h2>Create Account</h2>
+
+              <div class="formlable">
+                <label for="signupName">Full Name</label>
+                <input
+                  type="text"
+                  id="signupName"
+                  name="fullName"
+                  placeholder="Enter your full name"
+                  required
+                  minlength="3"
+                  maxlength="50"
+                  pattern="[A-Za-zÀ-ÿ\s]+"
+                  title="Only letters and spaces are allowed."
+                />
+              </div>
+
+              <div class="formlable">
+                <label for="signupEmail">Email</label>
+                <input
+                  type="email"
+                  id="signupEmail"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="formlable">
+                <label for="signupPassword">Password</label>
+                <div class="passwordBox">
+                  <input
+                    type="password"
+                    id="signupPassword"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                    minlength="8"
+                    maxlength="32"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    autocomplete="new-password"
+                  />
+
+                  <button type="button" class="togglePassword">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 5c-7 0-11 7-11 7s4 7 11 7s11-7 11-7s-4-7-11-7m0 12a5 5 0 1 1 0-10a5 5 0 0 1 0 10m0-8a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="formlable">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <div class="passwordBox">
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                    minlength="8"
+                    maxlength="32"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    autocomplete="new-password"
+                  />
+
+                  <button type="button" class="togglePassword">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 5c-7 0-11 7-11 7s4 7 11 7s11-7 11-7s-4-7-11-7m0 12a5 5 0 1 1 0-10a5 5 0 0 1 0 10m0-8a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="formCheck">
+                <input type="checkbox" id="terms" required />
+                <label for="terms"> I agree to the Terms & Conditions </label>
+              </div>
+
+              <button type="submit">Sign Up</button>
+            </form>
+            <img
+              fetchpriority="high"
+              src="https://static.wixstatic.com/media/c837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png/v1/fill/w_216,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/avivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png"
+              alt=""
+              style="object-fit: cover; object-position: 50% 50%; width: 100%"
+              data-ssr-src-done="true"
+            />
+          </div>
+          <div class="signInForm hidden">
+            <h1>Selcore</h1>
+
+            <form id="signinForm">
+              <h2>Sign In</h2>
+
+              <div class="formlable">
+                <label for="signinEmail">Email</label>
+                <input
+                  type="email"
+                  id="signinEmail"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="formlable">
+                <div class="passwordBox">
+                  <input
+                    type="password"
+                    id="signinPassword"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                    minlength="8"
+                    maxlength="32"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    autocomplete="new-password"
+                  />
+
+                  <button type="button" class="togglePassword">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 5c-7 0-11 7-11 7s4 7 11 7s11-7 11-7s-4-7-11-7m0 12a5 5 0 1 1 0-10a5 5 0 0 1 0 10m0-8a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="formCheck">
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
+                <label for="rememberMe">Remember Me</label>
+              </div>
+
+              <button type="submit">Sign In</button>
+            </form>
+            <img
+              fetchpriority="high"
+              src="https://static.wixstatic.com/media/c837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png/v1/fill/w_216,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/avivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png"
+              alt=""
+              style="object-fit: cover; object-position: 50% 50%; width: 100%"
+              data-ssr-src-done="true"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="user.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

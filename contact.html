@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selcore</title>
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="contact.css" />
+  </head>
+  <style>
+    main section:first-child {
+      min-height: 150vh;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+      gap: 20px;
+      margin: 0 20px;
+    }
+    .contactSelcore {
+      height: 70%;
+      border-top: 2px solid #ffffff;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 30px;
+    }
+    .contactSelcore h1,
+    .contactForm h1 {
+      text-transform: capitalize;
+      font-size: 3rem;
+      font-weight: 100;
+    }
+    .contactSelcore ul {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .contactForm {
+      height: 70%;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      padding: 30px;
+      color: #ffffff;
+      border-top: 2px solid #ffffff;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .contactForm p {
+      font-size: 18px;
+      width: 70%;
+    }
+    .contactForm form {
+      width: 90%;
+    }
+    .userNam {
+      display: flex;
+      gap: 20px;
+    }
+    .input {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 15px;
+    }
+    .input input {
+      border: 1px solid #ffffffc1;
+      border-radius: 5px;
+    }
+    textarea {
+      border: 1px solid #ffffffc1;
+      padding: 20px;
+      color: #ffffff;
+      font-size: 17px;
+      height: 100px;
+    }
+    textarea::-webkit-scrollbar {
+      opacity: 0;
+    }
+    form button {
+      background-color: rgb(134, 73, 247);
+      padding: 10px 90px;
+    }
+    /* ================= FAQ ================= */
+
+    .faq {
+      width: 100%;
+      padding: 30px 0;
+      height: 100vh;
+    }
+
+    .faqContainer {
+      margin: 0 60px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #fefefe33;
+      color: #ffffffdb;
+    }
+
+    /* ================= SEARCH ================= */
+
+    .h1-search {
+      margin-bottom: 70px;
+      display: flex;
+      font-family:
+        "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+        Arial, sans-serif;
+      justify-content: space-between;
+    }
+
+    .h1-search h1 {
+      margin-bottom: 30px;
+      width: 100%;
+      font-weight: 100;
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .faqSearch {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 250px;
+      height: 55px;
+      border-bottom: 1px solid #ccc;
+      overflow: hidden;
+    }
+
+    .faqSearch input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      padding: 0 20px;
+      font-size: 16px;
+      color: #ffffff;
+      background: transparent;
+    }
+
+    .faqSearch button {
+      scale: 1.5;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    /* ================= FAQ TABS ================= */
+
+    .faqTabs {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+
+      margin-bottom: 40px;
+    }
+
+    .faqTab {
+      position: relative;
+
+      padding: 0 0 18px;
+
+      border: none;
+      background: transparent;
+
+      font-size: 20px;
+      font-weight: 500;
+
+      cursor: pointer;
+
+      color: #eae7e7;
+
+      transition: color 0.3s ease;
+    }
+
+    .faqTab::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 2px;
+
+      background: rgb(254, 254, 254);
+
+      transition: width 0.3s ease;
+    }
+
+    .faqTab:hover {
+      color: #f9f9f9a5;
+    }
+
+    .faqTab.active {
+      color: #f6f5f5;
+    }
+
+    .faqTab.active::after {
+      width: 100%;
+    }
+
+    /* ================= FAQ CATEGORY ================= */
+
+    .faqCategory {
+      display: none;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .faqCategory.active {
+      display: block;
+    }
+
+    /* ================= FAQ ITEM ================= */
+
+    .faqItem {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faqQuestion {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      min-height: 70px;
+      padding: 20px 0;
+
+      cursor: pointer;
+    }
+
+    .faqQuestion p {
+      margin: 0;
+
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .faqQuestion svg {
+      flex-shrink: 0;
+
+      width: 24px;
+      height: 24px;
+
+      transition: transform 0.3s ease;
+    }
+
+    /* ================= ANSWER ================= */
+
+    .faqAnswer {
+      max-height: 0;
+
+      overflow: hidden;
+
+      opacity: 0;
+
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding 0.4s ease;
+    }
+
+    .faqAnswer p {
+      margin: 0;
+
+      line-height: 1.7;
+    }
+
+    .faqAnswer ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .faqAnswer li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* ================= OPEN FAQ ================= */
+
+    .faqItem.active .faqAnswer {
+      max-height: 500px;
+
+      opacity: 1;
+
+      padding-bottom: 25px;
+    }
+
+    .faqItem.active .faqQuestion svg {
+      transform: rotate(180deg);
+    }
+    .socmedia {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-self: flex-start;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 600px) {
+      .faqTabs {
+        gap: 25px;
+      }
+
+      .faqTab {
+        font-size: 16px;
+      }
+
+      .faqQuestion p {
+        font-size: 16px;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <a class="logo" href="index.html"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 15 15"
+        >
+          <path d="M0 0h15v15H0z" fill="none" />
+          <path
+            fill="#ffffff"
+            d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+          />
+        </svg>
+        <span>SELCORE</span>
+      </a>
+      <nav class="burgerMenu">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+
+      <div class="searchBox">
+        <input type="text" placeholder="Search products..." />
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 20 20"
+          >
+            <path d="M0 0h20v20H0z" fill="none" />
+            <g fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M4.828 4.828A5 5 0 1 0 11.9 11.9a5 5 0 0 0-7.07-7.07m6.364 6.364a4 4 0 1 1-5.656-5.657a4 4 0 0 1 5.656 5.657"
+                clip-rule="evenodd"
+              />
+              <path
+                d="M11.192 12.627a1 1 0 0 1 1.415-1.414l2.828 2.829a1 1 0 1 1-1.414 1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="nav1">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+      <nav class="nav2">
+        <a href="user.html"
+          ><svg
+            class="usr"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1-8 0m0 6a5 5 0 0 0-5 5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3a5 5 5 0 0 0-5-5z"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="favLink">
+          <svg
+            class="favs"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"
+            />
+          </svg>
+        </a>
+
+        <div class="favContainer">
+          <button class="closeFav">x</button>
+
+          <h1>favorites</h1>
+
+          <div class="favProductsCont">
+            <div class="favProduct">
+              <img src="" alt="" />
+              <h3 class="favProductNam">name</h3>
+
+              <button class="addToCartFromFav">add to cart</button>
+              <button class="removeFromFav">remove</button>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="cartLink">
+          <svg
+            class="crt"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="M2.787 2.28a
+              .75.75 0 0 1 .932.507l.55 1.863h14.655c1.84 0 3.245 1.717 2.715 3.51l-1.655 5.6c-.352 1.193-1.471 1.99-2.715 1.99H8.113c-1.244 0-2.362-.797-2.715-1.99L2.281 3.212a.75.75 0 0 1 .506-.931M6.25 19.5a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0m8 0a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"
+            />
+          </svg>
+        </a>
+      </nav>
+      <!-- CART SIDEBAR -->
+
+      <div class="cartSidebar">
+        <div class="cartHeader">
+          <h1>Cart</h1>
+
+          <button class="closeCart">X</button>
+        </div>
+
+        <p class="cartQuantity">Quantity of items: 0</p>
+
+        <div class="cartItems">
+          <!-- პროდუქტები აქ დაემატება -->
+        </div>
+
+        <div class="cartFooter">
+          <p class="totalPrice">Total price: 0₾</p>
+
+          <a href="checkout.html">
+            <button class="checkoutBtn">Checkout</button>
+          </a>
+          <a href="cart.html">
+            <button class="viewCartBtn">view cart</button>
+          </a>
+        </div>
+      </div>
+      <!-- From Uiverse.io by vk-uiux -->
+      <!-- From Uiverse.io by JaydipPrajapati1910 -->
+      <label for="burger" class="burger">
+        <input id="burger" type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+    <main>
+      <section>
+        <div class="contactSelcore">
+          <h1>contact selcore</h1>
+          <ul>
+            <li>Call us : 123-456-789</li>
+            <li>Email us : info@mysite.com</li>
+            <li>500 Terry francine street</li>
+            <li>San francisco, CA 94158</li>
+          </ul>
+        </div>
+        <div class="contactForm">
+          <h1>Got a question ?</h1>
+          <p>
+            We're here to help! Please fill out the form with any questions or
+            concerns, and we will get back to you as soon as possible.
+          </p>
+          <form>
+            <div class="userNam">
+              <div class="input">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+
+              <div class="input">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div class="input">
+              <label for="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Subject"
+                required
+              />
+            </div>
+
+            <div class="input">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Write your message..."
+                rows="6"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+      <section class="faq">
+        <div class="faqContainer">
+          <!-- ================= SEARCH ================= -->
+
+          <div class="h1-search">
+            <h1>Frequently Asked Questions</h1>
+
+            <div class="faqSearch">
+              <input type="search" placeholder="Looking for something?" />
+
+              <button type="button" aria-label="Search">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    fill="#ffffff"
+                    d="m19.485 20.154l-6.262-6.262q-.75.639-1.725.989t-1.96.35q-2.398 0-4.064-1.666Q3.808 11.898 3.808 9.5t1.666-4.064t4.064-1.667t4.065 1.667T15.269 9.5q0 1.042-.369 2.017t-.97 1.668l6.262 6.261zM9.539 14.23q1.99 0 3.36-1.37t1.37-3.361t-1.37-3.36t-3.36-1.37t-3.361 1.37t-1.37 3.36t1.37 3.36t3.36 1.37"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ================= GENERAL ================= -->
+          <div class="faqTabs">
+            <button class="faqTab active" data-category="general">
+              <span> General </span>
+            </button>
+
+            <button class="faqTab" data-category="settingUp">
+              <span> Setting Up FAQs </span>
+            </button>
+          </div>
+          <div class="faqCategory active" data-category="general">
+            <!-- FAQ ITEM 1 -->
+
+            <div class="faqItem">
+              <div class="faqQuestion">
+                <p>What is an FAQ section?</p>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+
+                  <path
+                    fill="currentColor"
+                    d="M11 4h2v12l5.5-5.5l1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5L11 16z"
+                  />
+                </svg>
+              </div>
+
+              <div class="faqAnswer">
+                <p>
+                  An FAQ section can be used to quickly answer common questions
+                  about your business like "Where do you ship to?", "What are
+                  your opening hours?", or "How can I book a service?".
+                </p>
+
+                <div class="socmedia">
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+                    alt="Social media"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SETTING UP FAQS ================= -->
+
+          <div class="faqCategory" data-category="settingUp">
+            <!-- FAQ ITEM 2 -->
+
+            <div class="faqItem">
+              <div class="faqQuestion">
+                <p>Can I insert an image, video, or GIF in my FAQ?</p>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+
+                  <path
+                    fill="currentColor"
+                    d="M11 4h2v12l5.5-5.5l1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5L11 16z"
+                  />
+                </svg>
+              </div>
+
+              <div class="faqAnswer">
+                <p>Yes. To add media, follow these steps:</p>
+
+                <ul>
+                  <li>1. Manage FAQs from the FAQ section.</li>
+
+                  <li>2. Create a new FAQ or edit an existing one.</li>
+
+                  <li>
+                    3. From the answer text box, click on the video, image, or
+                    GIF icon.
+                  </li>
+
+                  <li>4. Add media from your library and save.</li>
+                </ul>
+
+                <div class="socmedia">
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+                    alt="Social media"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ ITEM 3 -->
+
+            <div class="faqItem">
+              <div class="faqQuestion">
+                <p>
+                  How do I edit or remove the "Frequently Asked Questions"
+                  title?
+                </p>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+
+                  <path
+                    fill="currentColor"
+                    d="M11 4h2v12l5.5-5.5l1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5L11 16z"
+                  />
+                </svg>
+              </div>
+
+              <div class="faqAnswer">
+                <ul>
+                  <li>
+                    You can edit the title from the FAQ "Settings" tab in the
+                    Editor.
+                  </li>
+
+                  <li>
+                    To remove the title from your mobile app, go to the "Site &
+                    App" tab in your Owner's app and customize it.
+                  </li>
+                </ul>
+
+                <div class="socmedia">
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+                    alt="Social media"
+                  />
+
+                  <img
+                    src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+                    alt="Social media"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="mpi">
+        <div class="menu">
+          <p>menu</p>
+          <ul>
+            <li>new in</li>
+            <li>cell phones</li>
+            <li>computers & tablets</li>
+            <li>accessories</li>
+            <li>sale</li>
+            <li>contact</li>
+          </ul>
+        </div>
+        <div class="policy">
+          <p>policy</p>
+          <ul>
+            <li>terms % conditions</li>
+            <li>privacy policy</li>
+            <li>shipping policy</li>
+            <li>refund policy</li>
+            <li>accssibility statement</li>
+          </ul>
+        </div>
+        <div class="info">
+          <p>info</p>
+          <ul>
+            <li>info@mysite.com</li>
+            <li>123-456-789</li>
+            <li>dtreet</li>
+            <li>city, country</li>
+          </ul>
+        </div>
+        <div class="socmedia">
+          <img
+            src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="logoPolicy">
+        <a class="logo" href="index.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="5em"
+            height="5em"
+            viewBox="0 0 15 15"
+          >
+            <path d="M0 0h15v15H0z" fill="none" />
+            <path
+              fill="#ffffff"
+              d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+            />
+          </svg>
+          <span>SELCORE</span>
+        </a>
+        <p>c 2035 by selcore. <br />built on <a href="#">wix studio</a></p>
+      </div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script src="favorites.js"></script>
+    <script>
+      // ================= FAVORITE PRODUCT CLICK =================
+      cartItems.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".plusBtn") ||
+          e.target.closest(".minusBtn") ||
+          e.target.closest(".removeCart")
+        ) {
+          return;
+        }
+
+        const cartProduct = e.target.closest(".cartProduct");
+
+        if (!cartProduct) return;
+
+        const productId = cartProduct.dataset.id;
+
+        window.location.href = `product.html?id=${productId}`;
+      });
+      // ================= FAVORITE PRODUCT CLICK =================
+      cartItems.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".plusBtn") ||
+          e.target.closest(".minusBtn") ||
+          e.target.closest(".removeCart")
+        ) {
+          return;
+        }
+
+        const cartProduct = e.target.closest(".cartProduct");
+
+        if (!cartProduct) return;
+
+        const productId = cartProduct.dataset.id;
+
+        window.location.href = `product.html?id=${productId}`;
+      });
+    </script>
+    <script>
+      "use strict";
+
+      /* ================= FAQ TABS ================= */
+
+      const faqTabs = document.querySelectorAll(".faqTab");
+      const faqCategories = document.querySelectorAll(".faqCategory");
+
+      faqTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const categoryName = tab.dataset.category;
+
+          // ყველა tab-ის გამორთვა
+          faqTabs.forEach((item) => {
+            item.classList.remove("active");
+          });
+
+          // ყველა category-ის დამალვა
+          faqCategories.forEach((category) => {
+            category.classList.remove("active");
+          });
+
+          // დაჭერილი tab-ის გააქტიურება
+          tab.classList.add("active");
+
+          // შესაბამისი category-ის გამოჩენა
+          const selectedCategory = document.querySelector(
+            `.faqCategory[data-category="${categoryName}"]`,
+          );
+
+          selectedCategory.classList.add("active");
+        });
+      });
+
+      /* ================= FAQ ACCORDION ================= */
+
+      const faqQuestions = document.querySelectorAll(".faqQuestion");
+
+      faqQuestions.forEach((question) => {
+        question.addEventListener("click", () => {
+          const currentItem = question.parentElement;
+
+          // სხვა კითხვების დახურვა
+          faqQuestions.forEach((otherQuestion) => {
+            const otherItem = otherQuestion.parentElement;
+
+            if (otherItem !== currentItem) {
+              otherItem.classList.remove("active");
+            }
+          });
+
+          // მიმდინარე კითხვა
+          currentItem.classList.toggle("active");
+        });
+      });
+    </script>
+  </body>
+</html>

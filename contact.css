@@ -1,0 +1,22 @@
+@media (max-width: 768px) {
+  main section:first-child { min-height: auto; grid-template-columns: 1fr; margin: 0 20px; padding: 104px 0 42px; gap: 24px; }
+  .contactSelcore, .contactForm { height: auto; padding: 24px 0; gap: 26px; }
+  .contactForm p, .contactForm form { width: 100%; }
+  .faq { height: auto; padding: 20px 0 46px; }
+  .faqContainer { margin: 0 20px; padding: 24px; }
+  .h1-search { flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .h1-search h1 { text-align: left; margin: 0; font-size: 38px; }
+  .faqSearch { max-width: none; }
+}
+
+@media (max-width: 480px) {
+  main section:first-child { margin: 0 14px; padding-top: 84px; }
+  .contactSelcore h1, .contactForm h1 { font-size: 34px; }
+  .contactSelcore { gap: 32px; }
+  .contactSelcore ul { gap: 18px; }
+  .userNam { flex-direction: column; }
+  .faqContainer { margin: 0 14px; padding: 18px; }
+  .h1-search h1 { font-size: 31px; }
+  .faqTabs { align-items: flex-start; flex-direction: column; gap: 16px; }
+  form button { width: 100%; padding: 14px 20px; }
+}

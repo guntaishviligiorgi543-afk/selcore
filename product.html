@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selcore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="product.css" />
+    <link rel="icon" href="./images/favicon.png" />
+  </head>
+  <style>
+    .productPage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 30px;
+      gap: 30px;
+      min-height: 100vh;
+    }
+    .productImg {
+      background-color: #5f1bb734;
+    }
+    .productImg img {
+      transform: scale(0.8);
+    }
+    .productInfo-Btn {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+    .productInfo {
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      color: #fff;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 100%;
+    }
+    .productBtns {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    .addTocartBtn {
+      background: rgb(101, 44, 235);
+      padding: 20px 60px;
+      color: #050505;
+      font-size: 17px;
+      border: 1px solid transparent;
+      transition: 0.3s ease-in-out;
+    }
+    .addTocartBtn:hover {
+      background-color: transparent;
+      color: #ffffff;
+      background: rgb(69, 31, 156);
+
+      transition: 0.3s ease-in-out;
+    }
+    .addTofavBtn {
+      border: 1px solid rgb(101, 44, 235);
+      padding: 20px 63px;
+      color: #ffffff;
+
+      font-size: 17px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .addTofavBtn:hover {
+      background: rgb(69, 31, 156);
+      color: #f9f8f8;
+
+      border: 1px solid transparent;
+      transition: 0.3s ease-in-out;
+    }
+    .productName {
+      font-size: 40px;
+      text-align: center;
+    }
+    .price-svg {
+      position: relative;
+    }
+    .price-svg svg {
+      position: absolute;
+      transform: translateY(-11px) translateX(-10px) rotate(90deg);
+      scale: 2;
+    }
+    .productPrice {
+      font-size: 4rem;
+      background-color: rgba(81, 23, 182, 0.523);
+    }
+    .productFeatures {
+      font-size: 25px;
+      text-transform: capitalize;
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+    }
+    /* section 2 */
+    .sameTechtSec {
+      min-height: 50vh;
+      padding: 50px 30px;
+      overflow: hidden;
+    }
+
+    .sameTechSlider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      cursor: grab;
+      padding: 10px 5px 25px;
+    }
+
+    .sameTechSlider:active {
+      cursor: grabbing;
+    }
+
+    /* scrollbar */
+    .sameTechtSec {
+      position: relative;
+      min-height: 50vh;
+      padding: 50px 30px;
+      overflow: hidden;
+    }
+
+    .sameTechSlider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      cursor: grab;
+      padding: 10px 5px 25px;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .sameTechSlider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sameTechSlider:active {
+      cursor: grabbing;
+    }
+
+    /* ================================
+   ARROWS
+================================ */
+
+    .sameTechArrow {
+      position: absolute;
+      top: 20px;
+      scale: 1.3;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.25s ease;
+    }
+
+    .sameTechArrow:hover {
+      background: rgb(69, 31, 156);
+      transform: scale(1.08);
+    }
+
+    .sameTechLeft {
+      left: 30px;
+    }
+
+    .sameTechRight {
+      right: 30px;
+    }
+    /* Product card */
+    .sameTech {
+      flex: 0 0 350px;
+      min-height: 330px;
+      background: #2a09e414;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .sameTech img {
+      transition: 0.3s ease-in-out;
+    }
+
+    .sameTech:hover img {
+      transform: scale(1.1);
+      transition: 0.3s ease-in-out;
+    }
+
+    .sameTech img {
+      width: 100%;
+      height: 210px;
+      object-fit: contain;
+    }
+
+    .sameTech h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 10px 0;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .sameTech p {
+      color: #ffffff;
+      background-color: rgba(255, 0, 0, 0.091);
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      padding: 10px 0;
+    }
+    @media (max-width: 1300px) {
+      .productPage {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
+      }
+      .productInfo-Btn {
+        height: fit-content;
+      }
+      .productInfo {
+        justify-content: center;
+        gap: 20px;
+        border-right: 1px solid #ffffff7d;
+      }
+      .productImg {
+        scale: 0.8;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <a class="logo" href="index.html"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 15 15"
+        >
+          <path d="M0 0h15v15H0z" fill="none" />
+          <path
+            fill="#ffffff"
+            d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+          />
+        </svg>
+        <span>SELCORE</span>
+      </a>
+      <nav class="burgerMenu">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+
+      <div class="searchBox">
+        <input type="text" placeholder="Search products..." />
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 20 20"
+          >
+            <path d="M0 0h20v20H0z" fill="none" />
+            <g fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M4.828 4.828A5 5 0 1 0 11.9 11.9a5 5 0 0 0-7.07-7.07m6.364 6.364a4 4 0 1 1-5.656-5.657a4 4 0 0 1 5.656 5.657"
+                clip-rule="evenodd"
+              />
+              <path
+                d="M11.192 12.627a1 1 0 0 1 1.415-1.414l2.828 2.829a1 1 0 1 1-1.414 1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="nav1">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+      <nav class="nav2">
+        <a href="user.html"
+          ><svg
+            class="usr"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1-8 0m0 6a5 5 0 0 0-5 5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3a5 5 5 0 0 0-5-5z"
+            />
+          </svg>
+        </a>
+        <a href="#" class="favLink">
+          <svg
+            class="favs"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"
+            />
+          </svg>
+        </a>
+        <!-- CART SIDEBAR -->
+
+        <div class="cartSidebar">
+          <div class="cartHeader">
+            <h1>Cart</h1>
+
+            <button class="closeCart">X</button>
+          </div>
+
+          <p class="cartQuantity">Quantity of items: 0</p>
+
+          <div class="cartItems">
+            <!-- პროდუქტები აქ დაემატება -->
+          </div>
+
+          <div class="cartFooter">
+            <p class="totalPrice">Total price: 0₾</p>
+
+            <a href="checkout.html">
+              <button class="checkoutBtn">Checkout</button>
+            </a>
+
+            <button class="viewCartBtn">
+              <a href="cart.html">View Cart</a>
+            </button>
+          </div>
+        </div>
+
+        <div class="favContainer">
+          <button class="closeFav">x</button>
+
+          <h1>favorites</h1>
+
+          <div class="favProductsCont">
+            <div class="favProduct">
+              <img src="" alt="" />
+              <h3 class="favProductNam">name</h3>
+
+              <button class="addToCartFromFav">add to cart</button>
+              <button class="removeFromFav">remove</button>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="cartLink">
+          <svg
+            class="crt"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="M2.787 2.28a
+              .75.75 0 0 1 .932.507l.55 1.863h14.655c1.84 0 3.245 1.717 2.715 3.51l-1.655 5.6c-.352 1.193-1.471 1.99-2.715 1.99H8.113c-1.244 0-2.362-.797-2.715-1.99L2.281 3.212a.75.75 0 0 1 .506-.931M6.25 19.5a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0m8 0a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"
+            />
+          </svg>
+        </a>
+      </nav>
+      <!-- From Uiverse.io by vk-uiux -->
+      <!-- From Uiverse.io by JaydipPrajapati1910 -->
+      <label for="burger" class="burger">
+        <input id="burger" type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+    <main>
+      <section class="productPage">
+        <div class="productImg">
+          <img class="productImage" src="" alt="" />
+        </div>
+
+        <div class="productInfo-Btn">
+          <div class="productInfo">
+            <h1 class="productName"></h1>
+
+            <div class="price-svg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1.25em"
+                height="1em"
+                viewBox="0 0 20 16"
+              >
+                <path d="M0 0h20v16H0z" fill="none" />
+                <path
+                  fill="currentColor"
+                  d="M19.25 0h-6c-.412 0-.989.239-1.28.53L4.531 7.969a.75.75 0 0 0 0 1.061l6.439 6.439a.75.75 0 0 0 1.061 0L19.47 8.03c.292-.292.53-.868.53-1.28v-6a.75.75 0 0 0-.75-.75M15.5 6a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 15.5 6"
+                />
+                <path
+                  fill="currentColor"
+                  d="M2 8.5L10.5 0H9.25c-.412 0-.989.239-1.28.53L.531 7.969a.75.75 0 0 0 0 1.061l6.439 6.439a.75.75 0 0 0 1.061 0l.47-.47z"
+                />
+              </svg>
+              <p class="productPrice"></p>
+            </div>
+            <div class="productFeatures"></div>
+          </div>
+
+          <div class="productBtns">
+            <button class="addTocartBtn">add to cart</button>
+            <button class="addTofavBtn">add to fav</button>
+          </div>
+        </div>
+      </section>
+      <section class="sameTechtSec">
+        <button
+          class="sameTechArrow sameTechLeft"
+          aria-label="Previous products"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button class="sameTechArrow sameTechRight" aria-label="Next products">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div class="sameTechSlider">
+          <!-- products will be rendered here -->
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="mpi">
+        <div class="menu">
+          <p>menu</p>
+          <ul>
+            <li>new in</li>
+            <li>cell phones</li>
+            <li>computers & tablets</li>
+            <li>accessories</li>
+            <li>sale</li>
+            <li>contact</li>
+          </ul>
+        </div>
+        <div class="policy">
+          <p>policy</p>
+          <ul>
+            <li>terms % conditions</li>
+            <li>privacy policy</li>
+            <li>shipping policy</li>
+            <li>refund policy</li>
+            <li>accssibility statement</li>
+          </ul>
+        </div>
+        <div class="info">
+          <p>info</p>
+          <ul>
+            <li>info@mysite.com</li>
+            <li>123-456-789</li>
+            <li>dtreet</li>
+            <li>city, country</li>
+          </ul>
+        </div>
+        <div class="socmedia">
+          <img
+            src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="logoPolicy">
+        <a class="logo" href="index.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="5em"
+            height="5em"
+            viewBox="0 0 15 15"
+          >
+            <path d="M0 0h15v15H0z" fill="none" />
+            <path
+              fill="#ffffff"
+              d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+            />
+          </svg>
+          <span>SELCORE</span>
+        </a>
+        <p>c 2035 by selcore. <br />built on <a href="#">wix studio</a></p>
+      </div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="product.js"></script>
+    <script src="cart.js"></script>
+    <script src="favorites.js"></script>
+  </body>
+</html>

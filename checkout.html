@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selcore</title>
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="checkout.css" />
+  </head>
+  <body>
+    <header>
+      <a class="logo" href="index.html"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 15 15"
+        >
+          <path d="M0 0h15v15H0z" fill="none" />
+          <path
+            fill="#ffffff"
+            d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+          />
+        </svg>
+        <span>SELCORE</span>
+      </a>
+      <nav class="burgerMenu">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+      <!-- From Uiverse.io by vk-uiux -->
+      <!-- From Uiverse.io by JaydipPrajapati1910 -->
+      <label for="burger" class="burger">
+        <input id="burger" type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+    <main>
+      <section class="checkoutSection">
+        <div class="title-prodicts">
+          <h1>checkout</h1>
+          <div class="checkoutProducts"></div>
+        </div>
+        <div class="form-buy">
+          <form class="addressForm">
+            <input type="text" placeholder="Full Name" required />
+
+            <input type="text" placeholder="Address" required />
+
+            <div class="addressRow">
+              <input type="text" placeholder="City" required />
+              <input type="text" placeholder="ZIP Code" required />
+            </div>
+
+            <input type="tel" placeholder="Phone Number" required />
+
+            <button type="submit">Confirm Address</button>
+          </form>
+
+          <div class="totalPrice-button">
+            <div class="sumPrice"></div>
+
+            <button class="buyBtn">Buy</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const burger = document.querySelector("#burger");
+      const burgerMenu = document.querySelector(".burgerMenu");
+      burger.addEventListener("change", () => {
+        burgerMenu.classList.toggle("active", burger.checked);
+      });
+
+      const checkoutProducts = document.querySelector(".checkoutProducts");
+      const sumPrice = document.querySelector(".sumPrice");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      function removeFromCheckout(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCheckout();
+      }
+      function renderCheckout() {
+        checkoutProducts.innerHTML = "";
+        sumPrice.innerHTML = "";
+        if (cart.length === 0) {
+          checkoutProducts.innerHTML = ` <p>Your cart is empty</p> `;
+          sumPrice.innerHTML = ` <h2>Total Price: 0₾</h2> `;
+          return;
+        }
+        let totalPrice = 0;
+        cart.forEach((product, index) => {
+          const price = product.sale ? product.salePrice : product.price;
+          const quantity = product.quantity || 1;
+          const productTotal = price * quantity;
+          totalPrice += productTotal;
+          checkoutProducts.innerHTML += ` <div class="checkoutProduct"> <div class="checkoutProductImage"> <img src="${product.image}" alt="${product.name}"> </div> <div class="checkoutProductContent"> <h2>${product.name}</h2> <p>Price: ${price}₾</p> <p>Quantity: ${quantity}</p> <p>Total: ${productTotal}₾</p> <button class="removeCheckout" onclick="removeFromCheckout(${index})" > Remove </button> </div> </div> `;
+        });
+        sumPrice.innerHTML = ` <h2>Total Price: ${totalPrice}₾</h2> `;
+      }
+      renderCheckout();
+    </script>
+  </body>
+</html>

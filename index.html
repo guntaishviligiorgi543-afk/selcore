@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selcore</title>
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+  </head>
+  <style>
+    [data-aos="blur-reveal"] {
+      opacity: 0;
+      filter: blur(15px);
+      transform: translateY(20px);
+      transition:
+        opacity 1.2s ease,
+        filter 1.2s ease,
+        transform 1.2s ease;
+    }
+
+    [data-aos="blur-reveal"].aos-animate {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  </style>
+  <body>
+    <header>
+      <a data-aos="fade" class="logo" href="index.html"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 15 15"
+        >
+          <path d="M0 0h15v15H0z" fill="none" />
+          <path
+            fill="#ffffff"
+            d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+          />
+        </svg>
+        <span>SELCORE</span>
+      </a>
+      <nav class="burgerMenu">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+
+      <div class="searchBox">
+        <input type="text" placeholder="Search products..." />
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 20 20"
+          >
+            <path d="M0 0h20v20H0z" fill="none" />
+            <g fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M4.828 4.828A5 5 0 1 0 11.9 11.9a5 5 0 0 0-7.07-7.07m6.364 6.364a4 4 0 1 1-5.656-5.657a4 4 0 0 1 5.656 5.657"
+                clip-rule="evenodd"
+              />
+              <path
+                d="M11.192 12.627a1 1 0 0 1 1.415-1.414l2.828 2.829a1 1 0 1 1-1.414 1.414z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <nav data-aos="fade" class="nav1">
+        <a href="allproducts.html?category=new">New Arrivals</a>
+        <a href="allproducts.html?category=mobile">Cell Phones</a>
+        <a href="allproducts.html?category=computer">Computers & Tablets</a>
+        <a href="allproducts.html?category=accessory">Accessories</a>
+        <a href="allproducts.html?category=sale">Sale</a>
+        <a href="contact.html">contact</a>
+      </nav>
+      <nav class="nav2">
+        <a href="user.html"
+          ><svg
+            data-aos="fade"
+            class="usr"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1-8 0m0 6a5 5 0 0 0-5 5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3a5 5 5 0 0 0-5-5z"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="favLink">
+          <svg
+            data-aos="fade"
+            class="favs"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"
+            />
+          </svg>
+        </a>
+
+        <div class="favContainer">
+          <button class="closeFav">x</button>
+
+          <h1>favorites</h1>
+
+          <div class="favProductsCont">
+            <div class="favProduct">
+              <img src="" alt="" />
+              <h3 class="favProductNam">name</h3>
+
+              <button class="addToCartFromFav">add to cart</button>
+              <button class="removeFromFav">remove</button>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="cartLink">
+          <svg
+            data-aos="fade"
+            class="crt"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="none"
+              stroke="#ffffff"
+              d="M2.787 2.28a
+              .75.75 0 0 1 .932.507l.55 1.863h14.655c1.84 0 3.245 1.717 2.715 3.51l-1.655 5.6c-.352 1.193-1.471 1.99-2.715 1.99H8.113c-1.244 0-2.362-.797-2.715-1.99L2.281 3.212a.75.75 0 0 1 .506-.931M6.25 19.5a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0m8 0a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"
+            />
+          </svg>
+        </a>
+      </nav>
+      <!-- CART SIDEBAR -->
+
+      <div class="cartSidebar">
+        <div class="cartHeader">
+          <h1>Cart</h1>
+
+          <button class="closeCart">X</button>
+        </div>
+
+        <p class="cartQuantity">Quantity of items: 0</p>
+
+        <div class="cartItems">
+          <!-- პროდუქტები აქ დაემატება -->
+        </div>
+
+        <div class="cartFooter">
+          <p class="totalPrice">Total price: 0₾</p>
+
+          <a href="checkout.html">
+            <button class="checkoutBtn">Checkout</button>
+          </a>
+          <a href="cart.html">
+            <button class="viewCartBtn">view cart</button>
+          </a>
+        </div>
+      </div>
+      <!-- From Uiverse.io by vk-uiux -->
+      <!-- From Uiverse.io by JaydipPrajapati1910 -->
+      <label for="burger" class="burger">
+        <input id="burger" type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="headpones">
+          <div class="left">
+            <img
+              data-aos="zoom-out"
+              data-aos-delay="100"
+              data-aos="blur-reveal"
+              fetchpriority="high"
+              src="https://static.wixstatic.com/media/c837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png/v1/fill/w_216,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/avivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png"
+              alt=""
+              style="object-fit: cover; object-position: 50% 50%; width: 100%"
+              data-ssr-src-done="true"
+            />
+          </div>
+          <div class="right">
+            <img
+              data-aos="zoom-out"
+              data-aos-delay="100"
+              data-aos="blur-reveal"
+              fetchpriority="high"
+              src="https://static.wixstatic.com/media/c837a6_fc882197bd334c85830164a55b84ba4c~mv2.png/v1/fill/w_223,h_346,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/avivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="title-form">
+          <div class="mainTitle">
+            <h1
+              data-aos="fade-right"
+              data-aos-delay="500"
+              data-aos-duration="2000"
+            >
+              SELCORE
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="2000">
+              your ultimate destination for the best value electronicas and
+              gadgets
+            </p>
+            <a data-aos="fade" data-aos-delay="500" href="allproducts.html"
+              >shop now</a
+            >
+          </div>
+          <div
+            data-aos="fade-down"
+            data-aos-delay="1000"
+            data-aos-duration="2000"
+            class="form"
+          >
+            <p>sign up to recive updates on new products and special offers</p>
+            <form action="" method="post">
+              <label for="email">Enter your email <span>*</span></label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="example@email.com"
+                required
+                autocomplete="email"
+                minlength="5"
+                maxlength="100"
+              />
+              <label class="checkbox">
+                <input type="checkbox" id="newsletter" name="newsletter" />
+                Yes, subscribe me to your newsletter.
+              </label>
+
+              <button type="submit">submit</button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <div class="contactContainer">
+        <div class="contact-svg-p">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              fill="currentColor"
+              d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"
+            />
+          </svg>
+          <p>reach us at</p>
+        </div>
+        <div class="chatContainer">
+          <div class="h1-x">
+            <h1>chat</h1>
+            <div class="delete-X">
+              <button class="deleteChat">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="2em"
+                  height="2em"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    fill="#ffffff"
+                    d="M7.616 20q-.667 0-1.141-.475T6 18.386V6h-.5q-.213 0-.356-.144T5 5.499t.144-.356T5.5 5H9q0-.31.23-.54t.54-.23h4.46q.31 0 .54.23T15 5h3.5q.213 0 .356.144t.144.357t-.144.356T18.5 6H18v12.385q0 .666-.475 1.14t-1.14.475zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.269 0 .442-.173t.173-.442zm-6.335 10.856q.143-.144.143-.356v-8q0-.213-.144-.356T10.307 8t-.356.144t-.143.356v8q0 .213.144.356q.144.144.356.144q.213 0 .357-.144m3.384 0q.143-.144.143-.356v-8q0-.213-.144-.356Q13.904 8 13.692 8q-.213 0-.357.144t-.143.356v8q0 .213.144.356t.357.144t.356-.144M7 6v13z"
+                  />
+                </svg>
+              </button>
+              <button class="closeChat">X</button>
+            </div>
+          </div>
+          <div class="chatDisplay">
+            <div class="sent"></div>
+            <div class="recive"></div>
+          </div>
+          <div class="writeMsg">
+            <input type="text" name="" id="" />
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="2em"
+                height="2em"
+                viewBox="0 0 24 24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  fill=" #ffffff"
+                  d="m3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12L2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <section class="sec2">
+        <div
+          data-aos="fade-right"
+          data-aos-delay="300"
+          data-aos-duration="2000"
+          class="topDeals"
+        >
+          <h3>top deals</h3>
+          <div>
+            <p>
+              up to <span><br />30%</span>
+            </p>
+            <button
+              onclick="window.location.href = 'allproducts.html?category=sale'"
+            >
+              shop now
+            </button>
+          </div>
+        </div>
+        <div
+          data-aos="fade-down"
+          data-aos-delay="500"
+          data-aos-duration="2000"
+          class="ourStaf"
+        >
+          <h3>our staff pick</h3>
+          <div>
+            <p>tune into quality sound</p>
+            <button
+              onclick="
+                window.location.href = 'allproducts.html?category=headphone'
+              "
+            >
+              Shop Now
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="sec3">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          data-aos-duration="1300"
+          class="sec3-title-button"
+        >
+          <h3>best sellers</h3>
+          <button
+            onclick="window.location.href = 'allproducts.html?category=best'"
+          >
+            VIEW ALL
+          </button>
+        </div>
+        <div
+          class="bestSellCont"
+          data-aos="blur-reveal"
+          data-aos-duration="1000"
+          id="bestSellerContainer"
+        ></div>
+      </section>
+      <section class="sec4">
+        <h3>why us</h3>
+        <div class="sec4Cont">
+          <div class="sec4Cont-card">
+            <svg
+              preserveAspectRatio="xMidYMid meet"
+              data-bbox="0 0.959 39.838 39.837"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0.959 39.838 39.837"
+              height="41"
+              width="40"
+              data-type="color"
+              role="presentation"
+              aria-hidden="true"
+              aria-label=""
+            >
+              <g>
+                <path
+                  fill="#ffffff"
+                  d="M39.837 5.939a4.98 4.98 0 0 0-4.98-4.98H23.654a4.98 4.98 0 0 0-4.98 4.98v8.714a4.98 4.98 0 0 1-4.979 4.98H4.98A4.98 4.98 0 0 0 0 24.613v11.203a4.98 4.98 0 0 0 4.98 4.98h11.204a4.98 4.98 0 0 0 4.98-4.98v-8.714a4.98 4.98 0 0 1 4.979-4.98h8.715a4.98 4.98 0 0 0 4.98-4.98z"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  data-color="1"
+                ></path>
+              </g>
+            </svg>
+            <p>free shipping on orders over $50</p>
+          </div>
+          <div class="sec4Cont-card">
+            <svg
+              preserveAspectRatio="xMidYMid meet"
+              data-bbox="0 0.693 59.756 39.837"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0.693 59.756 39.837"
+              height="41"
+              width="60"
+              data-type="color"
+              role="presentation"
+              aria-hidden="true"
+              aria-label=""
+            >
+              <g>
+                <path
+                  fill="#ffffff"
+                  d="M18.674 5.673a4.98 4.98 0 0 1 4.98-4.98h11.204a4.98 4.98 0 0 1 4.98 4.98v8.715a4.98 4.98 0 0 0 4.979 4.98h9.959a4.98 4.98 0 0 1 4.98 4.979V35.55a4.98 4.98 0 0 1-4.98 4.98H43.57a4.98 4.98 0 0 1-4.98-4.98v-8.714a4.98 4.98 0 0 0-4.979-4.98h-7.47a4.98 4.98 0 0 0-4.979 4.98v8.714a4.98 4.98 0 0 1-4.98 4.98H4.98A4.98 4.98 0 0 1 0 35.55V24.347a4.98 4.98 0 0 1 4.98-4.98h8.714a4.98 4.98 0 0 0 4.98-4.98z"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  data-color="1"
+                ></path>
+              </g>
+            </svg>
+            <p>avaliable to you 24/7</p>
+          </div>
+          <div class="sec4Cont-card">
+            <svg
+              preserveAspectRatio="xMidYMid meet"
+              data-bbox="0 0 59.756 61"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 59.756 61"
+              height="61"
+              width="60"
+              data-type="color"
+              role="presentation"
+              aria-hidden="true"
+              aria-label=""
+            >
+              <g>
+                <path
+                  fill="#ffffff"
+                  d="M39.837 4.98A4.98 4.98 0 0 0 34.857 0H23.654a4.98 4.98 0 0 0-4.98 4.98v8.714a4.98 4.98 0 0 1-4.979 4.98H4.98A4.98 4.98 0 0 0 0 23.654v11.203a4.98 4.98 0 0 0 4.98 4.98h8.714a4.98 4.98 0 0 1 4.98 4.98V56.02a4.98 4.98 0 0 0 4.98 4.98h11.204a4.98 4.98 0 0 0 4.98-4.98V44.817a4.98 4.98 0 0 1 4.979-4.98h9.959a4.98 4.98 0 0 0 4.98-4.98V23.653a4.98 4.98 0 0 0-4.98-4.98h-9.96a4.98 4.98 0 0 1-4.979-4.979zm-6.225 34.857a4.98 4.98 0 0 0 4.98-4.98v-8.714a4.98 4.98 0 0 0-4.98-4.98h-7.47a4.98 4.98 0 0 0-4.979 4.98v8.714a4.98 4.98 0 0 0 4.98 4.98z"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  data-color="1"
+                ></path>
+              </g>
+            </svg>
+            <p>extendend warrantly plans</p>
+          </div>
+        </div>
+      </section>
+      <section class="sec5">
+        <div data-aos="fade-zoom-in" data-aos-delay="100" class="hottestDeals">
+          <div>
+            <h3>hottest deals</h3>
+            <p>save up to $150 on selected laptop % tablet brands</p>
+          </div>
+          <div>
+            <button
+              onclick="
+                window.location.href = 'allproducts.html?category=computer'
+              "
+            >
+              view all
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="sec6">
+        <div class="sec6-title-button">
+          <h3 data-aos="blur-reveal">shop by category</h3>
+          <a href="allproducts.html"> <button>All products</button> </a>
+        </div>
+        <div class="sec6Container">
+          <div data-aos="fade-up" data-aos-duration="1000" class="sec6Card">
+            <img
+              src="https://static.wixstatic.com/media/c837a6_569e5eba408b4873b49a83223f063415~mv2.jpg/v1/fill/w_585,h_591,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/tablet1%201.jpg"
+              alt="computers & tablets"
+            />
+            <button
+              onclick="
+                window.location.href = 'allproducts.html?category=computer'
+              "
+            >
+              computers & tablets
+            </button>
+          </div>
+          <div
+            data-aos="fade-down"
+            data-aos-duration="2000"
+            data-aos-delay="300"
+            class="sec6Card"
+          >
+            <img
+              src="https://static.wixstatic.com/media/c837a6_4a2ba00a21384bb78225957a14bba68b~mv2.jpg/v1/fill/w_585,h_591,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Mask%20group-2.jpg"
+              alt="cell phones"
+            />
+            <button
+              onclick="
+                window.location.href = 'allproducts.html?category=mobile'
+              "
+            >
+              cell phones
+            </button>
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-duration="3000"
+            data-aos-delay="500"
+            class="sec6Card"
+          >
+            <img
+              src="https://static.wixstatic.com/media/c837a6_8ec85d86d84c42ed85787d67680c6ae2~mv2.jpg/v1/fill/w_585,h_591,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Rectangle%20179.jpg"
+              alt="accessories"
+            />
+            <button
+              onclick="
+                window.location.href = 'allproducts.html?category=accessory'
+              "
+            >
+              accessory
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="sec7">
+        <h3>brands</h3>
+        <div
+          data-aos="fade-right"
+          data-aos-delay="200"
+          data-aos-duration="2000"
+          class="brandsContainer"
+        >
+          <button class="brandBtn">
+            <img
+              src="./images/apple-Photoroom.png"
+              alt="iphone"
+              data-brand="Apple"
+            />
+          </button>
+          <button class="brandBtn">
+            <img
+              src="./images/dell-Photoroom.png"
+              alt="dell"
+              data-brand="Dell"
+            />
+          </button>
+          <button class="brandBtn">
+            <img src="./images/hp-Photoroom.png" alt="hp" data-brand="HP" />
+          </button>
+          <button class="brandBtn">
+            <img src="./images/jbl-Photoroom.png" alt="jbl" data-brand="JBL" />
+          </button>
+          <button class="brandBtn">
+            <img
+              src="./images/samsung-Photoroom.png"
+              alt="samsung"
+              data-brand="Samsung"
+            />
+          </button>
+          <button class="brandBtn">
+            <img
+              src="./images/xiaomi-Photoroom.png"
+              alt="xiaomi"
+              data-brand="Xiaomi"
+            />
+          </button>
+        </div>
+      </section>
+      <section data-aos="fade-up" id="newArrivalsec" class="sec8">
+        <div class="sec8-title-button">
+          <h3>new arrivals</h3>
+          <button
+            onclick="window.location.href = 'allproducts.html?category=new'"
+          >
+            view All
+          </button>
+        </div>
+
+        <div class="newArrivals">
+          <!-- <button>best seller</button> -->
+
+          <div class="bestSellerCard">
+            <div class="image"></div>
+            <div class="price-name">
+              <p></p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sec9">
+        <div data-aos="fade-up" data-aos-duration="1400" class="exclusivedeals">
+          <div
+            data-aos="fade-right"
+            data-aos-delay="300"
+            data-aos-duration="1000"
+          >
+            <h3>unlock exlusive deals</h3>
+            <p>
+              sign up for our newsletter and enjoy unmatched discounts, early
+              acces to sales, and insider tips !
+            </p>
+          </div>
+          <div
+            data-aos="fade-right"
+            data-aos-duration="2000"
+            data-aos-delay="400"
+          >
+            <form action="" method="post">
+              <label for="email">Enter your email <span>*</span></label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="example@email.com"
+                required
+                autocomplete="email"
+                minlength="5"
+                maxlength="100"
+              />
+              <label class="checkbox">
+                <input type="checkbox" id="newsletter" name="newsletter" />
+                Yes, subscribe me to your newsletter.
+              </label>
+
+              <button type="submit">submit</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer data-aos="fade-down">
+      <div class="mpi">
+        <div class="menu">
+          <p>menu</p>
+          <ul>
+            <li>new in</li>
+            <li>cell phones</li>
+            <li>computers & tablets</li>
+            <li>accessories</li>
+            <li>sale</li>
+            <li>contact</li>
+          </ul>
+        </div>
+        <div class="policy">
+          <p>policy</p>
+          <ul>
+            <li>terms % conditions</li>
+            <li>privacy policy</li>
+            <li>shipping policy</li>
+            <li>refund policy</li>
+            <li>accssibility statement</li>
+          </ul>
+        </div>
+        <div class="info">
+          <p>info</p>
+          <ul>
+            <li>info@mysite.com</li>
+            <li>123-456-789</li>
+            <li>dtreet</li>
+            <li>city, country</li>
+          </ul>
+        </div>
+        <div class="socmedia">
+          <img
+            src="https://static.wixstatic.com/media/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_cfc98c3fd1c44969a965cca177986771~mv2.png"
+            alt=""
+          />
+          <img
+            src="https://static.wixstatic.com/media/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png/v1/fill/w_48,h_48,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="logoPolicy">
+        <a class="logo" href="index.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="5em"
+            height="5em"
+            viewBox="0 0 15 15"
+          >
+            <path d="M0 0h15v15H0z" fill="none" />
+            <path
+              fill="#ffffff"
+              d="M12 15h-2v-2H9v2H6v-2H5v2H3v-4H0V2h2V0h11v2h2v9h-3zM9 8H6v2h3zM6 3H4v2H2v2h4zm5 0H9v4h4V5h-2z"
+            />
+          </svg>
+          <span>SELCORE</span>
+        </a>
+        <p>c 2035 by selcore. <br />built on <a href="#">wix studio</a></p>
+      </div>
+    </footer>
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script src="favorites.js"></script>
+    <script>
+      // ================= FAVORITE PRODUCT CLICK =================
+      cartItems.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".plusBtn") ||
+          e.target.closest(".minusBtn") ||
+          e.target.closest(".removeCart")
+        ) {
+          return;
+        }
+
+        const cartProduct = e.target.closest(".cartProduct");
+
+        if (!cartProduct) return;
+
+        const productId = cartProduct.dataset.id;
+
+        window.location.href = `product.html?id=${productId}`;
+      });
+      // ================= FAVORITE PRODUCT CLICK =================
+      cartItems.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".plusBtn") ||
+          e.target.closest(".minusBtn") ||
+          e.target.closest(".removeCart")
+        ) {
+          return;
+        }
+
+        const cartProduct = e.target.closest(".cartProduct");
+
+        if (!cartProduct) return;
+
+        const productId = cartProduct.dataset.id;
+
+        window.location.href = `product.html?id=${productId}`;
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    </script>
+  </body>
+</html>
