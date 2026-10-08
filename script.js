@@ -1,252 +1,124 @@
 "use strict";
+(() => {
+  const store = window.Selcore;
+  const { create, image, effectivePrice } = store;
+  const burger = document.querySelector("#burger");
+  const menu = document.querySelector(".burgerMenu");
+  if (burger && menu) burger.addEventListener("change", () => menu.classList.toggle("active", burger.checked));
 
-const container = document.querySelector(".headpones");
-const left = document.querySelector(".left");
-const right = document.querySelector(".right");
-const bestSellerContainer = document.querySelector("#bestSellerContainer");
-const newArrivalsContainer = document.querySelector(".newArrivals");
-const burger = document.querySelector(".burger");
-const burgerMenu = document.querySelector(".burgerMenu");
-const brandBtns = document.querySelectorAll(".brandBtn");
-const cartLink = document.querySelector(".cartLink");
-const cartSidebar = document.querySelector(".cartSidebar");
-const closeCart = document.querySelector(".closeCart");
-
-//burger
-
-burger.addEventListener("change", function () {
-  burgerMenu.classList.toggle("active");
-});
-
-//on click to product page
-
-function goToProduct(productId) {
-  window.location.href = `product.html?id=${productId}`;
-}
-
-//headpons 3d animation
-
-let mouseX = 0;
-let mouseY = 0;
-
-let currentX = 0;
-let currentY = 0;
-
-container.addEventListener("mousemove", (e) => {
-  const rect = container.getBoundingClientRect();
-
-  mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-  mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-});
-
-container.addEventListener("mouseleave", () => {
-  mouseX = 0;
-  mouseY = 0;
-});
-
-function animate() {
-  currentX += (mouseX - currentX) * 0.02;
-  currentY += (mouseY - currentY) * 0.02;
-
-  left.style.transform = `
-  translate(${currentX * 80}px, ${currentY * 80}px)
-  rotateX(${-currentY * 50}deg)
-  rotateY(${currentX * 50}deg)
-`;
-
-  right.style.transform = `
-  translate(${-currentX * 80}px, ${-currentY * 80}px)
-  rotateX(${currentY * 50}deg)
-  rotateY(${-currentX * 50}deg)
-`;
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-
-const bestSellers = products
-  .filter((product) => product.bestSeller === true)
-  .sort((a, b) => b.soldCount - a.soldCount)
-  .slice(0, 4);
-
-bestSellers.forEach((product) => {
-  bestSellerContainer.innerHTML += `
-    <div 
-      class="bestSellCards"
-      onclick="goToProduct(${product.id})"
-    >
-      <img src="${product.image}" />
-
-      <div>
-        <p>${product.name}</p>
-        <p>${product.sale ? product.salePrice : product.price} ₾</p>
-      </div>
-    </div>
-  `;
-});
-
-const newArrivals = products.filter((product) => product.newArrival).slice(2);
-
-newArrivalsContainer.innerHTML = newArrivals
-  .map(
-    (product) => `
-  <div class="bestSellerCard"
-    onclick="goToProduct(${product.id})">
-    <div class="image">
-      <img src="${product.image}" alt="${product.name}">
-    </div>
-
-    <div class="price-name">
-      <p>${product.name}</p>
-      <p>${product.sale ? product.salePrice : product.price} ₾</p>
-    </div>
-  </div>
-`,
-  )
-  .join("");
-
-// from brand img to filter
-
-brandBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const brand = btn.querySelector("img").dataset.brand;
-
-    window.location.href = `allproducts.html?brand=${encodeURIComponent(brand)}`;
-  });
-});
-
-//cart
-if (cartLink && cartSidebar && closeCart) {
-  cartLink.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    cartSidebar.classList.add("active");
-  });
-
-  closeCart.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-}
-
-if (cartLink && cartSidebar && closeCart) {
-  cartLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation(); // რომ გახსნისას მაშინვე არ დაიხუროს
-
-    cartSidebar.classList.add("active");
-  });
-
-  closeCart.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-
-  cartSidebar.addEventListener("click", (e) => {
-    e.stopPropagation(); // cart-ში დაკლიკება არ დახურავს
-  });
-
-  document.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      cartSidebar.classList.remove("active");
+  function renderFeatured(container, items, className, withImageWrapper) {
+    if (!container) return;
+    container.replaceChildren();
+    for (const product of items) {
+      const card = create("div", className);
+      card.dataset.id = product.id;
+      card.addEventListener("click", () => { window.location.href = `product.html?id=${product.id}`; });
+      const picture = image(product);
+      if (withImageWrapper) {
+        const wrapper = create("div", "image");
+        wrapper.append(picture);
+        card.append(wrapper);
+      } else card.append(picture);
+      const info = create("div", withImageWrapper ? "price-name" : "");
+      info.append(create("p", "", product.name), create("p", "", `${effectivePrice(product)} ₾`));
+      card.append(info);
+      container.append(card);
     }
-  });
-}
-//header bg change
-const header = document.querySelector("header");
-const hero = document.querySelector(".hero");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > hero.offsetHeight) {
-    header.classList.add("purple");
-  } else {
-    header.classList.remove("purple");
   }
-});
+  const products = store.getProducts();
+  renderFeatured(document.querySelector("#bestSellerContainer"), products.filter((product) => product.bestSeller).sort((a, b) => b.soldCount - a.soldCount).slice(0, 4), "bestSellCards", false);
+  // Preserve the original selection: the first two flagged arrivals are skipped.
+  renderFeatured(document.querySelector(".newArrivals"), products.filter((product) => product.newArrival).slice(2), "bestSellerCard", true);
 
-("use strict");
-
-// ================= CHAT =================
-
-const messageInput = document.querySelector(".writeMsg input");
-const sendButton = document.querySelector(".writeMsg button");
-const chatDisplay = document.querySelector(".chatDisplay");
-const deleteChat = document.querySelector(".deleteChat");
-
-// ================= OPEN / CLOSE CHAT =================
-
-const contactSvg = document.querySelector(".contact-svg-p svg");
-const chatContainer = document.querySelector(".chatContainer");
-const closeChat = document.querySelector(".closeChat");
-
-// Open chat
-contactSvg.addEventListener("click", function () {
-  chatContainer.classList.add("active");
-  document.querySelector(".contact-svg-p").classList.add("hide");
-});
-
-// Close chat
-closeChat.addEventListener("click", function () {
-  chatContainer.classList.remove("active");
-  document.querySelector(".contact-svg-p").classList.remove("hide");
-});
-
-//delete chat
-deleteChat.addEventListener("click", function () {
-  messages = [];
-
-  localStorage.removeItem("chatMessages");
-
-  renderMessages();
-});
-
-// ================= MESSAGES =================
-
-let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-
-// Render messages
-function renderMessages() {
-  chatDisplay.innerHTML = "";
-
-  messages.forEach((message) => {
-    const messageDiv = document.createElement("div");
-
-    messageDiv.classList.add("sent");
-    messageDiv.textContent = message;
-
-    chatDisplay.appendChild(messageDiv);
-  });
-
-  chatDisplay.scrollTop = chatDisplay.scrollHeight;
-}
-
-// ================= SEND MESSAGE =================
-
-function sendMessage() {
-  const message = messageInput.value.trim();
-
-  if (message === "") return;
-
-  messages.push(message);
-
-  localStorage.setItem("chatMessages", JSON.stringify(messages));
-
-  messageInput.value = "";
-
-  renderMessages();
-}
-
-// Send button
-sendButton.addEventListener("click", sendMessage);
-
-// Enter key
-messageInput.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    sendMessage();
+  const headphones = document.querySelector(".headpones");
+  const left = document.querySelector(".left");
+  const right = document.querySelector(".right");
+  if (headphones && left && right) {
+    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+    headphones.addEventListener("mousemove", (event) => {
+      const rect = headphones.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      mouseX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      mouseY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    });
+    headphones.addEventListener("mouseleave", () => { mouseX = 0; mouseY = 0; });
+    function animate() {
+      currentX += (mouseX - currentX) * 0.02;
+      currentY += (mouseY - currentY) * 0.02;
+      left.style.transform = `translate(${currentX * 80}px, ${currentY * 80}px) rotateX(${-currentY * 50}deg) rotateY(${currentX * 50}deg)`;
+      right.style.transform = `translate(${-currentX * 80}px, ${-currentY * 80}px) rotateX(${currentY * 50}deg) rotateY(${-currentX * 50}deg)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
   }
-});
+  document.querySelectorAll(".brandBtn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const brand = button.querySelector("img")?.dataset.brand;
+      if (brand) window.location.href = `allproducts.html?brand=${encodeURIComponent(brand)}`;
+    });
+  });
+  const header = document.querySelector("header");
+  const hero = document.querySelector(".hero");
+  if (header && hero) window.addEventListener("scroll", () => header.classList.toggle("purple", window.scrollY > hero.offsetHeight));
 
-// Initial render
-renderMessages();
+  // These forms have no backend. Prevent native navigation and say so explicitly.
+  document.querySelectorAll("form[data-unavailable]").forEach((form) => {
+    store.showMessage(form, form.dataset.unavailable);
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      store.showMessage(form, form.dataset.unavailable);
+    });
+  });
+  const buy = document.querySelector(".buyBtn");
+  if (buy) {
+    const message = "Purchases are not available yet. No payment will be taken and no order will be placed.";
+    store.showMessage(buy.parentElement, message);
+    buy.addEventListener("click", () => store.showMessage(buy.parentElement, message));
+  }
+
+  const input = document.querySelector(".writeMsg input");
+  const send = document.querySelector(".writeMsg button");
+  const display = document.querySelector(".chatDisplay");
+  const launcher = document.querySelector(".contact-svg-p");
+  const chat = document.querySelector(".chatContainer");
+  if (input && send && display && launcher && chat) {
+    const stored = store.readArray("chatMessages");
+    let messages = stored.filter((message) => typeof message === "string");
+    if (messages.length !== stored.length) console.warn("Ignored invalid chatMessages entries.");
+    function renderMessages() {
+      display.replaceChildren(...messages.map((message) => create("div", "sent", message)));
+      display.scrollTop = display.scrollHeight;
+    }
+    launcher.querySelector("svg")?.addEventListener("click", () => {
+      chat.classList.add("active");
+      launcher.classList.add("hide");
+    });
+    chat.querySelector(".closeChat")?.addEventListener("click", () => {
+      chat.classList.remove("active");
+      launcher.classList.remove("hide");
+    });
+    chat.querySelector(".deleteChat")?.addEventListener("click", () => {
+      messages = [];
+      try { localStorage.removeItem("chatMessages"); }
+      catch (error) {
+        console.warn("Unable to remove chatMessages from browser storage.", error);
+        store.showMessage(chat, "Chat history could not be cleared from browser storage.");
+      }
+      renderMessages();
+    });
+    function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+      messages.push(message);
+      store.writeStorage("chatMessages", messages);
+      input.value = "";
+      renderMessages();
+    }
+    send.addEventListener("click", sendMessage);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") { event.preventDefault(); sendMessage(); }
+    });
+    store.showMessage(chat, "This chat saves messages in your browser only. Support is not connected.");
+    renderMessages();
+  }
+})();

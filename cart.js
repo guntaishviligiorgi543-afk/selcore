@@ -1,240 +1,112 @@
 "use strict";
-// ================= CART =================
-//cart
-if (cartLink && cartSidebar && closeCart) {
-  cartLink.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    cartSidebar.classList.add("active");
-  });
-
-  closeCart.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-}
-if (cartLink && cartSidebar && closeCart) {
-  cartLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation(); // რომ გახსნისას მაშინვე არ დაიხუროს
-
-    cartSidebar.classList.add("active");
-  });
-
-  closeCart.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-
-  cartSidebar.addEventListener("click", (e) => {
-    e.stopPropagation(); // cart-ში დაკლიკება არ დახურავს
-  });
-
-  document.addEventListener("click", () => {
-    cartSidebar.classList.remove("active");
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      cartSidebar.classList.remove("active");
-    }
-  });
-}
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartItems = document.querySelector(".cartItems");
-const cartQuantity = document.querySelector(".cartQuantity");
-const totalPrice = document.querySelector(".totalPrice");
-
-// ================= ADD TO CART =================
-
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".cartBtn");
-
-  if (!btn) return;
-
-  const productId = Number(btn.dataset.id);
-
-  const product = products.find((item) => item.id === productId);
-
-  addToCart(product);
-});
-
-// ================= SAVE =================
-
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// ================= RENDER =================
-
-function renderCart() {
-  cartItems.innerHTML = "";
-
-  let total = 0;
-  let quantity = 0;
-
-  cart.forEach((product) => {
-    const price = product.sale ? product.salePrice : product.price;
-
-    total += price * product.quantity;
-    quantity += product.quantity;
-
-    cartItems.innerHTML += `
- <div class="cartProduct" data-id="${product.id}">
-    <div class="cartImgPrice">
-  <img src="${product.image}" alt="${product.name}" />
-  <p>${price}₾</p>
-</div>
-
-         <div class="cartInfo">
-
-          <h3  class="prodNam">${product.name}</h3>
-
- 
-          <div class="quantityBox">
-
-            <button class="minusBtn" data-id="${product.id}">-</button>
-
-            <span>${product.quantity}</span>
-
-            <button class="plusBtn" data-id="${product.id}">+</button>
-
-          </div>
-
-          <button
-            class="removeCart"
-            data-id="${product.id}">
-            Remove
-          </button>
- 
-        </div>
-
-      </div>
-    `;
-  });
-
-  cartQuantity.textContent = `Quantity of items: ${quantity}`;
-  totalPrice.textContent = `Total price: ${total}₾`;
-}
-
-// ================= CART EVENTS =================
-
-cartItems.addEventListener("click", (e) => {
-  // Remove
-  const removeBtn = e.target.closest(".removeCart");
-
-  if (removeBtn) {
-    const id = Number(removeBtn.dataset.id);
-
-    cart = cart.filter((item) => item.id !== id);
-
-    saveCart();
-    renderCart();
-
-    return;
+(() => {
+  const store = window.Selcore;
+  const { create, image, effectivePrice } = store;
+  const sidebar = document.querySelector(".cartSidebar");
+  const link = document.querySelector(".cartLink");
+  const sidebarItems = sidebar?.querySelector(".cartItems");
+  const pageItems = document.querySelector(".cartContainer");
+  const checkoutItems = document.querySelector(".checkoutProducts");
+  function button(className, text, action, id) {
+    const node = create("button", className, text);
+    node.type = "button";
+    node.dataset.cartAction = action;
+    node.dataset.id = id;
+    return node;
   }
-
-  // Plus
-  const plusBtn = e.target.closest(".plusBtn");
-
-  if (plusBtn) {
-    const id = Number(plusBtn.dataset.id);
-
-    const product = cart.find((item) => item.id === id);
-
-    if (product) {
-      product.quantity++;
-    }
-
-    saveCart();
-    renderCart();
-
-    return;
+  function quantityControls(item, className) {
+    const node = create("div", className);
+    node.append(button("minusBtn", "−", "minus", item.id), create("span", "", item.quantity), button("plusBtn", "+", "plus", item.id));
+    return node;
   }
-
-  // Minus
-  const minusBtn = e.target.closest(".minusBtn");
-
-  if (minusBtn) {
-    const id = Number(minusBtn.dataset.id);
-
-    const product = cart.find((item) => item.id === id);
-
-    if (product) {
-      if (product.quantity > 1) {
-        product.quantity--;
-      } else {
-        cart = cart.filter((item) => item.id !== id);
+  function updateButtons() {
+    document.querySelectorAll(".cartBtn, .addTocartBtn, .addToCartFromFav").forEach((node) => {
+      const active = store.isInCart(node.dataset.id);
+      node.classList.toggle("active", active);
+      node.setAttribute("aria-pressed", String(active));
+      if (node.classList.contains("cartBtn")) node.closest(".allProductCard")?.classList.toggle("active", active);
+      else node.textContent = active ? "Added to cart" : "Add to cart";
+    });
+  }
+  function render() {
+    const items = store.getCart();
+    const total = items.reduce((sum, item) => sum + effectivePrice(item) * item.quantity, 0);
+    const quantity = items.reduce((sum, item) => sum + item.quantity, 0);
+    for (const [container, mode] of [[sidebarItems, "sidebar"], [pageItems, "page"], [checkoutItems, "checkout"]]) {
+      if (!container) continue;
+      container.replaceChildren();
+      if (!items.length) {
+        if (mode === "page") {
+          const empty = create("div", "emptyCart");
+          empty.append(create("h2", "", "Your cart is empty"));
+          container.append(empty);
+        } else container.append(create("p", "emptyCart", "Your cart is empty"));
+      }
+      for (const item of items) {
+        const price = effectivePrice(item);
+        const card = create("div", mode === "sidebar" ? "cartProduct" : mode === "page" ? "cartCard" : "checkoutProduct");
+        card.dataset.id = item.id;
+        const picture = create("div", mode === "sidebar" ? "cartImgPrice" : mode === "page" ? "cartCardImage" : "checkoutProductImage");
+        picture.append(image(item));
+        const content = create("div", mode === "sidebar" ? "cartInfo" : mode === "page" ? "cartCardContent" : "checkoutProductContent");
+        content.append(create(mode === "sidebar" ? "h3" : "h2", mode === "sidebar" ? "prodNam" : "", item.name));
+        if (mode === "sidebar") picture.append(create("p", "", `${price}₾`));
+        else content.append(create("p", mode === "page" ? "cartPrice" : "", mode === "page" ? `${price}₾` : `Price: ${price}₾`));
+        if (mode === "checkout") content.append(create("p", "", `Quantity: ${item.quantity}`), create("p", "", `Total: ${price * item.quantity}₾`));
+        else content.append(quantityControls(item, mode === "page" ? "cartQuantity" : "quantityBox"));
+        content.append(button(mode === "checkout" ? "removeCheckout" : "removeCart", "Remove", "remove", item.id));
+        card.append(picture, content);
+        container.append(card);
       }
     }
-
-    saveCart();
-    renderCart();
+    const count = sidebar?.querySelector(".cartQuantity");
+    const sideTotal = sidebar?.querySelector(".totalPrice");
+    if (count) count.textContent = `Quantity of items: ${quantity}`;
+    if (sideTotal) sideTotal.textContent = `Total price: ${total}₾`;
+    const pageTotal = document.querySelector(".cartTotal");
+    if (pageTotal) pageTotal.replaceChildren(create("span", "", `Total Price: ${total}₾`));
+    const checkoutTotal = document.querySelector(".sumPrice");
+    if (checkoutTotal) checkoutTotal.replaceChildren(create("h2", "", `Total Price: ${total}₾`));
+    const buy = document.querySelector(".buyContainer");
+    if (buy) {
+      const node = items.length ? create("a", "checkoutBtn", "Checkout") : create("button", "shopNow", "Shop Now");
+      if (items.length) node.href = "checkout.html";
+      else {
+        node.type = "button";
+        node.addEventListener("click", () => { window.location.href = "allproducts.html"; });
+      }
+      buy.replaceChildren(node);
+    }
+    updateButtons();
   }
-});
-
-// ================= FIRST LOAD =================
-
-renderCart();
-
-// ================= ADD PRODUCT =================
-
-function addToCart(product) {
-  const existingIndex = cart.findIndex((item) => item.id === product.id);
-
-  const btn = document.querySelector(`.cartBtn[data-id="${product.id}"]`);
-  const card = btn?.closest(".allProductCard");
-
-  if (existingIndex !== -1) {
-    cart.splice(existingIndex, 1);
-
-    if (btn) btn.classList.remove("active");
-    if (card) card.classList.remove("active");
-  } else {
-    cart.push({
-      ...product,
-      quantity: 1,
-    });
-
-    if (btn) btn.classList.add("active");
-    if (card) card.classList.add("active");
-  }
-  saveCart();
-  renderCart();
-
-  if (typeof renderFavorites === "function") {
-    renderFavorites();
-  }
-}
-// Product card click
-
-allProductContainer.addEventListener("click", (e) => {
-  if (e.target.closest(".cartBtn") || e.target.closest(".favoriteBtn")) {
-    return;
-  }
-
-  const card = e.target.closest(".allProductCard");
-
-  if (!card) return;
-
-  const productId = card.dataset.id;
-
-  window.location.href = `product.html?id=${productId}`;
-});
-// ================= FAVORITE PRODUCT CLICK =================
-cartItems.addEventListener("click", (e) => {
-  if (
-    e.target.closest(".plusBtn") ||
-    e.target.closest(".minusBtn") ||
-    e.target.closest(".removeCart")
-  ) {
-    return;
-  }
-
-  const cartProduct = e.target.closest(".cartProduct");
-
-  if (!cartProduct) return;
-
-  const productId = cartProduct.dataset.id;
-
-  window.location.href = `product.html?id=${productId}`;
-});
+  link?.addEventListener("click", (event) => {
+    if (!sidebar) return;
+    event.preventDefault();
+    sidebar.classList.add("active");
+  });
+  sidebar?.querySelector(".closeCart")?.addEventListener("click", () => sidebar.classList.remove("active"));
+  document.addEventListener("click", (event) => {
+    // Rendering may detach the clicked node; capture containment beforehand.
+    const insideSidebar = sidebar?.contains(event.target);
+    const insideLink = link?.contains(event.target);
+    const toggle = event.target.closest(".cartBtn, .addTocartBtn, .addToCartFromFav");
+    const action = event.target.closest("[data-cart-action]");
+    if (toggle) store.toggleCart(toggle.dataset.id);
+    else if (action) {
+      if (action.dataset.cartAction === "remove") store.removeCart(action.dataset.id);
+      else if (action.dataset.cartAction === "plus") store.changeQuantity(action.dataset.id, 1);
+      else if (action.dataset.cartAction === "minus") store.changeQuantity(action.dataset.id, -1);
+    } else {
+      const card = event.target.closest(".cartProduct[data-id]");
+      if (card && sidebar?.contains(card)) window.location.href = `product.html?id=${card.dataset.id}`;
+    }
+    if (sidebar && !insideSidebar && !insideLink) sidebar.classList.remove("active");
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") sidebar?.classList.remove("active");
+  });
+  document.addEventListener("selcore:cart-change", render);
+  document.addEventListener("selcore:products-rendered", updateButtons);
+  document.addEventListener("selcore:favorites-change", updateButtons);
+  render();
+})();

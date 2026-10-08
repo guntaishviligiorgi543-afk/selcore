@@ -246,7 +246,7 @@
             class="form"
           >
             <p>sign up to recive updates on new products and special offers</p>
-            <form action="" method="post">
+            <form action="" method="post" data-unavailable="Newsletter subscriptions are not available yet. Your email has not been sent.">
               <label for="email">Enter your email <span>*</span></label>
 
               <input
@@ -626,7 +626,7 @@
             data-aos-duration="2000"
             data-aos-delay="400"
           >
-            <form action="" method="post">
+            <form action="" method="post" data-unavailable="Newsletter subscriptions are not available yet. Your email has not been sent.">
               <label for="email">Enter your email <span>*</span></label>
 
               <input
@@ -721,54 +721,18 @@
       </div>
     </footer>
     <script src="products.js"></script>
+    <script src="store.js"></script>
     <script src="script.js"></script>
     <script src="cart.js"></script>
     <script src="favorites.js"></script>
-    <script>
-      // ================= FAVORITE PRODUCT CLICK =================
-      cartItems.addEventListener("click", (e) => {
-        if (
-          e.target.closest(".plusBtn") ||
-          e.target.closest(".minusBtn") ||
-          e.target.closest(".removeCart")
-        ) {
-          return;
-        }
-
-        const cartProduct = e.target.closest(".cartProduct");
-
-        if (!cartProduct) return;
-
-        const productId = cartProduct.dataset.id;
-
-        window.location.href = `product.html?id=${productId}`;
-      });
-      // ================= FAVORITE PRODUCT CLICK =================
-      cartItems.addEventListener("click", (e) => {
-        if (
-          e.target.closest(".plusBtn") ||
-          e.target.closest(".minusBtn") ||
-          e.target.closest(".removeCart")
-        ) {
-          return;
-        }
-
-        const cartProduct = e.target.closest(".cartProduct");
-
-        if (!cartProduct) return;
-
-        const productId = cartProduct.dataset.id;
-
-        window.location.href = `product.html?id=${productId}`;
-      });
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
-      AOS.init({
+      if (window.AOS) AOS.init({
         duration: 1000,
         once: true,
       });
+      else console.warn("Scroll animations are unavailable: AOS did not load.");
     </script>
   </body>
 </html>

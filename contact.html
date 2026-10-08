@@ -492,7 +492,7 @@
             We're here to help! Please fill out the form with any questions or
             concerns, and we will get back to you as soon as possible.
           </p>
-          <form>
+          <form method="post" data-unavailable="The contact form is not connected yet. Your message has not been sent.">
             <div class="userNam">
               <div class="input">
                 <label for="firstName">First Name</label>
@@ -843,49 +843,11 @@
         <p>c 2035 by selcore. <br />built on <a href="#">wix studio</a></p>
       </div>
     </footer>
-
     <script src="products.js"></script>
+    <script src="store.js"></script>
     <script src="script.js"></script>
     <script src="cart.js"></script>
     <script src="favorites.js"></script>
-    <script>
-      // ================= FAVORITE PRODUCT CLICK =================
-      cartItems.addEventListener("click", (e) => {
-        if (
-          e.target.closest(".plusBtn") ||
-          e.target.closest(".minusBtn") ||
-          e.target.closest(".removeCart")
-        ) {
-          return;
-        }
-
-        const cartProduct = e.target.closest(".cartProduct");
-
-        if (!cartProduct) return;
-
-        const productId = cartProduct.dataset.id;
-
-        window.location.href = `product.html?id=${productId}`;
-      });
-      // ================= FAVORITE PRODUCT CLICK =================
-      cartItems.addEventListener("click", (e) => {
-        if (
-          e.target.closest(".plusBtn") ||
-          e.target.closest(".minusBtn") ||
-          e.target.closest(".removeCart")
-        ) {
-          return;
-        }
-
-        const cartProduct = e.target.closest(".cartProduct");
-
-        if (!cartProduct) return;
-
-        const productId = cartProduct.dataset.id;
-
-        window.location.href = `product.html?id=${productId}`;
-      });
-    </script>
     <script>
       "use strict";
 

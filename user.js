@@ -1,43 +1,37 @@
 "use strict";
-const toSignBtn = document.querySelector(".toSign");
-const userHeroSec = document.querySelector(".userHeroSec");
-const userSec2 = document.querySelector(".userSec2");
-const signUpBtn = document.querySelector(".signUp");
-const signInBtn = document.querySelector(".signIn");
-const signUpForm = document.querySelector(".signUpForm");
-const signInForm = document.querySelector(".signInForm");
-const toggleButtons = document.querySelectorAll(".togglePassword");
-
-//to sign sections
-toSignBtn.addEventListener("click", () => {
-  userHeroSec.style.display = "none";
-  userSec2.style.display = "flex";
-});
-
-// switch forms
-signUpBtn.addEventListener("click", () => {
-  signUpForm.classList.remove("hidden");
-  signInForm.classList.add("hidden");
-});
-
-signInBtn.addEventListener("click", () => {
-  signUpForm.classList.add("hidden");
-  signInForm.classList.remove("hidden");
-});
-//see pasword
-
-toggleButtons.forEach((button) => {
-  button.classList.add("closed");
-
-  button.addEventListener("click", () => {
-    const input = button.previousElementSibling;
-
-    if (input.type === "password") {
-      input.type = "text";
-      button.classList.remove("closed");
-    } else {
-      input.type = "password";
-      button.classList.add("closed");
-    }
+(() => {
+  const hero = document.querySelector(".userHeroSec");
+  const section = document.querySelector(".userSec2");
+  const signup = document.querySelector(".signUpForm");
+  const signin = document.querySelector(".signInForm");
+  document.querySelector(".toSign")?.addEventListener("click", () => {
+    if (hero) hero.style.display = "none";
+    if (section) section.style.display = "flex";
   });
-});
+  document.querySelector(".signUp")?.addEventListener("click", () => {
+    signup?.classList.remove("hidden");
+    signin?.classList.add("hidden");
+  });
+  document.querySelector(".signIn")?.addEventListener("click", () => {
+    signup?.classList.add("hidden");
+    signin?.classList.remove("hidden");
+  });
+  document.querySelectorAll(".togglePassword").forEach((button) => {
+    button.classList.add("closed");
+    button.setAttribute("aria-label", "Show password");
+    button.addEventListener("click", () => {
+      const input = button.previousElementSibling;
+      if (!input || (input.type !== "password" && input.type !== "text")) return;
+      input.type = input.type === "password" ? "text" : "password";
+      button.classList.toggle("closed", input.type === "password");
+      button.setAttribute("aria-label", input.type === "password" ? "Show password" : "Hide password");
+    });
+  });
+  const password = document.querySelector("#signupPassword");
+  const confirmation = document.querySelector("#confirmPassword");
+  if (password && confirmation) {
+    const validate = () => confirmation.setCustomValidity(confirmation.value && confirmation.value !== password.value ? "Passwords must match." : "");
+    password.addEventListener("input", validate);
+    confirmation.addEventListener("input", validate);
+  }
+})();

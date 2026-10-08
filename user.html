@@ -70,7 +70,7 @@
           </div>
           <div class="signUpForm">
             <h1>Selcore</h1>
-            <form id="signupForm">
+            <form id="signupForm" method="post" data-unavailable="Account registration and sign-in are not available yet. Your credentials have not been sent.">
               <h2>Create Account</h2>
 
               <div class="formlable">
@@ -132,12 +132,12 @@
               </div>
 
               <div class="formlable">
-                <label for="signupConfirmPassword">Confirm Password</label>
+                <label for="confirmPassword">Confirm Password</label>
                 <div class="passwordBox">
                   <input
                     type="password"
                     id="confirmPassword"
-                    name="password"
+                    name="confirmPassword"
                     placeholder="Create a password"
                     required
                     minlength="8"
@@ -180,7 +180,7 @@
           <div class="signInForm hidden">
             <h1>Selcore</h1>
 
-            <form id="signinForm">
+            <form id="signinForm" method="post" data-unavailable="Account registration and sign-in are not available yet. Your credentials have not been sent.">
               <h2>Sign In</h2>
 
               <div class="formlable">
@@ -206,7 +206,7 @@
                     minlength="8"
                     maxlength="32"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
-                    autocomplete="new-password"
+                    autocomplete="current-password"
                   />
 
                   <button type="button" class="togglePassword">
@@ -243,7 +243,11 @@
         </div>
       </section>
     </main>
-    <script src="user.js"></script>
+    <script src="products.js"></script>
+    <script src="store.js"></script>
     <script src="script.js"></script>
+    <script src="user.js"></script>
+    <script src="cart.js"></script>
+    <script src="favorites.js"></script>
   </body>
 </html>
