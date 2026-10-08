@@ -4,7 +4,10 @@
   const { create, image, effectivePrice } = store;
   const burger = document.querySelector("#burger");
   const menu = document.querySelector(".burgerMenu");
-  if (burger && menu) burger.addEventListener("change", () => menu.classList.toggle("active", burger.checked));
+  if (burger && menu)
+    burger.addEventListener("change", () =>
+      menu.classList.toggle("active", burger.checked),
+    );
 
   function renderFeatured(container, items, className, withImageWrapper) {
     if (!container) return;
@@ -12,7 +15,9 @@
     for (const product of items) {
       const card = create("div", className);
       card.dataset.id = product.id;
-      card.addEventListener("click", () => { window.location.href = `product.html?id=${product.id}`; });
+      card.addEventListener("click", () => {
+        window.location.href = `product.html?id=${product.id}`;
+      });
       const picture = image(product);
       if (withImageWrapper) {
         const wrapper = create("div", "image");
@@ -20,28 +25,62 @@
         card.append(wrapper);
       } else card.append(picture);
       const info = create("div", withImageWrapper ? "price-name" : "");
-      info.append(create("p", "", product.name), create("p", "", `${effectivePrice(product)} ₾`));
+      info.append(
+        create("p", "", product.name),
+        create("p", "", `${effectivePrice(product)} ₾`),
+      );
       card.append(info);
       container.append(card);
     }
   }
-  const products = store.getProducts();
-  renderFeatured(document.querySelector("#bestSellerContainer"), products.filter((product) => product.bestSeller).sort((a, b) => b.soldCount - a.soldCount).slice(0, 4), "bestSellCards", false);
-  // Preserve the original selection: the first two flagged arrivals are skipped.
-  renderFeatured(document.querySelector(".newArrivals"), products.filter((product) => product.newArrival).slice(2), "bestSellerCard", true);
+  function renderHomepage() {
+    const best = document.querySelector("#bestSellerContainer"),
+      arrivals = document.querySelector(".newArrivals");
+    if (store.getCatalogueStatus() !== "ready") {
+      store.catalogueState(best);
+      store.catalogueState(arrivals);
+      return;
+    }
+    const products = store.getProducts();
+    renderFeatured(
+      best,
+      products.filter((product) => product.bestSeller).slice(0, 4),
+      "bestSellCards",
+      false,
+    );
+    renderFeatured(
+      arrivals,
+      products.filter((product) => product.newArrival),
+      "bestSellerCard",
+      true,
+    );
+    for (const container of [best, arrivals])
+      if (container && !container.children.length)
+        container.append(
+          create("p", "emptyProducts", "No featured products available."),
+        );
+  }
+  document.addEventListener("selcore:catalogue-change", renderHomepage);
+  renderHomepage();
 
   const headphones = document.querySelector(".headpones");
   const left = document.querySelector(".left");
   const right = document.querySelector(".right");
   if (headphones && left && right) {
-    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+    let mouseX = 0,
+      mouseY = 0,
+      currentX = 0,
+      currentY = 0;
     headphones.addEventListener("mousemove", (event) => {
       const rect = headphones.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       mouseX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       mouseY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
     });
-    headphones.addEventListener("mouseleave", () => { mouseX = 0; mouseY = 0; });
+    headphones.addEventListener("mouseleave", () => {
+      mouseX = 0;
+      mouseY = 0;
+    });
     function animate() {
       currentX += (mouseX - currentX) * 0.02;
       currentY += (mouseY - currentY) * 0.02;
@@ -54,12 +93,16 @@
   document.querySelectorAll(".brandBtn").forEach((button) => {
     button.addEventListener("click", () => {
       const brand = button.querySelector("img")?.dataset.brand;
-      if (brand) window.location.href = `allproducts.html?brand=${encodeURIComponent(brand)}`;
+      if (brand)
+        window.location.href = `allproducts.html?brand=${encodeURIComponent(brand)}`;
     });
   });
   const header = document.querySelector("header");
   const hero = document.querySelector(".hero");
-  if (header && hero) window.addEventListener("scroll", () => header.classList.toggle("purple", window.scrollY > hero.offsetHeight));
+  if (header && hero)
+    window.addEventListener("scroll", () =>
+      header.classList.toggle("purple", window.scrollY > hero.offsetHeight),
+    );
 
   // These forms have no backend. Prevent native navigation and say so explicitly.
   document.querySelectorAll("form[data-unavailable]").forEach((form) => {
@@ -71,9 +114,14 @@
   });
   const buy = document.querySelector(".buyBtn");
   if (buy) {
-    const message = "Purchases are not available yet. No payment will be taken and no order will be placed.";
+    buy.disabled = true;
+    buy.textContent = "Purchases unavailable";
+    const message =
+      "Purchases are not available yet. No payment will be taken and no order will be placed.";
     store.showMessage(buy.parentElement, message);
-    buy.addEventListener("click", () => store.showMessage(buy.parentElement, message));
+    buy.addEventListener("click", () =>
+      store.showMessage(buy.parentElement, message),
+    );
   }
 
   const input = document.querySelector(".writeMsg input");
@@ -84,9 +132,12 @@
   if (input && send && display && launcher && chat) {
     const stored = store.readArray("chatMessages");
     let messages = stored.filter((message) => typeof message === "string");
-    if (messages.length !== stored.length) console.warn("Ignored invalid chatMessages entries.");
+    if (messages.length !== stored.length)
+      console.warn("Ignored invalid chatMessages entries.");
     function renderMessages() {
-      display.replaceChildren(...messages.map((message) => create("div", "sent", message)));
+      display.replaceChildren(
+        ...messages.map((message) => create("div", "sent", message)),
+      );
       display.scrollTop = display.scrollHeight;
     }
     launcher.querySelector("svg")?.addEventListener("click", () => {
@@ -99,10 +150,17 @@
     });
     chat.querySelector(".deleteChat")?.addEventListener("click", () => {
       messages = [];
-      try { localStorage.removeItem("chatMessages"); }
-      catch (error) {
-        console.warn("Unable to remove chatMessages from browser storage.", error);
-        store.showMessage(chat, "Chat history could not be cleared from browser storage.");
+      try {
+        localStorage.removeItem("chatMessages");
+      } catch (error) {
+        console.warn(
+          "Unable to remove chatMessages from browser storage.",
+          error,
+        );
+        store.showMessage(
+          chat,
+          "Chat history could not be cleared from browser storage.",
+        );
       }
       renderMessages();
     });
@@ -116,9 +174,15 @@
     }
     send.addEventListener("click", sendMessage);
     input.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") { event.preventDefault(); sendMessage(); }
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
     });
-    store.showMessage(chat, "This chat saves messages in your browser only. Support is not connected.");
+    store.showMessage(
+      chat,
+      "This chat saves messages in your browser only. Support is not connected.",
+    );
     renderMessages();
   }
 })();

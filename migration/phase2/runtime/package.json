@@ -1,0 +1,8 @@
+{
+  "name": "selcore-phase2-admin-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@supabase/supabase-js": "2.110.7"
+  }
+}

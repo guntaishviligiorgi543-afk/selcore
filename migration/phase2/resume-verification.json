@@ -1,0 +1,122 @@
+{
+  "project_id": "ffznkypurnocabqyxpps",
+  "verification": {
+    "rls": [
+      {
+        "table": "buckets",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "objects",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "product_images",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "categories",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "brands",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "products",
+        "schema": "public",
+        "enabled": true
+      }
+    ],
+    "brands": 0,
+    "products": 0,
+    "categories": 0,
+    "bucket_public": true,
+    "product_images": 0,
+    "storage_objects": 0,
+    "customer_privileges": [
+      {
+        "role": "authenticated",
+        "table": "categories",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "anon",
+        "table": "categories",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "authenticated",
+        "table": "brands",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "anon",
+        "table": "brands",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "authenticated",
+        "table": "products",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "anon",
+        "table": "products",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "authenticated",
+        "table": "product_images",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      },
+      {
+        "role": "anon",
+        "table": "product_images",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false
+      }
+    ]
+  },
+  "security_advisor": {
+    "result": {
+      "lints": []
+    }
+  },
+  "uploaded": 0,
+  "upload_attempts": 1,
+  "seed_executed": false,
+  "error": {
+    "code": "StorageUnsupportedOperationError",
+    "message": "Unsupported operation",
+    "suggestion": "Run cp -r <src> <dst> to copy between local directories."
+  }
+}

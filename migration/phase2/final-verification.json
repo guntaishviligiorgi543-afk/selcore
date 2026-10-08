@@ -1,0 +1,99 @@
+{
+  "project_id": "ffznkypurnocabqyxpps",
+  "verification": {
+    "ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "rls": [
+      {
+        "table": "buckets",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "objects",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "product_images",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "categories",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "brands",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "products",
+        "schema": "public",
+        "enabled": true
+      }
+    ],
+    "counts": {
+      "brands": 17,
+      "images": 24,
+      "products": 24,
+      "categories": 4,
+      "primary_images": 24,
+      "storage_objects": 24
+    },
+    "fingerprint": "4cb34247c89787ff92bfb5a61e864631",
+    "image_mismatches": [],
+    "product_mismatches": [],
+    "missing_foreign_keys": 0
+  },
+  "idempotence": {
+    "same_fingerprint": true,
+    "first": "4cb34247c89787ff92bfb5a61e864631",
+    "after_repeat": "4cb34247c89787ff92bfb5a61e864631"
+  },
+  "security": {
+    "fixture": "rolled back",
+    "roles_tested": [
+      "anon",
+      "authenticated"
+    ],
+    "storage_customer_insert": "denied",
+    "inactive_product_and_image": "hidden",
+    "active_products_during_fixture": 23,
+    "storage_customer_update_delete_rows": 0,
+    "catalogue_customer_insert_update_delete": "denied"
+  },
+  "security_advisor": {
+    "result": {
+      "lints": []
+    }
+  },
+  "frontend_preservation": "54 baseline files unchanged",
+  "storage_public_downloads": "24 HTTP 200; original bytes and SHA-256 confirmed twice"
+}

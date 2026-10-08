@@ -1,0 +1,13 @@
+{
+  "project": "ffznkypurnocabqyxpps",
+  "checked": "2026-10-08",
+  "operations": "Read-only SQL and Security Advisor",
+  "counts": { "categories": 4, "brands": 17, "products": 24, "active_products": 24, "primary_images": 24 },
+  "demo_flags_valid": true,
+  "rls_enabled": ["public.categories", "public.brands", "public.products", "public.product_images", "storage.objects", "storage.buckets"],
+  "catalogue_insert_update_delete_grants": { "anon": false, "authenticated": false },
+  "storage_write_policies": 0,
+  "security_advisor_findings": [],
+  "database_mutations": 0,
+  "ivenu_access": false
+}

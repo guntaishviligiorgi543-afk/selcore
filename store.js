@@ -3,8 +3,8 @@
 // One state/persistence boundary for every page. Existing storage keys and
 // complete-product snapshots are retained for compatibility with saved carts.
 window.Selcore = (() => {
-  const catalogue = products;
-  const productById = new Map(catalogue.map((product) => [product.id, product]));
+  let catalogue = [];
+  let productById = new Map();
   const create = (tag, className = "", text) => {
     const element = document.createElement(tag);
     element.className = className;
@@ -13,13 +13,42 @@ window.Selcore = (() => {
   };
   const image = (product) => {
     const element = create("img");
-    element.src = product.image;
-    element.alt = product.name;
+    element.alt = product.imageAlt || product.name;
+    element.loading = "lazy";
+    element.addEventListener(
+      "error",
+      () => {
+        const fallback = create(
+          "span",
+          "imageUnavailable",
+          "Image unavailable",
+        );
+        fallback.setAttribute("role", "img");
+        fallback.setAttribute(
+          "aria-label",
+          `${product.name}: image unavailable`,
+        );
+        element.replaceWith(fallback);
+      },
+      { once: true },
+    );
+    if (product.image) element.src = product.image;
+    else {
+      const fallback = create("span", "imageUnavailable", "Image unavailable");
+      fallback.setAttribute("role", "img");
+      fallback.setAttribute("aria-label", `${product.name}: image unavailable`);
+      return fallback;
+    }
     return element;
   };
-  const effectivePrice = (product) => product.sale ? product.salePrice : product.price;
+  const effectivePrice = (product) =>
+    product.sale ? product.salePrice : product.price;
   const parseId = (value) => {
-    if (typeof value !== "number" && (typeof value !== "string" || !/^\d+$/.test(value))) return null;
+    if (
+      typeof value !== "number" &&
+      (typeof value !== "string" || !/^\d+$/.test(value))
+    )
+      return null;
     const id = Number(value);
     return Number.isSafeInteger(id) && id > 0 ? id : null;
   };
@@ -31,10 +60,13 @@ window.Selcore = (() => {
       status = create("p", "featureStatus");
       status.setAttribute("role", "status");
       // Keep form submit buttons last: existing account CSS relies on it.
-      const submit = [...container.children].find((child) => child.matches('button[type="submit"]'));
+      const submit = [...container.children].find((child) =>
+        child.matches('button[type="submit"]'),
+      );
       container.insertBefore(status, submit || null);
       // Status messages must be readable on both light and dark page themes.
-      status.style.cssText = "color: #fff; background-color: #191529; padding: 0.5rem; font: 14px/1.4 Arial, sans-serif; text-transform: none;";
+      status.style.cssText =
+        "color: #fff; background-color: #191529; padding: 0.5rem; font: 14px/1.4 Arial, sans-serif; text-transform: none;";
     }
     status.textContent = message;
   }
@@ -66,7 +98,10 @@ window.Selcore = (() => {
       return true;
     } catch (error) {
       console.warn(`Unable to save ${key} to browser storage.`, error);
-      showMessage(document.querySelector("main"), "Your changes could not be saved in this browser. They may be lost when you leave this page.");
+      showMessage(
+        document.querySelector("main"),
+        "Your changes could not be saved in this browser. They may be lost when you leave this page.",
+      );
       return false;
     }
   }
@@ -75,9 +110,15 @@ window.Selcore = (() => {
     const result = [];
     let rejected = false;
     for (const item of stored) {
-      const product = item && typeof item === "object" ? getProduct(item.id) : undefined;
+      const product = getProduct(
+        item && typeof item === "object" ? item.id : item,
+      );
       const quantity = item?.quantity === undefined ? 1 : item.quantity;
-      if (!product || seen.has(product.id) || (key === "cart" && (!Number.isSafeInteger(quantity) || quantity < 1))) {
+      if (
+        !product ||
+        seen.has(product.id) ||
+        (key === "cart" && (!Number.isSafeInteger(quantity) || quantity < 1))
+      ) {
         rejected = true;
         continue;
       }
@@ -88,13 +129,19 @@ window.Selcore = (() => {
     if (rejected) console.warn(`Ignored invalid or duplicate items in ${key}.`);
     return result;
   }
-  let cart = normalize("cart", readArray("cart"));
-  let favorites = normalize("favorites", readArray("favorites"));
+  let cart = [];
+  let favorites = [];
+  let removedSavedItems = false;
   function notify(key) {
     document.dispatchEvent(new CustomEvent(`selcore:${key}-change`));
   }
   function save(key) {
-    writeStorage(key, key === "cart" ? cart : favorites);
+    writeStorage(
+      key,
+      key === "cart"
+        ? cart.map((item) => ({ id: item.id, quantity: item.quantity }))
+        : favorites.map((item) => ({ id: item.id })),
+    );
     notify(key);
   }
   function toggleCart(id) {
@@ -111,7 +158,8 @@ window.Selcore = (() => {
   }
   function removeCart(id) {
     const productId = parseId(id);
-    if (productId === null || !cart.some((item) => item.id === productId)) return;
+    if (productId === null || !cart.some((item) => item.id === productId))
+      return;
     cart = cart.filter((item) => item.id !== productId);
     save("cart");
   }
@@ -122,7 +170,9 @@ window.Selcore = (() => {
     const quantity = item.quantity + delta;
     if (quantity === 0) return removeCart(id);
     if (!Number.isSafeInteger(quantity) || quantity < 1) {
-      console.warn("Cannot change cart quantity: quantity is outside the safe integer range.");
+      console.warn(
+        "Cannot change cart quantity: quantity is outside the safe integer range.",
+      );
       return;
     }
     item.quantity = quantity;
@@ -142,12 +192,14 @@ window.Selcore = (() => {
   }
   function removeFavorite(id) {
     const productId = parseId(id);
-    if (productId === null || !favorites.some((item) => item.id === productId)) return;
+    if (productId === null || !favorites.some((item) => item.id === productId))
+      return;
     favorites = favorites.filter((item) => item.id !== productId);
     save("favorites");
   }
   window.addEventListener("storage", (event) => {
     if (event.storageArea && event.storageArea !== localStorage) return;
+    if (window.SelcoreCatalogue.getStatus() !== "ready") return;
     if (event.key === "cart" || event.key === null) {
       cart = normalize("cart", readArray("cart"));
       notify("cart");
@@ -157,13 +209,77 @@ window.Selcore = (() => {
       notify("favorites");
     }
   });
+  function catalogueState(container) {
+    if (!container || window.SelcoreCatalogue.getStatus() === "ready")
+      return false;
+    const status = window.SelcoreCatalogue.getStatus();
+    container.replaceChildren();
+    const message = create(
+      "p",
+      "catalogueStatus",
+      status === "error"
+        ? "Products are temporarily unavailable. Please try again."
+        : "Loading products…",
+    );
+    message.setAttribute("role", "status");
+    message.style.cssText = "color:#fff;background:#191529;padding:12px";
+    container.append(message);
+    if (status === "error") {
+      const retry = create("button", "catalogueRetry", "Try again");
+      retry.type = "button";
+      retry.addEventListener("click", reloadCatalogue);
+      container.append(retry);
+    }
+    return true;
+  }
+  function reloadCatalogue() {
+    const loading = window.SelcoreCatalogue.load();
+    notify("catalogue");
+    return loading
+      .then((items) => {
+        catalogue = items;
+        productById = new Map(items.map((item) => [item.id, item]));
+        const savedCart = readArray("cart"),
+          savedFavorites = readArray("favorites");
+        cart = normalize("cart", savedCart);
+        favorites = normalize("favorites", savedFavorites);
+        removedSavedItems =
+          cart.length < savedCart.length ||
+          favorites.length < savedFavorites.length;
+        notify("cart");
+        notify("favorites");
+        notify("catalogue");
+        return true;
+      })
+      .catch(() => {
+        notify("catalogue");
+        return false;
+      });
+  }
+  const ready = reloadCatalogue();
   return Object.freeze({
-    create, image, effectivePrice, parseId, getProduct, showMessage, readArray, writeStorage,
+    create,
+    image,
+    effectivePrice,
+    parseId,
+    getProduct,
+    showMessage,
+    readArray,
+    writeStorage,
     getProducts: () => catalogue.slice(),
     getCart: () => cart.map((item) => ({ ...item })),
     getFavorites: () => favorites.map((item) => ({ ...item })),
     isInCart: (id) => cart.some((item) => item.id === parseId(id)),
     isFavorite: (id) => favorites.some((item) => item.id === parseId(id)),
-    toggleCart, removeCart, changeQuantity, toggleFavorite, removeFavorite,
+    toggleCart,
+    removeCart,
+    changeQuantity,
+    toggleFavorite,
+    removeFavorite,
+    ready,
+    reloadCatalogue,
+    catalogueState,
+    getCatalogueStatus: () => window.SelcoreCatalogue.getStatus(),
+    hasRemovedSavedItems: () => removedSavedItems,
   });
 })();

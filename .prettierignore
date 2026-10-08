@@ -1,0 +1,22 @@
+# Installed dependencies and unmodified third-party assets
+**/node_modules/
+/vendor/supabase-2.110.7.js
+/vendor/SUPABASE-LICENSE.txt
+**/*.min.js
+**/*.min.css
+
+# Build and test output
+/dist/
+/build/
+/coverage/
+
+# Generated migration snapshots and immutable legacy catalogue data
+/migration/phase2/*.json
+/products.js
+
+# Supabase CLI-generated project metadata
+/supabase/.temp/
+
+# Machine-generated verification reports
+/docs/phase3-browser-results.json
+/docs/phase3-security-results.json

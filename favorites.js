@@ -6,15 +6,18 @@
   const link = document.querySelector(".favLink");
   const container = panel?.querySelector(".favProductsCont");
   function updateButtons() {
-    document.querySelectorAll(".favoriteBtn, .addTofavBtn").forEach((button) => {
-      const active = store.isFavorite(button.dataset.id);
-      button.setAttribute("aria-pressed", String(active));
-      if (button.classList.contains("favoriteBtn")) button.classList.toggle("favoriteActive", active);
-      else {
-        button.classList.toggle("active", active);
-        button.textContent = active ? "Added to fav" : "Add to fav";
-      }
-    });
+    document
+      .querySelectorAll(".favoriteBtn, .addTofavBtn")
+      .forEach((button) => {
+        const active = store.isFavorite(button.dataset.id);
+        button.setAttribute("aria-pressed", String(active));
+        if (button.classList.contains("favoriteBtn"))
+          button.classList.toggle("favoriteActive", active);
+        else {
+          button.classList.toggle("active", active);
+          button.textContent = active ? "Added to fav" : "Add to fav";
+        }
+      });
     document.querySelectorAll(".addToCartFromFav").forEach((button) => {
       const active = store.isInCart(button.dataset.id);
       button.textContent = active ? "Added to Cart" : "Add to Cart";
@@ -23,6 +26,10 @@
     });
   }
   function render() {
+    if (store.catalogueState(container)) {
+      updateButtons();
+      return;
+    }
     if (container) {
       container.replaceChildren();
       const items = store.getFavorites();
@@ -42,9 +49,21 @@
           button.dataset.id = product.id;
         }
         buttons.append(add, remove);
-        card.append(image(product), create("h3", "favProductNam", product.name), buttons);
+        card.append(
+          image(product),
+          create("h3", "favProductNam", product.name),
+          buttons,
+        );
         container.append(card);
       }
+      if (store.hasRemovedSavedItems())
+        container.append(
+          create(
+            "p",
+            "unavailableSavedItems",
+            "Some saved items are no longer available and have been omitted.",
+          ),
+        );
     }
     updateButtons();
   }
@@ -53,7 +72,9 @@
     event.preventDefault();
     panel.classList.add("active");
   });
-  panel?.querySelector(".closeFav")?.addEventListener("click", () => panel.classList.remove("active"));
+  panel
+    ?.querySelector(".closeFav")
+    ?.addEventListener("click", () => panel.classList.remove("active"));
   document.addEventListener("click", (event) => {
     const insidePanel = panel?.contains(event.target);
     const insideLink = link?.contains(event.target);
@@ -63,7 +84,8 @@
     else if (remove) store.removeFavorite(remove.dataset.id);
     else if (!event.target.closest(".addToCartFromFav")) {
       const card = event.target.closest(".favProduct[data-id]");
-      if (card && container?.contains(card)) window.location.href = `product.html?id=${card.dataset.id}`;
+      if (card && container?.contains(card))
+        window.location.href = `product.html?id=${card.dataset.id}`;
     }
     if (panel && !insidePanel && !insideLink) panel.classList.remove("active");
   });
@@ -73,5 +95,6 @@
   document.addEventListener("selcore:favorites-change", render);
   document.addEventListener("selcore:cart-change", updateButtons);
   document.addEventListener("selcore:products-rendered", updateButtons);
+  document.addEventListener("selcore:catalogue-change", render);
   render();
 })();

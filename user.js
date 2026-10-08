@@ -21,16 +21,25 @@
     button.setAttribute("aria-label", "Show password");
     button.addEventListener("click", () => {
       const input = button.previousElementSibling;
-      if (!input || (input.type !== "password" && input.type !== "text")) return;
+      if (!input || (input.type !== "password" && input.type !== "text"))
+        return;
       input.type = input.type === "password" ? "text" : "password";
       button.classList.toggle("closed", input.type === "password");
-      button.setAttribute("aria-label", input.type === "password" ? "Show password" : "Hide password");
+      button.setAttribute(
+        "aria-label",
+        input.type === "password" ? "Show password" : "Hide password",
+      );
     });
   });
   const password = document.querySelector("#signupPassword");
   const confirmation = document.querySelector("#confirmPassword");
   if (password && confirmation) {
-    const validate = () => confirmation.setCustomValidity(confirmation.value && confirmation.value !== password.value ? "Passwords must match." : "");
+    const validate = () =>
+      confirmation.setCustomValidity(
+        confirmation.value && confirmation.value !== password.value
+          ? "Passwords must match."
+          : "",
+      );
     password.addEventListener("input", validate);
     confirmation.addEventListener("input", validate);
   }

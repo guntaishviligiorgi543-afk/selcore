@@ -192,6 +192,24 @@
           </nav>
           <div class="filter">
             <div class="sortContainer">
+              <label for="categoryFilter">Category:</label>
+              <select id="categoryFilter">
+                <option value="">All categories</option>
+              </select>
+            </div>
+            <div class="sortContainer">
+              <label for="brandFilter">Brand:</label>
+              <select id="brandFilter">
+                <option value="">All brands</option>
+              </select>
+            </div>
+            <div class="sortContainer">
+              <label for="minPrice">Minimum price (GEL):</label>
+              <input id="minPrice" type="number" min="0" step="0.01" />
+              <label for="maxPrice">Maximum price (GEL):</label>
+              <input id="maxPrice" type="number" min="0" step="0.01" />
+            </div>
+            <div class="sortContainer">
               <label for="sortPrice">Sort by:</label>
 
               <select id="sortPrice">
@@ -288,7 +306,9 @@
         <p>c 2035 by selcore. <br />built on <a href="#">wix studio</a></p>
       </div>
     </footer>
-    <script src="products.js"></script>
+    <script src="vendor/supabase-2.110.7.js"></script>
+    <script src="supabase-client.js"></script>
+    <script src="catalogue-service.js"></script>
     <script src="store.js"></script>
     <script src="script.js"></script>
     <script src="allproducts.js"></script>

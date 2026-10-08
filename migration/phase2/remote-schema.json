@@ -1,0 +1,424 @@
+{
+  "project_id": "ffznkypurnocabqyxpps",
+  "inspection_date": "2026-10-08",
+  "tables": {
+    "tables": [
+      {
+        "name": "public.categories",
+        "rls_enabled": true,
+        "rows": 0,
+        "columns": [
+          {
+            "name": "id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "identity",
+              "updatable"
+            ],
+            "identity_generation": "BY DEFAULT"
+          },
+          {
+            "name": "name",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable",
+              "unique"
+            ]
+          },
+          {
+            "name": "slug",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable",
+              "unique"
+            ]
+          },
+          {
+            "name": "created_at",
+            "data_type": "timestamp with time zone",
+            "format": "timestamptz",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "now()"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_key_constraints": [
+          {
+            "name": "products_category_id_fkey",
+            "source_table": "public.products",
+            "source_columns": [
+              "category_id"
+            ],
+            "target_table": "public.categories",
+            "target_columns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "public.brands",
+        "rls_enabled": true,
+        "rows": 0,
+        "columns": [
+          {
+            "name": "id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "identity",
+              "updatable"
+            ],
+            "identity_generation": "BY DEFAULT"
+          },
+          {
+            "name": "name",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable",
+              "unique"
+            ]
+          },
+          {
+            "name": "slug",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable",
+              "unique"
+            ]
+          },
+          {
+            "name": "created_at",
+            "data_type": "timestamp with time zone",
+            "format": "timestamptz",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "now()"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_key_constraints": [
+          {
+            "name": "products_brand_id_fkey",
+            "source_table": "public.products",
+            "source_columns": [
+              "brand_id"
+            ],
+            "target_table": "public.brands",
+            "target_columns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "public.products",
+        "rls_enabled": true,
+        "rows": 0,
+        "columns": [
+          {
+            "name": "id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "identity",
+              "updatable"
+            ],
+            "identity_generation": "BY DEFAULT"
+          },
+          {
+            "name": "category_id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "nullable",
+              "updatable"
+            ]
+          },
+          {
+            "name": "brand_id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "nullable",
+              "updatable"
+            ]
+          },
+          {
+            "name": "name",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable"
+            ]
+          },
+          {
+            "name": "slug",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable",
+              "unique"
+            ]
+          },
+          {
+            "name": "description",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "''::text"
+          },
+          {
+            "name": "price",
+            "data_type": "numeric",
+            "format": "numeric",
+            "options": [
+              "updatable"
+            ],
+            "check": "price >= 0::numeric"
+          },
+          {
+            "name": "sale_price",
+            "data_type": "numeric",
+            "format": "numeric",
+            "options": [
+              "nullable",
+              "updatable"
+            ]
+          },
+          {
+            "name": "currency",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "'GEL'::text",
+            "check": "currency = 'GEL'::text"
+          },
+          {
+            "name": "specifications",
+            "data_type": "jsonb",
+            "format": "jsonb",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "'{}'::jsonb",
+            "check": "jsonb_typeof(specifications) = 'object'::text"
+          },
+          {
+            "name": "stock_quantity",
+            "data_type": "integer",
+            "format": "int4",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "0",
+            "check": "stock_quantity >= 0"
+          },
+          {
+            "name": "is_active",
+            "data_type": "boolean",
+            "format": "bool",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "true"
+          },
+          {
+            "name": "is_purchasable",
+            "data_type": "boolean",
+            "format": "bool",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "false"
+          },
+          {
+            "name": "is_bestseller",
+            "data_type": "boolean",
+            "format": "bool",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "false"
+          },
+          {
+            "name": "is_new_arrival",
+            "data_type": "boolean",
+            "format": "bool",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "false"
+          },
+          {
+            "name": "created_at",
+            "data_type": "timestamp with time zone",
+            "format": "timestamptz",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "now()"
+          },
+          {
+            "name": "updated_at",
+            "data_type": "timestamp with time zone",
+            "format": "timestamptz",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "now()"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_key_constraints": [
+          {
+            "name": "products_category_id_fkey",
+            "source_table": "public.products",
+            "source_columns": [
+              "category_id"
+            ],
+            "target_table": "public.categories",
+            "target_columns": [
+              "id"
+            ]
+          },
+          {
+            "name": "products_brand_id_fkey",
+            "source_table": "public.products",
+            "source_columns": [
+              "brand_id"
+            ],
+            "target_table": "public.brands",
+            "target_columns": [
+              "id"
+            ]
+          },
+          {
+            "name": "product_images_product_id_fkey",
+            "source_table": "public.product_images",
+            "source_columns": [
+              "product_id"
+            ],
+            "target_table": "public.products",
+            "target_columns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "public.product_images",
+        "rls_enabled": true,
+        "rows": 0,
+        "columns": [
+          {
+            "name": "id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "identity",
+              "updatable"
+            ],
+            "identity_generation": "BY DEFAULT"
+          },
+          {
+            "name": "product_id",
+            "data_type": "bigint",
+            "format": "int8",
+            "options": [
+              "updatable"
+            ]
+          },
+          {
+            "name": "storage_path",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable"
+            ],
+            "check": "length(TRIM(BOTH FROM storage_path)) > 0"
+          },
+          {
+            "name": "alt_text",
+            "data_type": "text",
+            "format": "text",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "''::text"
+          },
+          {
+            "name": "display_order",
+            "data_type": "integer",
+            "format": "int4",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "0",
+            "check": "display_order >= 0"
+          },
+          {
+            "name": "is_primary",
+            "data_type": "boolean",
+            "format": "bool",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "false"
+          },
+          {
+            "name": "created_at",
+            "data_type": "timestamp with time zone",
+            "format": "timestamptz",
+            "options": [
+              "updatable"
+            ],
+            "default_value": "now()"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_key_constraints": [
+          {
+            "name": "product_images_product_id_fkey",
+            "source_table": "public.product_images",
+            "source_columns": [
+              "product_id"
+            ],
+            "target_table": "public.products",
+            "target_columns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "migrations": {
+    "migrations": [
+      {
+        "version": "20261008124517",
+        "name": "create_selcore_catalog_phase1"
+      }
+    ]
+  }
+}

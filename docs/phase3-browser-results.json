@@ -1,0 +1,7 @@
+{
+  "passed": 485,
+  "failed": [],
+  "total": 485,
+  "externalAssets": "Supabase API responses and Storage bytes refreshed live before launch, replayed through an isolated proxy. Other remote assets/AOS offline; motion uses controlled frames.",
+  "browser": "msedge.exe"
+}
