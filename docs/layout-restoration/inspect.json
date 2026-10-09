@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-09T10:10:27.399Z",
+  "reference": "830aaff",
+  "records": [
+    {
+      "source": "after",
+      "page": "index.html",
+      "width": 320,
+      "state": "guest",
+      "screenshot": "after/index-320-guest.png",
+      "overview": "after/index-320-guest-overview.png",
+      "url": "/after/index.html",
+      "scrollWidth": 305,
+      "height": 9848,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 144,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 8018.96875,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 52,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo aos-init aos-animate",
+          "x": 16,
+          "y": 52,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "burgerMenu",
+          "x": -335.5,
+          "y": 0,
+          "width": 262.390625,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "82px 24px 30px",
+          "background": "rgba(0, 0, 0, 0.757)"
+        },
+        {
+          "name": "nav2",
+          "x": 140.1875,
+          "y": 12,
+          "width": 79.921875,
+          "height": 120,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "6px",
+          "background": "rgba(200, 207, 210, 0.063)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 146.1875,
+          "y": 36,
+          "width": 32,
+          "height": 17,
+          "display": "inline",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "favLink",
+          "x": 146.1875,
+          "y": 72,
+          "width": 32,
+          "height": 17,
+          "display": "inline",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "favContainer",
+          "x": 0,
+          "y": 1000,
+          "width": 305,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "70px 0px 0px",
+          "background": "rgb(2, 2, 31)"
+        },
+        {
+          "name": "cartLink",
+          "x": 146.1875,
+          "y": 108,
+          "width": 32,
+          "height": 17,
+          "display": "inline",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "burger",
+          "x": 268.109375,
+          "y": 59,
+          "width": 20.890625,
+          "height": 26,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_fc882197bd334c85830164a55b84ba4c~mv2.png%2Fv1%2Ffill%2Fw_223%2Ch_346%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/2/bf1f10d3899bec935b58df7024fd0058ab0f825ece248072c4d5726da1bf6093.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/4/b2fadee963d549988ea1139c029268fa2549f3fbcf528d470d6b48faa28fb560.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/6/a2f5f8875785dd58f1651cf82ac2f0a27e55ae46f4ac1e61609ea6de1de01d9b.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_569e5eba408b4873b49a83223f063415~mv2.jpg%2Fv1%2Ffill%2Fw_585%2Ch_591%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Ftablet1%25201.jpg",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_4a2ba00a21384bb78225957a14bba68b~mv2.jpg%2Fv1%2Ffill%2Fw_585%2Ch_591%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2FMask%2520group-2.jpg",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_8ec85d86d84c42ed85787d67680c6ae2~mv2.jpg%2Fv1%2Ffill%2Fw_585%2Ch_591%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2FRectangle%2520179.jpg",
+          "loaded": true
+        },
+        {
+          "src": "./images/apple-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "./images/dell-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "./images/hp-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "./images/jbl-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "./images/samsung-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "./images/xiaomi-Photoroom.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png%2Fv1%2Ffill%2Fw_48%2Ch_48%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Fc837a6_fdccd53f6f284f0eb2e3654b71758bdf~mv2.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png%2Fv1%2Ffill%2Fw_48%2Ch_48%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Fc837a6_51c5b1a519c04a4eb7b58cd25d6a47d7~mv2.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cfc98c3fd1c44969a965cca177986771~mv2.png%2Fv1%2Ffill%2Fw_48%2Ch_48%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Fc837a6_cfc98c3fd1c44969a965cca177986771~mv2.png",
+          "loaded": true
+        },
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png%2Fv1%2Ffill%2Fw_48%2Ch_48%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Fc837a6_c545bd6a85d34b3c9af525167d0b1567~mv2.png",
+          "loaded": true
+        }
+      ],
+      "footer": {
+        "x": 20,
+        "y": 7918.96875,
+        "width": 265,
+        "height": 1828.953125,
+        "display": "grid",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "exceptions": []
+    }
+  ],
+  "assetErrors": [],
+  "notes": "Isolated real Edge with local Auth fixtures. Public catalogue/images preflight read-only. Both versions replay the same cached external assets. Overview captures preserve viewport layout and scale only the screenshot."
+}

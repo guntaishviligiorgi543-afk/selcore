@@ -1,0 +1,386 @@
+{
+  "date": "2026-10-08T18:17:55.952Z",
+  "runtime": "PostgreSQL 18.3 (PGlite 0.5.8) on wasm32-unknown-emscripten, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.74 (1092ec30a3fb1d46b1782ff1b4db5094d3d06ae5), 32-bit",
+  "productionDatabase": "Not modified; read-only audit only",
+  "limitations": "In-memory PostgreSQL 18.3 with minimal Auth fixtures; production is 17.11. Not a live GoTrue/PostgREST/email/OAuth integration test.",
+  "passed": 94,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Exact migration executes as postgres owner",
+      "passed": true
+    },
+    {
+      "name": "Migration executes and backfills every existing Auth user",
+      "passed": true
+    },
+    {
+      "name": "Profiles RLS enabled",
+      "passed": true
+    },
+    {
+      "name": "Existing names trimmed without overwriting Auth",
+      "passed": true
+    },
+    {
+      "name": "Nullable Auth creation date backfills safely",
+      "passed": true
+    },
+    {
+      "name": "Profile FK uses UUID Auth ID with delete cascade",
+      "passed": true
+    },
+    {
+      "name": "All private functions use postgres ownership and empty search_path",
+      "passed": true
+    },
+    {
+      "name": "Only verification/new-profile helpers are SECURITY DEFINER",
+      "passed": true
+    },
+    {
+      "name": "Verified owner SELECT",
+      "passed": true
+    },
+    {
+      "name": "Foreign profile SELECT returns no rows",
+      "passed": true
+    },
+    {
+      "name": "Owner UPDATE permitted fields",
+      "passed": true
+    },
+    {
+      "name": "Foreign UPDATE affects zero rows",
+      "passed": true
+    },
+    {
+      "name": "ID UPDATE denied by column grants",
+      "passed": true
+    },
+    {
+      "name": "created_at UPDATE denied",
+      "passed": true
+    },
+    {
+      "name": "updated_at UPDATE denied",
+      "passed": true
+    },
+    {
+      "name": "Customer DELETE denied",
+      "passed": true
+    },
+    {
+      "name": "Customer TRUNCATE denied",
+      "passed": true
+    },
+    {
+      "name": "Foreign INSERT denied by RLS",
+      "passed": true
+    },
+    {
+      "name": "Customer cannot INSERT trusted timestamps",
+      "passed": true
+    },
+    {
+      "name": "Customer cannot call metadata helper",
+      "passed": true
+    },
+    {
+      "name": "Customer cannot call signup helper",
+      "passed": true
+    },
+    {
+      "name": "Customer cannot call timestamp helper",
+      "passed": true
+    },
+    {
+      "name": "Verification helper exposes only own verification boolean",
+      "passed": true
+    },
+    {
+      "name": "Blank names rejected",
+      "passed": true
+    },
+    {
+      "name": "Missing-profile owner INSERT fallback succeeds",
+      "passed": true
+    },
+    {
+      "name": "Duplicate fallback fails with unique violation",
+      "passed": true
+    },
+    {
+      "name": "One-character name rejected",
+      "passed": true
+    },
+    {
+      "name": "Oversized name rejected",
+      "passed": true
+    },
+    {
+      "name": "Insecure avatar URL rejected",
+      "passed": true
+    },
+    {
+      "name": "Empty HTTPS avatar host rejected",
+      "passed": true
+    },
+    {
+      "name": "OAuth verified owner SELECT",
+      "passed": true
+    },
+    {
+      "name": "Unverified SELECT denied even with forged metadata flag",
+      "passed": true
+    },
+    {
+      "name": "Unverified UPDATE denied",
+      "passed": true
+    },
+    {
+      "name": "Unverified INSERT denied",
+      "passed": true
+    },
+    {
+      "name": "Supabase anonymous Auth user denied",
+      "passed": true
+    },
+    {
+      "name": "Anonymous SELECT denied",
+      "passed": true
+    },
+    {
+      "name": "Anonymous INSERT denied",
+      "passed": true
+    },
+    {
+      "name": "Anonymous UPDATE denied",
+      "passed": true
+    },
+    {
+      "name": "Anonymous DELETE denied",
+      "passed": true
+    },
+    {
+      "name": "Anonymous cannot call verification helper",
+      "passed": true
+    },
+    {
+      "name": "Email confirmation grants existing owner access without profile resync",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 1",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 2",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 3",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 4",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 5",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 6",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 7",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 8",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 9",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 10",
+      "passed": true
+    },
+    {
+      "name": "Signup trigger safely handles metadata case 11",
+      "passed": true
+    },
+    {
+      "name": "Duplicate trigger preserves existing customer profile",
+      "passed": true
+    },
+    {
+      "name": "Reapplying migration fails explicitly",
+      "passed": true
+    },
+    {
+      "name": "Failed reapplication preserves profile",
+      "passed": true
+    },
+    {
+      "name": "Catalogue rows/schema/policies/grants and Storage remain unchanged",
+      "passed": true
+    },
+    {
+      "name": "Auth deletion cascades only associated profile",
+      "passed": true
+    },
+    {
+      "name": "Supplemental owner is NOSUPERUSER with BYPASSRLS",
+      "passed": true
+    },
+    {
+      "name": "Supplemental non-superuser migration enables RLS",
+      "passed": true
+    },
+    {
+      "name": "Auth-provider signup works with non-superuser definer owner",
+      "passed": true
+    },
+    {
+      "name": "Incompatible existing schema fails explicitly",
+      "passed": true
+    },
+    {
+      "name": "Incompatible-schema failure preserves existing data",
+      "passed": true
+    },
+    {
+      "name": "Incompatible existing schema fails explicitly",
+      "passed": true
+    },
+    {
+      "name": "Incompatible-schema failure preserves existing data",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend missing-profile normalization agrees with SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback inserts only authenticated ID/name",
+      "passed": true
+    },
+    {
+      "name": "Frontend fallback preserves authenticated UUID",
+      "passed": true
+    },
+    {
+      "name": "Frontend accepts 100 Unicode characters matching SQL",
+      "passed": true
+    },
+    {
+      "name": "Frontend updates only full_name",
+      "passed": true
+    },
+    {
+      "name": "Frontend rejects over-100 Unicode characters",
+      "passed": true
+    }
+  ]
+}

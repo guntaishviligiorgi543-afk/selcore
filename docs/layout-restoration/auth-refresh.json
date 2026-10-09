@@ -1,0 +1,1108 @@
+{
+  "date": "2026-10-09T10:07:35.698Z",
+  "reference": "830aaff",
+  "records": [
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "signup",
+      "screenshot": "after/user-1440-signup.png",
+      "overview": "after/user-1440-signup-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1440,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 140,
+          "y": 0,
+          "width": 1266.65625,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 140,
+          "y": 0,
+          "width": 316.65625,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "40px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 187.828125,
+          "y": 538.5,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signUpForm",
+          "x": 456.65625,
+          "y": 0,
+          "width": 950,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "signin",
+      "screenshot": "after/user-1440-signin.png",
+      "overview": "after/user-1440-signin-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1440,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 140,
+          "y": 0,
+          "width": 1266.65625,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 140,
+          "y": 0,
+          "width": 316.65625,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "40px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 187.828125,
+          "y": 538.5,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signInForm",
+          "x": 456.65625,
+          "y": 0,
+          "width": 950,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1024,
+      "state": "signup",
+      "screenshot": "after/user-1024-signup.png",
+      "overview": "after/user-1024-signup-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1024,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "40px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 40,
+          "y": 538.5,
+          "width": 175,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signUpForm",
+          "x": 256,
+          "y": 0,
+          "width": 768,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1024,
+      "state": "signin",
+      "screenshot": "after/user-1024-signin.png",
+      "overview": "after/user-1024-signin-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1024,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 1000,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "40px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 40,
+          "y": 538.5,
+          "width": 175,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signInForm",
+          "x": 256,
+          "y": 0,
+          "width": 768,
+          "height": 1000,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "signup",
+      "screenshot": "after/user-768-signup.png",
+      "overview": "after/user-768-signup-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 753,
+      "height": 2370,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 2370.0625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 2370.0625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 266.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signUpForm",
+          "x": 0,
+          "y": 470,
+          "width": 753,
+          "height": 1900.0625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "signin",
+      "screenshot": "after/user-768-signin.png",
+      "overview": "after/user-768-signin-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 753,
+      "height": 2163,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 2163.0625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 2163.0625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 266.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signInForm",
+          "x": 0,
+          "y": 470,
+          "width": 753,
+          "height": 1693.0625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 390,
+      "state": "signup",
+      "screenshot": "after/user-390-signup.png",
+      "overview": "after/user-390-signup-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 375,
+      "height": 1828,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1827.5625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 1827.5625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 77.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signUpForm",
+          "x": 0,
+          "y": 470,
+          "width": 375,
+          "height": 1357.5625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 390,
+      "state": "signin",
+      "screenshot": "after/user-390-signin.png",
+      "overview": "after/user-390-signin-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 375,
+      "height": 1572,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1571.5625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 1571.5625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 77.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signInForm",
+          "x": 0,
+          "y": 470,
+          "width": 375,
+          "height": 1101.5625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "signup",
+      "screenshot": "after/user-320-signup.png",
+      "overview": "after/user-320-signup-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 305,
+      "height": 1734,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 1734.015625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 1734.015625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 42.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signUpForm",
+          "x": 0,
+          "y": 470,
+          "width": 305,
+          "height": 1264.015625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "signin",
+      "screenshot": "after/user-320-signin.png",
+      "overview": "after/user-320-signin-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 305,
+      "height": 1483,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 1483.015625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "signForms",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 1483.015625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "selectform",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 470,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "90px 30px 30px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authExtras",
+          "x": 42.5,
+          "y": 303,
+          "width": 220,
+          "height": 136,
+          "display": "flex",
+          "font": "16px cursive",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "signInForm",
+          "x": 0,
+          "y": 470,
+          "width": 305,
+          "height": 1013.015625,
+          "display": "grid",
+          "font": "16px cursive",
+          "padding": "25px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__asset__?url=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2Fc837a6_cf0df60ee8ab43bc973edbce888af1db~mv2.png%2Fv1%2Ffill%2Fw_216%2Ch_338%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto%2Favivkatz_A_pair_of_wireless_earbuds_with_built-in_microphones_d_0237309c-3513-41e1-b13d-03.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    }
+  ],
+  "assetErrors": [],
+  "notes": "Isolated real Edge with local Auth fixtures. Public catalogue/images preflight read-only. Both versions replay the same cached external assets. Overview captures preserve viewport layout and scale only the screenshot."
+}

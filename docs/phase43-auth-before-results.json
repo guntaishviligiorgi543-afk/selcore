@@ -1,0 +1,11 @@
+{
+  "sdkVersion": "2.110.7",
+  "type": "Pre-fix real SDK plus application service, with mocked HTTP/Auth/REST and no production requests",
+  "passed": 45,
+  "failed": 2,
+  "failures": [
+    "Successful retry clears stale validation error",
+    "Recovery form context survives a page refresh"
+  ],
+  "note": "Both defects were corrected locally. The final suite also adds four recovery-marker and message-cleanup checks. See phase43-auth-results.json."
+}

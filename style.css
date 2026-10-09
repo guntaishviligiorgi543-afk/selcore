@@ -1318,9 +1318,17 @@ footer {
   .mainTitle h1 {
     font-size: clamp(46px, 15vw, 68px);
   }
+  .mainTitle p {
+    width: 100%;
+    max-width: 400px;
+  }
   .topDeals,
   .ourStaf {
     padding: 20px;
+    min-width: 0;
+  }
+  .ourStaf p {
+    overflow-wrap: anywhere;
   }
   .topDeals h3,
   .ourStaf h3,

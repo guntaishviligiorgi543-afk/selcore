@@ -1,0 +1,227 @@
+.authNavigation {
+  display: inline;
+  position: relative;
+}
+.authNavigation[hidden] {
+  display: none;
+}
+.authNavigation[data-standalone] {
+  position: absolute;
+  right: 30px;
+}
+.authNavigation[data-burger] {
+  right: 90px;
+}
+.authNavigation .authNavigationToggle {
+  display: inline;
+  padding: 0;
+  font: inherit;
+  line-height: inherit;
+  color: #fff;
+  cursor: pointer;
+}
+.authNavigation .authNavigationMenu {
+  position: fixed;
+  width: 200px;
+  max-width: calc(100vw - 32px);
+  padding: 8px;
+  background: #04044f;
+  border: 1px solid #ffffff26;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px #0006;
+  font:
+    14px/1.5 Arial,
+    Helvetica,
+    sans-serif;
+  color: #fff;
+  z-index: 1;
+}
+.authNavigation .authNavigationMenu[hidden] {
+  display: none;
+}
+.authNavigation .authNavigationMenu a,
+.authNavigation .authNavigationMenu button,
+.authNavigation .authNavigationMenu p {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+.authNavigation .authNavigationMenu button {
+  cursor: pointer;
+}
+.authNavigation .authNavigationMenu a:hover,
+.authNavigation .authNavigationMenu button:hover {
+  background: #6c3cff;
+}
+.authNavigation .authNavigationMenu :focus-visible,
+.authNavigation .authNavigationToggle:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
+.accountDashboard,
+.accountFlow {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 110px 24px 40px;
+  width: min(1100px, 100%);
+  margin: auto;
+}
+.accountPage > header {
+  top: 0;
+}
+.accountPage .featureStatus:empty {
+  display: none;
+}
+.userSec2 .signInForm form > p:not(.featureStatus) {
+  color: #fff;
+  font:
+    14px/1.5 Arial,
+    Helvetica,
+    sans-serif;
+  margin: 12px 0;
+}
+.accountDashboard[hidden],
+.accountFlow[hidden] {
+  display: none;
+}
+.authInitializing .userHeroSec,
+.authInitializing .userSec2 {
+  visibility: hidden;
+}
+.accountDashboard h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  margin-bottom: 24px;
+}
+.accountDashboard section {
+  min-height: 0;
+  padding: 24px;
+  background: #16102c;
+  border: 1px solid #593494;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.accountDashboard h2,
+.accountFlow h2 {
+  margin-bottom: 18px;
+}
+.accountDashboard p,
+.accountFlow p {
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+.accountDashboard label,
+.accountFlow label {
+  display: block;
+  margin: 12px 0 6px;
+}
+.accountDashboard input,
+.accountFlow input {
+  width: 100%;
+  max-width: 520px;
+  color: #fff;
+  background: #251a40;
+  border: 1px solid #765499;
+  padding: 12px;
+  border-radius: 6px;
+}
+.accountDashboard button,
+.accountFlow button,
+.authExtras button {
+  color: #fff;
+  background: #5b21b6;
+  padding: 12px 18px;
+  margin: 10px 8px 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.authExtras {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 220px;
+  max-width: 100%;
+}
+.authExtras button {
+  width: 100%;
+  margin: 0;
+  font:
+    14px Arial,
+    Helvetica,
+    sans-serif;
+  background: linear-gradient(135deg, #9333ea, #6d28d9);
+}
+.accountDashboard button:disabled,
+.accountFlow button:disabled,
+.authExtras button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.accountProduct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin: 14px 0;
+  padding: 12px;
+  border-bottom: 1px solid #593494;
+}
+.accountProduct img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.accountProduct a {
+  color: #fff;
+  overflow-wrap: anywhere;
+  flex: 1;
+  min-width: 100px;
+}
+#authStateStatus {
+  position: relative;
+  margin: 85px 20px 0;
+  color: #fff;
+  font:
+    14px/1.5 Arial,
+    sans-serif;
+}
+#authStateStatus:empty {
+  display: none;
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .userSec2 .signForms {
+    transform: none;
+    width: 100%;
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 3fr);
+  }
+  .userSec2 .signUpForm,
+  .userSec2 .signInForm {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .accountPage .userSec2 .selectform {
+    padding-top: 90px;
+  }
+}
+@media (max-width: 768px) {
+  .authNavigation[data-standalone] {
+    right: 20px;
+  }
+  .authNavigation[data-burger] {
+    right: 70px;
+  }
+  .accountDashboard,
+  .accountFlow {
+    padding: 100px 14px 24px;
+  }
+  .accountDashboard section {
+    padding: 16px;
+  }
+}

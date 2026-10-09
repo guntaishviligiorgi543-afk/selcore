@@ -114,6 +114,7 @@ async function browserTests() {
     w = frame.contentWindow;
     d = frame.contentDocument;
     await w.Selcore.ready;
+    await w.SelcoreAuth?.ready;
     await new Promise((resolve) => setTimeout(resolve, 20));
     await Promise.all(
       [...d.images]
@@ -180,6 +181,11 @@ async function browserTests() {
       "contact.html",
     ]) {
       await load(page);
+      equal(
+        w.getComputedStyle(q(".authNavigation")).display,
+        q(".authNavigation").hidden ? "none" : "inline",
+        page + ": compact Auth navigation preserves the original header",
+      );
       const burger = q("#burger"),
         menu = q(".burgerMenu");
       if (burger && menu) {
@@ -189,6 +195,41 @@ async function browserTests() {
         check(!menu.classList.contains("active"), page + ": burger closes");
       }
     }
+  });
+  await suite("restored account menu", async () => {
+    await load("index.html");
+    const toggle = q(".authNavigationToggle"),
+      menu = q(".authNavigationMenu"),
+      headerHeight = q("header").getBoundingClientRect().height;
+    check(menu.hidden, "layout: account actions start collapsed");
+    equal(
+      toggle.querySelector("svg").getBoundingClientRect().width,
+      32,
+      "layout: original account icon dimensions preserved",
+    );
+    click(".authNavigationToggle");
+    check(
+      !menu.hidden && toggle.getAttribute("aria-expanded") === "true",
+      "layout: account icon exposes guest actions",
+    );
+    equal(
+      q("header").getBoundingClientRect().height,
+      headerHeight,
+      "layout: account menu does not resize header",
+    );
+    d.dispatchEvent(
+      new w.KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+    );
+    check(
+      menu.hidden && d.activeElement === toggle,
+      "layout: Escape closes account menu and restores focus",
+    );
+    click(".authNavigationToggle");
+    d.body.click();
+    check(menu.hidden, "layout: outside click closes account menu");
+    click(".authNavigationToggle");
+    w.dispatchEvent(new w.Event("resize"));
+    check(menu.hidden, "layout: resize closes account menu");
   });
   await suite("homepage", async () => {
     reset();
@@ -625,8 +666,8 @@ async function browserTests() {
       );
       equal(form.method, "post", "account: safe method fallback " + selector);
       check(
-        form.textContent.includes("credentials have not been sent"),
-        "account: honest message " + selector,
+        form.textContent.includes("Please wait"),
+        "account: authentication loading message " + selector,
       );
       check(
         form.lastElementChild.matches('button[type="submit"]'),
@@ -643,6 +684,9 @@ async function browserTests() {
         "rgb(255, 255, 255)",
         "account: status text readable " + selector,
       );
+      while (form.hasAttribute("aria-busy"))
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      if (selector === "#signinForm") await w.SelcoreAuth.logout();
     }
     equal(w.location.search, "", "account: no credentials in URL");
     clean("account");
@@ -1035,6 +1079,435 @@ async function browserTests() {
     reset();
   });
   const requests = await (await fetch("/__requests__")).json();
+  await suite("Phase 4 authentication", async () => {
+    reset();
+    localStorage.removeItem("selcore-test-session");
+    const wait = async (test) => {
+      for (let n = 0; n < 200; n++) {
+        if (test()) return;
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      throw new Error("Auth UI did not settle");
+    };
+    const submit = (selector) =>
+      q(selector).dispatchEvent(
+        new w.Event("submit", { bubbles: true, cancelable: true }),
+      );
+    const reject = async (fn, name) => {
+      let rejected = false;
+      try {
+        await fn();
+      } catch {
+        rejected = true;
+      }
+      check(rejected, name);
+    };
+    await load("user.html?view=account");
+    check(
+      w.location.search === "?view=signin",
+      "auth: protected account redirects to sign in",
+    );
+    check(q("#accountDashboard").hidden, "auth: guest dashboard hidden");
+    equal(
+      [...q(".authNavigation").querySelectorAll("a")].map((a) => a.textContent),
+      ["Sign In", "Sign Up"],
+      "auth: guest header actions",
+    );
+    const registration = {
+      name: "სახელი გვარი",
+      email: "customer@example.invalid",
+      password: "SafeTest123",
+      confirm: "SafeTest123",
+    };
+    await reject(
+      () => w.SelcoreAuth.register({ ...registration, email: "broken" }),
+      "auth: invalid email rejected",
+    );
+    await reject(
+      () =>
+        w.SelcoreAuth.register({
+          ...registration,
+          password: "short",
+          confirm: "short",
+        }),
+      "auth: weak password rejected",
+    );
+    await reject(
+      () => w.SelcoreAuth.register({ ...registration, confirm: "Different" }),
+      "auth: password mismatch rejected",
+    );
+    equal(
+      w.__authFixture.calls.signUp || 0,
+      0,
+      "auth: invalid registration makes no SDK request",
+    );
+    click(".signUp");
+    input("#signupName", registration.name);
+    input("#signupEmail", registration.email);
+    input("#signupPassword", registration.password);
+    input("#confirmPassword", registration.confirm);
+    checked("#terms", true);
+    check(q("#signupForm").checkValidity(), "auth: Unicode full name accepted");
+    submit("#signupForm");
+    submit("#signupForm");
+    check(
+      q('#signupForm button[type="submit"]').disabled,
+      "auth: registration loading blocks duplicate submissions",
+    );
+    await wait(() => !q("#signupForm").hasAttribute("aria-busy"));
+    equal(
+      w.__authFixture.calls.signUp,
+      1,
+      "auth: duplicate registration prevented",
+    );
+    check(
+      q("#signupForm").textContent.includes("check your email"),
+      "auth: verification confirmation",
+    );
+    equal(
+      q("#signupPassword").value,
+      "",
+      "auth: password cleared after request",
+    );
+    const generic = await w.SelcoreAuth.register({
+      ...registration,
+      email: "existing@example.invalid",
+    });
+    check(
+      generic.includes("If this address"),
+      "auth: existing account response avoids enumeration",
+    );
+    click("#showResend");
+    input("#actionEmail", registration.email);
+    submit("#emailActionForm");
+    await wait(() => !q("#emailActionForm").hasAttribute("aria-busy"));
+    equal(w.__authFixture.calls.resend, 1, "auth: resend verification request");
+    check(
+      q('#emailActionForm button[type="submit"]').disabled,
+      "auth: resend cooldown visible",
+    );
+    submit("#emailActionForm");
+    await wait(() => !q("#emailActionForm").hasAttribute("aria-busy"));
+    equal(
+      w.__authFixture.calls.resend,
+      1,
+      "auth: cooldown rejects repeated requests",
+    );
+    await load("user.html?view=signin");
+    click("#showResend");
+    check(
+      q('#emailActionForm button[type="submit"]').disabled,
+      "auth: cooldown survives refresh",
+    );
+    await reject(
+      () => w.SelcoreAuth.login(registration.email, "Incorrect123"),
+      "auth: incorrect password rejected",
+    );
+    await reject(
+      () =>
+        w.SelcoreAuth.login(
+          "unverified@example.invalid",
+          registration.password,
+        ),
+      "auth: unverified email cannot sign in",
+    );
+    await reject(
+      () => w.SelcoreAuth.getProfile(),
+      "auth: guest profile access rejected",
+    );
+    await reject(
+      () => w.SelcoreAuth.updatePassword("NewSafe123", "NewSafe123"),
+      "auth: guest password update rejected",
+    );
+    localStorage.setItem("cart", JSON.stringify([{ id: 1, quantity: 2 }]));
+    localStorage.setItem("favorites", JSON.stringify([{ id: 2 }]));
+    await load("user.html?view=signin");
+    input("#signinEmail", registration.email);
+    input("#signinPassword", registration.password);
+    submit("#signinForm");
+    await wait(
+      () =>
+        !q("#accountDashboard").hidden && !q("#profileForm button").disabled,
+    );
+    check(
+      w.SelcoreAuth.snapshot().user.email === registration.email,
+      "auth: valid login",
+    );
+    check(
+      q(".authNavigation").textContent.includes("My Account") &&
+        q(".authNavigation").textContent.includes("Logout"),
+      "auth: signed-in header",
+    );
+    equal(w.Selcore.getCart(), [], "auth: guest cart not silently merged");
+    equal(
+      w.Selcore.getFavorites(),
+      [],
+      "auth: guest favorites not silently merged",
+    );
+    check(
+      q("#accountEmail").textContent === registration.email,
+      "auth: account email from validated user",
+    );
+    check(
+      q("#accountCreated").textContent.includes("Registered"),
+      "auth: registration date",
+    );
+    equal(
+      w.__authFixture.lastProfileFilter.value,
+      w.SelcoreAuth.snapshot().user.id,
+      "auth: profile query filters current owner",
+    );
+    input(
+      "#profileName",
+      '<img src=x onerror="window.__profileInjected=true">',
+    );
+    submit("#profileForm");
+    await wait(() => !q("#profileForm").hasAttribute("aria-busy"));
+    check(
+      q("#accountWelcome").textContent.includes("<img"),
+      "auth: profile name rendered as text",
+    );
+    check(!w.__profileInjected, "auth: profile text cannot execute");
+    const other = "22222222-2222-4222-8222-222222222222";
+    const denied = await w.SelcoreSupabase.from("profiles")
+      .select("id")
+      .eq("id", other)
+      .single();
+    check(
+      Boolean(denied.error),
+      "auth mock: different profile denied (not production RLS proof)",
+    );
+    w.Selcore.toggleCart(3);
+    w.Selcore.toggleFavorite(4);
+    equal(
+      w.Selcore.getCart().map((x) => x.id),
+      [3],
+      "auth: account cart works",
+    );
+    equal(
+      w.Selcore.getFavorites().map((x) => x.id),
+      [4],
+      "auth: account favorites work",
+    );
+    check(
+      q("#accountCart .accountProduct") !== null &&
+        q("#accountFavorites .accountProduct") !== null,
+      "auth: dashboard renders saved products",
+    );
+    const owner = w.SelcoreAuth.snapshot().user.id;
+    equal(
+      JSON.parse(localStorage.getItem("selcore:user:" + owner + ":cart")),
+      [{ id: 3, quantity: 1 }],
+      "auth: account storage contains references only",
+    );
+    await load("user.html?view=account");
+    await wait(() => !q("#accountDashboard").hidden);
+    check(
+      Boolean(w.SelcoreAuth.snapshot().user),
+      "auth: session restored after refresh",
+    );
+    equal(
+      w.Selcore.getCart().map((x) => x.id),
+      [3],
+      "auth: account cart restored",
+    );
+    input("#newPassword", "NewSafe123");
+    input("#newPasswordConfirm", "NewSafe123");
+    submit("#changePasswordForm");
+    await wait(() => !q("#changePasswordForm").hasAttribute("aria-busy"));
+    check(
+      q("#changePasswordForm").textContent.includes("updated"),
+      "auth: change password",
+    );
+    await w.SelcoreAuth.logout();
+    equal(
+      w.Selcore.getCart().map((x) => x.id),
+      [1],
+      "auth: logout restores guest cart",
+    );
+    equal(
+      w.Selcore.getFavorites().map((x) => x.id),
+      [2],
+      "auth: logout restores guest favorites",
+    );
+    check(q("#accountDashboard").hidden, "auth: logout hides dashboard");
+    await w.SelcoreAuth.login("second@example.invalid", registration.password);
+    equal(
+      w.Selcore.getCart(),
+      [],
+      "auth: second account cannot see first account cart",
+    );
+    equal(
+      w.Selcore.getFavorites(),
+      [],
+      "auth: second account cannot see first account favorites",
+    );
+    await w.SelcoreAuth.logout();
+    await load("user.html?view=signin");
+    click("#showForgot");
+    input("#actionEmail", registration.email);
+    submit("#emailActionForm");
+    await wait(() => !q("#emailActionForm").hasAttribute("aria-busy"));
+    equal(w.__authFixture.calls.recovery, 1, "auth: password recovery request");
+    check(
+      q("#emailActionForm").textContent.includes("If an account"),
+      "auth: recovery avoids account enumeration",
+    );
+    await load("user.html?code=expired");
+    check(
+      q("#authStateStatus").textContent.includes("invalid or expired"),
+      "auth: expired link handled",
+    );
+    check(
+      !w.location.search.includes("code"),
+      "auth: callback code scrubbed from URL",
+    );
+    await load("user.html?code=verification");
+    check(
+      Boolean(w.SelcoreAuth.snapshot().user),
+      "auth mock: verification callback",
+    );
+    check(
+      !w.SelcoreAuth.snapshot().recovery,
+      "auth: verification cannot grant recovery flow",
+    );
+    await w.SelcoreAuth.logout();
+    await load("user.html?code=recovery");
+    check(
+      !q("#recoveryPanel").hidden,
+      "auth mock: recovery callback shows password form",
+    );
+    await load("user.html");
+    check(
+      !q("#recoveryPanel").hidden && w.SelcoreAuth.snapshot().recovery,
+      "auth: recovery form survives refresh with a verified session",
+    );
+    input("#recoveryPassword", "NewSafe123");
+    input("#recoveryConfirm", "NewSafe123");
+    submit("#recoveryPasswordForm");
+    await wait(() => !q("#recoveryPasswordForm").hasAttribute("aria-busy"));
+    check(
+      !w.SelcoreAuth.snapshot().recovery,
+      "auth: recovery completes after password update",
+    );
+    await w.SelcoreAuth.logout();
+    await load("user.html?error=access_denied&error_description=private");
+    check(
+      q("#authStateStatus").textContent.includes("invalid or expired"),
+      "auth: callback error safe",
+    );
+    check(
+      !w.location.search.includes("private"),
+      "auth: callback error details scrubbed",
+    );
+    await load("user.html?view=signin#access_token=untrusted");
+    check(
+      !w.SelcoreAuth.snapshot().user,
+      "auth: arbitrary fragment cannot sign in",
+    );
+    equal(w.location.hash, "", "auth: unsupported fragment scrubbed");
+    await load("user.html?token_hash=untrusted&type=recovery");
+    check(
+      q("#authStateStatus").textContent.includes("invalid or expired"),
+      "auth: unsupported token callback fails closed",
+    );
+    equal(w.location.search, "", "auth: unsupported token parameters scrubbed");
+    await load("user.html?view=signin");
+    click(".googleSignIn");
+    await wait(() => !q(".googleSignIn").disabled);
+    check(
+      q("#authStateStatus").textContent.includes("not configured"),
+      "auth: disabled Google provider reported",
+    );
+    await fetch("/__mode__?value=google");
+    await load("user.html?view=signin");
+    await w.SelcoreAuth.google();
+    equal(
+      w.__authFixture.calls.google,
+      1,
+      "auth mock: enabled Google initiates SDK flow",
+    );
+    await load("user.html?code=google");
+    check(
+      Boolean(w.SelcoreAuth.snapshot().user),
+      "auth mock: OAuth callback restores session",
+    );
+    await w.SelcoreAuth.logout();
+    await fetch("/__mode__?value=normal");
+    await load("user.html?view=signin");
+    await w.SelcoreAuth.login(registration.email, registration.password);
+    w.__authFixture.profileMissing = true;
+    w.__authFixture.dropProfile();
+    const created = await w.SelcoreAuth.getProfile();
+    equal(
+      w.__authFixture.calls.profileInsert,
+      1,
+      "auth mock: missing profile inserts once",
+    );
+    equal(
+      created.id,
+      w.SelcoreAuth.snapshot().user.id,
+      "auth mock: existing user without profile initialized",
+    );
+    w.__authFixture.profileDenied = true;
+    await reject(
+      () => w.SelcoreAuth.getProfile(),
+      "auth: unavailable profile fails safely",
+    );
+    await w.SelcoreAuth.logout();
+    frame.width = "390";
+    await load("user.html?view=signin");
+    await w.SelcoreAuth.login(registration.email, registration.password);
+    await wait(() => !q("#accountDashboard").hidden);
+    check(
+      d.documentElement.scrollWidth <= 410,
+      "auth: mobile dashboard fits viewport",
+    );
+    check(
+      q(".authNavigation").textContent.includes("Logout"),
+      "auth: mobile navigation reflects session",
+    );
+    w.__authFixture.userError = true;
+    w.dispatchEvent(new w.PageTransitionEvent("pageshow", { persisted: true }));
+    check(
+      q("#accountDashboard").hidden,
+      "auth: browser history restore hides cached account immediately",
+    );
+    await wait(() => w.SelcoreAuth.snapshot().status === "error");
+    equal(
+      w.Selcore.getCart(),
+      [],
+      "auth: unverified session cannot expose cached cart",
+    );
+    check(
+      q(".authNavigation").textContent.includes("Retry"),
+      "auth: session validation failure offers retry",
+    );
+    w.__authFixture.userError = false;
+    await w.SelcoreAuth.refresh();
+    check(
+      Boolean(w.SelcoreAuth.snapshot().user),
+      "auth: validation retry restores session",
+    );
+    check(
+      !q("#authStateStatus").textContent.includes("could not be verified"),
+      "auth: successful validation retry clears obsolete error notice",
+    );
+    await w.SelcoreAuth.logout();
+    frame.width = "1400";
+    check(
+      !localStorage.getItem("cart").includes("password"),
+      "auth: cart has no credentials",
+    );
+    for (const key of Object.keys(localStorage))
+      check(
+        !String(localStorage.getItem(key)).includes("SafeTest123"),
+        "auth: password never persisted " + key,
+      );
+    clean("phase4 auth");
+    reset();
+    localStorage.removeItem("selcore-test-session");
+  });
   equal(
     requests.filter((request) => request.method !== "GET").length,
     0,
@@ -1044,6 +1517,8 @@ async function browserTests() {
     passed: results.filter((result) => result.passed).length,
     failed: results.filter((result) => !result.passed),
     total: results.length,
+    authentication:
+      "Auth and profile flows use isolated local fixtures; real Auth requests are blocked. This does not verify email delivery, Google consent, or production profile RLS.",
     externalAssets:
       "Supabase API responses and Storage bytes refreshed live before launch, replayed through an isolated proxy. Other remote assets/AOS offline; motion uses controlled frames.",
   };
@@ -1060,6 +1535,16 @@ const server = http.createServer((request, response) => {
   if (url.pathname === "/__requests__") {
     response.setHeader("Content-Type", "application/json");
     return response.end(JSON.stringify(requests));
+  }
+  if (url.pathname === "/__authsettings__") {
+    response.setHeader("Content-Type", "application/json");
+    return response.end(
+      JSON.stringify({
+        external: { email: true, google: fixtureMode === "google" },
+        disable_signup: false,
+        mailer_autoconfirm: false,
+      }),
+    );
   }
   if (url.pathname === "/__phase0_tests__") {
     response.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -1134,6 +1619,14 @@ const server = http.createServer((request, response) => {
     const instrumentation =
       '<script>(()=>{const nativeFetch=window.fetch.bind(window);window.fetch=(input,init)=>{let address=typeof input==="string"?input:input.url;if(address.startsWith("https://ffznkypurnocabqyxpps.supabase.co/rest/v1/")){window.__catalogueRequestCount=(window.__catalogueRequestCount||0)+1;address="/__supabase__"+new URL(address).pathname;}return nativeFetch(address,init);};})();window.__phase0Errors=[];window.addEventListener("error",event=>{if(event.error)window.__phase0Errors.push(event.message);});window.addEventListener("unhandledrejection",event=>window.__phase0Errors.push(String(event.reason)));(()=>{const nativeRAF=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=callback=>{window.__phase0AnimationStep=callback;return nativeRAF(callback);};})();</script>';
     html = html.replace("<head>", "<head>" + instrumentation);
+    html = html.replace(
+      "window.fetch=(input,init)=>{",
+      "window.fetch=(input,init)=>{",
+    );
+    html = html.replace(
+      'address="/__supabase__"+new URL(address).pathname;}',
+      'address="/__supabase__"+new URL(address).pathname;}else if(address.startsWith("https://ffznkypurnocabqyxpps.supabase.co/auth/v1/")){if(!address.endsWith("/settings"))throw new Error("Real Auth requests forbidden by test harness");address="/__authsettings__";}',
+    );
     // Keep the suite offline and independent of the CDN's availability.
     html = html.replace(/<script src="https?:[^"]+"><\/script>/g, "");
     return response.end(html);
@@ -1141,6 +1634,8 @@ const server = http.createServer((request, response) => {
   if (target.endsWith("supabase-client.js")) {
     return response.end(
       fs.readFileSync(target, "utf8") +
+        "\n" +
+        fs.readFileSync(path.join(root, "tests/auth-fixtures.js"), "utf8") +
         '\nconst originalStorage=window.SelcoreSupabase.storage.from.bind(window.SelcoreSupabase.storage);window.SelcoreSupabase.storage.from=bucket=>{const api=originalStorage(bucket);const originalUrl=api.getPublicUrl.bind(api);api.getPublicUrl=object=>{const r=originalUrl(object);r.data.publicUrl="/__image__"+new URL(r.data.publicUrl).pathname;return r;};return api;};',
     );
   }
@@ -1219,7 +1714,7 @@ require("./live-catalogue.cjs")(root)
         console.log(JSON.stringify(report, null, 2));
         fs.mkdirSync(path.join(root, "docs"), { recursive: true });
         fs.writeFileSync(
-          path.join(root, "docs/phase3-browser-results.json"),
+          path.join(root, "docs/phase4-browser-results.json"),
           JSON.stringify(report, null, 2),
         );
         if (report.failed.length || code !== 0) process.exitCode = 1;

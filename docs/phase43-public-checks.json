@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-09T14:16:58.535Z",
+  "project": "ffznkypurnocabqyxpps",
+  "authSettings": {
+    "httpStatus": 200,
+    "emailEnabled": true,
+    "googleEnabled": false,
+    "signupDisabled": false,
+    "emailAutoConfirm": false,
+    "phoneAutoConfirm": false
+  },
+  "anonymousProfiles": {
+    "httpStatus": 401,
+    "errorCode": "42501",
+    "rowsExposed": null
+  },
+  "notes": "GET only; no emails, test users or sessions created. No secrets recorded."
+}

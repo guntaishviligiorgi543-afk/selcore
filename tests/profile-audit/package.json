@@ -1,0 +1,8 @@
+{
+  "name": "selcore-profile-migration-audit",
+  "private": true,
+  "description": "Isolated Postgres migration/RLS audit only; no frontend dependency",
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.8"
+  }
+}

@@ -276,6 +276,23 @@ h1 {
   transition: all 0.3s ease;
 }
 
+@media (min-width: 901px) and (max-width: 1100px) {
+  .checkoutSection {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .form-buy {
+    position: static;
+    padding: 0;
+    gap: 20px;
+  }
+  .addressForm {
+    transform: none;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 900px) {
   header {
     padding: 16px 20px;

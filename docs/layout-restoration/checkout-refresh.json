@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-09T10:01:00.579Z",
+  "reference": "830aaff",
+  "records": [
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 1024,
+      "state": "guest",
+      "screenshot": "after/checkout-1024-guest.png",
+      "overview": "after/checkout-1024-guest-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 1009,
+      "height": 1299,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1009,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 112,
+        "width": 1009,
+        "height": 1187.109375,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 1024,
+      "state": "account",
+      "screenshot": "after/checkout-1024-account.png",
+      "overview": "after/checkout-1024-account-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 1009,
+      "height": 1299,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1009,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 112,
+        "width": 1009,
+        "height": 1187.109375,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 887,
+          "y": 38,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    }
+  ],
+  "assetErrors": [],
+  "notes": "Isolated real Edge with local Auth fixtures. Public catalogue/images preflight read-only. Both versions replay the same cached external assets. Overview captures preserve viewport layout and scale only the screenshot."
+}

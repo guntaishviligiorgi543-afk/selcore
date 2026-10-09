@@ -20,3 +20,12 @@
 # Machine-generated verification reports
 /docs/phase3-browser-results.json
 /docs/phase3-security-results.json
+/docs/phase4-browser-results.json
+/docs/phase4-migration-test-results.json
+/docs/layout-restoration/*.json
+
+# Phase 4.3 generated verification evidence
+/docs/phase43-*-results.json
+/docs/phase43-production-audit.json
+/docs/phase43-public-checks.json
+/docs/phase43-security-checks.json

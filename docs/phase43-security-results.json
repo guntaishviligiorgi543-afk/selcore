@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-09T19:04:43.475Z",
+  "type": "Assertions on read-only captured production metadata and real anonymous REST response, plus local source integrity/secret pattern scan. Not a real authenticated customer integration test.",
+  "passed": 56,
+  "failed": 0,
+  "frontendFilesScanned": 20,
+  "credentialViolations": [],
+  "googleConfigured": false,
+  "results": [
+    {
+      "name": "Evidence is scoped exclusively to Selcore",
+      "passed": true
+    },
+    {
+      "name": "Expected production profiles migration is present once",
+      "passed": true
+    },
+    {
+      "name": "Old local profiles version was not deployed",
+      "passed": true
+    },
+    {
+      "name": "Production profiles RLS is enabled",
+      "passed": true
+    },
+    {
+      "name": "Production profiles remains owned by postgres",
+      "passed": true
+    },
+    {
+      "name": "All exposed public/Storage base tables have RLS",
+      "passed": true
+    },
+    {
+      "name": "Profile columns exclude credentials, email and roles",
+      "passed": true
+    },
+    {
+      "name": "Profile owner ID is a non-null UUID",
+      "passed": true
+    },
+    {
+      "name": "Auth user deletion cascades to the profile",
+      "passed": true
+    },
+    {
+      "name": "Only the three reviewed profile policies exist",
+      "passed": true
+    },
+    {
+      "name": "SELECT profile policy is restricted to authenticated",
+      "passed": true
+    },
+    {
+      "name": "SELECT using requires UUID ownership and server verification",
+      "passed": true
+    },
+    {
+      "name": "INSERT profile policy is restricted to authenticated",
+      "passed": true
+    },
+    {
+      "name": "INSERT check requires UUID ownership and server verification",
+      "passed": true
+    },
+    {
+      "name": "UPDATE profile policy is restricted to authenticated",
+      "passed": true
+    },
+    {
+      "name": "UPDATE using requires UUID ownership and server verification",
+      "passed": true
+    },
+    {
+      "name": "UPDATE check requires UUID ownership and server verification",
+      "passed": true
+    },
+    {
+      "name": "No guest profile table privileges",
+      "passed": true
+    },
+    {
+      "name": "Authenticated profile table-wide grant is SELECT only",
+      "passed": true
+    },
+    {
+      "name": "Profile column INSERT grants are minimal",
+      "passed": true
+    },
+    {
+      "name": "Profile column UPDATE grants are minimal",
+      "passed": true
+    },
+    {
+      "name": "Verified-email authorization uses server-owned Auth data",
+      "passed": true
+    },
+    {
+      "name": "selcore_new_profile has safe owner and empty search_path",
+      "passed": true
+    },
+    {
+      "name": "selcore_new_profile cannot be executed by anon",
+      "passed": true
+    },
+    {
+      "name": "selcore_new_profile authenticated execution is limited to verification",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_name has safe owner and empty search_path",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_name cannot be executed by anon",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_name authenticated execution is limited to verification",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_timestamp has safe owner and empty search_path",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_timestamp cannot be executed by anon",
+      "passed": true
+    },
+    {
+      "name": "selcore_profile_timestamp authenticated execution is limited to verification",
+      "passed": true
+    },
+    {
+      "name": "selcore_verified_customer has safe owner and empty search_path",
+      "passed": true
+    },
+    {
+      "name": "selcore_verified_customer cannot be executed by anon",
+      "passed": true
+    },
+    {
+      "name": "selcore_verified_customer authenticated execution is limited to verification",
+      "passed": true
+    },
+    {
+      "name": "Guest cannot use the private schema",
+      "passed": true
+    },
+    {
+      "name": "Normal signup trigger exists and is enabled",
+      "passed": true
+    },
+    {
+      "name": "Profile timestamp trigger exists and is enabled",
+      "passed": true
+    },
+    {
+      "name": "No missing or orphan profiles in the captured snapshot",
+      "passed": true
+    },
+    {
+      "name": "Production catalogue counts are unchanged",
+      "passed": true
+    },
+    {
+      "name": "anon cannot write public.categories",
+      "passed": true
+    },
+    {
+      "name": "anon cannot write public.brands",
+      "passed": true
+    },
+    {
+      "name": "anon cannot write public.products",
+      "passed": true
+    },
+    {
+      "name": "anon cannot write public.product_images",
+      "passed": true
+    },
+    {
+      "name": "authenticated cannot write public.categories",
+      "passed": true
+    },
+    {
+      "name": "authenticated cannot write public.brands",
+      "passed": true
+    },
+    {
+      "name": "authenticated cannot write public.products",
+      "passed": true
+    },
+    {
+      "name": "authenticated cannot write public.product_images",
+      "passed": true
+    },
+    {
+      "name": "Storage has no customer write policies",
+      "passed": true
+    },
+    {
+      "name": "Real anonymous REST profile read is denied",
+      "passed": true
+    },
+    {
+      "name": "Email verification is enabled in production",
+      "passed": true
+    },
+    {
+      "name": "Security Advisor has no findings",
+      "passed": true
+    },
+    {
+      "name": "Profiles draft differs from deployed snapshot only in comments/blank lines",
+      "passed": true
+    },
+    {
+      "name": "Applied catalogue history matches local SQL: 20261008124517",
+      "passed": true
+    },
+    {
+      "name": "Applied catalogue history matches local SQL: 20261008125807",
+      "passed": true
+    },
+    {
+      "name": "Targeted frontend scan found no administrative credentials",
+      "passed": true
+    },
+    {
+      "name": "Official SDK bytes remain unchanged",
+      "passed": true
+    }
+  ]
+}

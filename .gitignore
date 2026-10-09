@@ -1,2 +1,12 @@
 
 supabase/.temp/
+
+# Installed packages and machine-specific preview state
+**/node_modules/
+/docs/layout-restoration/runtime.json
+
+# Local credentials must never enter the backup
+.env
+.env.*
+!.env.example
+!.env.sample

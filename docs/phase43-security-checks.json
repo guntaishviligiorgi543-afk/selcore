@@ -1,0 +1,189 @@
+{
+  "project": "ffznkypurnocabqyxpps",
+  "date": "2026-10-09T14:47:47.721Z",
+  "type": "Read-only production catalogue metadata and permissions; no test identities or writes",
+  "security": {
+    "rls_tables": [
+      {
+        "table": "migrations",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "s3_multipart_uploads_parts",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "s3_multipart_uploads",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "buckets_vectors",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "vector_indexes",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "buckets",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "buckets_analytics",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "objects",
+        "schema": "storage",
+        "enabled": true
+      },
+      {
+        "table": "profiles",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "categories",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "brands",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "products",
+        "schema": "public",
+        "enabled": true
+      },
+      {
+        "table": "product_images",
+        "schema": "public",
+        "enabled": true
+      }
+    ],
+    "permissions": [
+      {
+        "role": "anon",
+        "table": "public.profiles",
+        "delete": false,
+        "insert": false,
+        "select": false,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "anon",
+        "table": "public.categories",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "anon",
+        "table": "public.brands",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "anon",
+        "table": "public.products",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "anon",
+        "table": "public.product_images",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "anon",
+        "table": "storage.objects",
+        "delete": true,
+        "insert": true,
+        "select": true,
+        "update": true,
+        "truncate": true
+      },
+      {
+        "role": "authenticated",
+        "table": "public.profiles",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "authenticated",
+        "table": "public.categories",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "authenticated",
+        "table": "public.brands",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "authenticated",
+        "table": "public.products",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "authenticated",
+        "table": "public.product_images",
+        "delete": false,
+        "insert": false,
+        "select": true,
+        "update": false,
+        "truncate": false
+      },
+      {
+        "role": "authenticated",
+        "table": "storage.objects",
+        "delete": true,
+        "insert": true,
+        "select": true,
+        "update": true,
+        "truncate": true
+      }
+    ],
+    "private_usage": {
+      "anon": false,
+      "authenticated": true
+    },
+    "verified_predicate_as_admin": false
+  }
+}

@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
     <title>Selcore</title>
     <link rel="icon" href="./images/favicon.png" />
     <link rel="stylesheet" href="signForm.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="account.css" />
   </head>
   <style>
     .signInForm h1,
@@ -20,7 +22,7 @@
       text-shadow: 2px 2px 5px #000;
     }
   </style>
-  <body>
+  <body class="accountPage">
     <header>
       <a class="logo" href="index.html"
         ><svg
@@ -38,7 +40,10 @@
         <span>SELCORE</span>
       </a>
     </header>
-    <main>
+    <main class="authInitializing">
+      <p id="authStateStatus" role="status" aria-live="polite">
+        Checking account &
+      </p>
       <section class="userHeroSec">
         <div>
           <h1>for more expereince join us</h1>
@@ -67,14 +72,17 @@
               </svg>
               go back
             </a>
+            <div class="authExtras">
+              <button type="button" class="googleSignIn">
+                Continue with Google
+              </button>
+              <button type="button" id="showResend">Resend verification</button>
+              <button type="button" id="showForgot">Forgot password?</button>
+            </div>
           </div>
           <div class="signUpForm">
             <h1>Selcore</h1>
-            <form
-              id="signupForm"
-              method="post"
-              data-unavailable="Account registration and sign-in are not available yet. Your credentials have not been sent."
-            >
+            <form id="signupForm" method="post">
               <h2>Create Account</h2>
 
               <div class="formlable">
@@ -85,10 +93,8 @@
                   name="fullName"
                   placeholder="Enter your full name"
                   required
-                  minlength="3"
-                  maxlength="50"
-                  pattern="[A-Za-zÀ-ÿ\s]+"
-                  title="Only letters and spaces are allowed."
+                  minlength="2"
+                  maxlength="100"
                 />
               </div>
 
@@ -114,8 +120,7 @@
                     placeholder="Create a password"
                     required
                     minlength="8"
-                    maxlength="32"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    maxlength="128"
                     autocomplete="new-password"
                   />
 
@@ -145,8 +150,7 @@
                     placeholder="Create a password"
                     required
                     minlength="8"
-                    maxlength="32"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    maxlength="128"
                     autocomplete="new-password"
                   />
 
@@ -184,11 +188,7 @@
           <div class="signInForm hidden">
             <h1>Selcore</h1>
 
-            <form
-              id="signinForm"
-              method="post"
-              data-unavailable="Account registration and sign-in are not available yet. Your credentials have not been sent."
-            >
+            <form id="signinForm" method="post">
               <h2>Sign In</h2>
 
               <div class="formlable">
@@ -212,8 +212,7 @@
                     placeholder="Create a password"
                     required
                     minlength="8"
-                    maxlength="32"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    maxlength="128"
                     autocomplete="current-password"
                   />
 
@@ -232,11 +231,7 @@
                   </button>
                 </div>
               </div>
-
-              <div class="formCheck">
-                <input type="checkbox" id="rememberMe" name="rememberMe" />
-                <label for="rememberMe">Remember Me</label>
-              </div>
+              <p>Sign out when using a shared browser.</p>
 
               <button type="submit">Sign In</button>
             </form>
@@ -250,13 +245,118 @@
           </div>
         </div>
       </section>
+
+      <section id="emailPanel" class="accountFlow" hidden>
+        <h2 id="emailPanelTitle">Password recovery</h2>
+        <form id="emailActionForm" method="post">
+          <label for="actionEmail">Email</label
+          ><input id="actionEmail" type="email" autocomplete="email" required />
+          <button type="submit">Send email</button>
+        </form>
+        <button type="button" id="backToSignin">Back to sign in</button>
+      </section>
+      <section id="recoveryPanel" class="accountFlow" hidden>
+        <h2>Choose a new password</h2>
+        <form id="recoveryPasswordForm" method="post">
+          <label for="recoveryPassword">New password</label
+          ><input
+            id="recoveryPassword"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            maxlength="128"
+            required
+          />
+          <label for="recoveryConfirm">Confirm password</label
+          ><input
+            id="recoveryConfirm"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            maxlength="128"
+            required
+          />
+          <button type="submit">Update password</button>
+        </form>
+      </section>
+      <section id="accountDashboard" class="accountDashboard" hidden>
+        <h1 id="accountWelcome">My account</h1>
+        <section>
+          <h2>Overview</h2>
+          <p id="accountEmail"></p>
+          <p id="accountCreated"></p>
+          <p id="accountProfileStatus" role="status"></p>
+          <button id="retryProfile" type="button" hidden>Retry profile</button>
+        </section>
+        <section>
+          <h2>Personal information</h2>
+          <form id="profileForm" method="post">
+            <label for="profileName">Full name</label
+            ><input id="profileName" minlength="2" maxlength="100" required />
+            <p>
+              Email is managed securely by Supabase Auth and is shown above.
+            </p>
+            <button type="submit" disabled>Save profile</button>
+          </form>
+        </section>
+        <section>
+          <h2>Security</h2>
+          <form id="changePasswordForm" method="post">
+            <label for="newPassword">New password</label
+            ><input
+              id="newPassword"
+              type="password"
+              autocomplete="new-password"
+              minlength="8"
+              maxlength="128"
+              required
+            />
+            <label for="newPasswordConfirm">Confirm password</label
+            ><input
+              id="newPasswordConfirm"
+              type="password"
+              autocomplete="new-password"
+              minlength="8"
+              maxlength="128"
+              required
+            /><button type="submit">Change password</button>
+          </form>
+          <button type="button" id="accountRecovery">
+            Send a recovery email</button
+          ><button type="button" id="accountLogout">Logout</button>
+        </section>
+        <section>
+          <h2>Favorites</h2>
+          <p>
+            Saved for this account in this browser. Guest items are kept
+            separately.
+          </p>
+          <div id="accountFavorites"></div>
+        </section>
+        <section>
+          <h2>Shopping cart</h2>
+          <p>This is a demo cart. Purchases remain unavailable.</p>
+          <div id="accountCart"></div>
+          <a href="cart.html">View cart</a>
+        </section>
+        <section>
+          <h2>Orders</h2>
+          <p>
+            Order history will be available in a future release. No orders have
+            been placed through this demo.
+          </p>
+        </section>
+      </section>
     </main>
     <script src="vendor/supabase-2.110.7.js"></script>
     <script src="supabase-client.js"></script>
+    <script src="auth-service.js"></script>
     <script src="catalogue-service.js"></script>
     <script src="store.js"></script>
+    <script src="auth-ui.js"></script>
     <script src="script.js"></script>
     <script src="user.js"></script>
+    <script src="account.js"></script>
     <script src="cart.js"></script>
     <script src="favorites.js"></script>
   </body>

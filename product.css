@@ -30,6 +30,17 @@
   }
 }
 
+@media (max-width: 360px) {
+  .productPage > .productImg,
+  .productPage > .productInfo-Btn,
+  .productPage .productBtns {
+    min-width: 0;
+  }
+  .productPage > .productInfo-Btn {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 480px) {
   .productPage {
     padding-inline: 14px;

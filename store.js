@@ -132,12 +132,29 @@ window.Selcore = (() => {
   let cart = [];
   let favorites = [];
   let removedSavedItems = false;
+  const storageKey = (key) => {
+    const account = window.SelcoreAuth?.snapshot().user;
+    return account ? `selcore:user:${account.id}:${key}` : key;
+  };
+  const canWrite = () =>
+    !window.SelcoreAuth || window.SelcoreAuth.snapshot().status === "ready";
+  function hydrateAccount() {
+    cart = [];
+    favorites = [];
+    if (canWrite() && window.SelcoreCatalogue.getStatus() === "ready") {
+      cart = normalize("cart", readArray(storageKey("cart")));
+      favorites = normalize("favorites", readArray(storageKey("favorites")));
+    }
+    notify("cart");
+    notify("favorites");
+  }
+  document.addEventListener("selcore:auth-change", hydrateAccount);
   function notify(key) {
     document.dispatchEvent(new CustomEvent(`selcore:${key}-change`));
   }
   function save(key) {
     writeStorage(
-      key,
+      storageKey(key),
       key === "cart"
         ? cart.map((item) => ({ id: item.id, quantity: item.quantity }))
         : favorites.map((item) => ({ id: item.id })),
@@ -145,6 +162,7 @@ window.Selcore = (() => {
     notify(key);
   }
   function toggleCart(id) {
+    if (!canWrite()) return false;
     const product = getProduct(id);
     if (!product) {
       console.warn("Cannot toggle cart: product ID was not found.");
@@ -157,6 +175,7 @@ window.Selcore = (() => {
     return true;
   }
   function removeCart(id) {
+    if (!canWrite()) return;
     const productId = parseId(id);
     if (productId === null || !cart.some((item) => item.id === productId))
       return;
@@ -164,6 +183,7 @@ window.Selcore = (() => {
     save("cart");
   }
   function changeQuantity(id, delta) {
+    if (!canWrite()) return;
     if (delta !== 1 && delta !== -1) return;
     const item = cart.find((product) => product.id === parseId(id));
     if (!item) return;
@@ -179,6 +199,7 @@ window.Selcore = (() => {
     save("cart");
   }
   function toggleFavorite(id) {
+    if (!canWrite()) return false;
     const product = getProduct(id);
     if (!product) {
       console.warn("Cannot toggle favorite: product ID was not found.");
@@ -191,6 +212,7 @@ window.Selcore = (() => {
     return true;
   }
   function removeFavorite(id) {
+    if (!canWrite()) return;
     const productId = parseId(id);
     if (productId === null || !favorites.some((item) => item.id === productId))
       return;
@@ -200,12 +222,13 @@ window.Selcore = (() => {
   window.addEventListener("storage", (event) => {
     if (event.storageArea && event.storageArea !== localStorage) return;
     if (window.SelcoreCatalogue.getStatus() !== "ready") return;
-    if (event.key === "cart" || event.key === null) {
-      cart = normalize("cart", readArray("cart"));
+    if (!canWrite()) return;
+    if (event.key === storageKey("cart") || event.key === null) {
+      cart = normalize("cart", readArray(storageKey("cart")));
       notify("cart");
     }
-    if (event.key === "favorites" || event.key === null) {
-      favorites = normalize("favorites", readArray("favorites"));
+    if (event.key === storageKey("favorites") || event.key === null) {
+      favorites = normalize("favorites", readArray(storageKey("favorites")));
       notify("favorites");
     }
   });
@@ -236,11 +259,12 @@ window.Selcore = (() => {
     const loading = window.SelcoreCatalogue.load();
     notify("catalogue");
     return loading
-      .then((items) => {
+      .then(async (items) => {
+        await window.SelcoreAuth?.ready;
         catalogue = items;
         productById = new Map(items.map((item) => [item.id, item]));
-        const savedCart = readArray("cart"),
-          savedFavorites = readArray("favorites");
+        const savedCart = canWrite() ? readArray(storageKey("cart")) : [],
+          savedFavorites = canWrite() ? readArray(storageKey("favorites")) : [];
         cart = normalize("cart", savedCart);
         favorites = normalize("favorites", savedFavorites);
         removedSavedItems =

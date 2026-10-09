@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-09T18:56:21.388Z",
+  "sdkVersion": "2.110.7",
+  "type": "Real SDK + application service with mocked HTTP/Auth/REST. Zero production requests; no email delivery or Google consent tested.",
+  "passed": 51,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Invalid full name rejected before signup",
+      "passed": true
+    },
+    {
+      "name": "Invalid email rejected before signup",
+      "passed": true
+    },
+    {
+      "name": "Short password rejected before signup",
+      "passed": true
+    },
+    {
+      "name": "Password mismatch rejected before signup",
+      "passed": true
+    },
+    {
+      "name": "Invalid registration causes no Auth signup request",
+      "passed": true
+    },
+    {
+      "name": "Real SDK sends normalized full_name metadata",
+      "passed": true
+    },
+    {
+      "name": "Real SDK sends credentials to signup",
+      "passed": true
+    },
+    {
+      "name": "Real SDK sends a PKCE challenge",
+      "passed": true
+    },
+    {
+      "name": "Registration targets the clean local Selcore callback",
+      "passed": true
+    },
+    {
+      "name": "Registration has no customer session before verification",
+      "passed": true
+    },
+    {
+      "name": "Registration metadata reaches the mock profile",
+      "passed": true
+    },
+    {
+      "name": "Duplicate email response is enumeration-safe: errorDuplicate",
+      "passed": true
+    },
+    {
+      "name": "Duplicate email response is enumeration-safe: obfuscatedDuplicate",
+      "passed": true
+    },
+    {
+      "name": "Registration fails closed when email confirmation is disabled",
+      "passed": true
+    },
+    {
+      "name": "Invalid confirmation settings cause no signup request",
+      "passed": true
+    },
+    {
+      "name": "Incorrect password produces safe actionable message",
+      "passed": true
+    },
+    {
+      "name": "Unverified email cannot create an app session",
+      "passed": true
+    },
+    {
+      "name": "Guest cannot load a profile",
+      "passed": true
+    },
+    {
+      "name": "Valid credentials initialize a verified app session",
+      "passed": true
+    },
+    {
+      "name": "Verified owner loads the correct name",
+      "passed": true
+    },
+    {
+      "name": "Profile update filters the current UUID and only writes full_name",
+      "passed": true
+    },
+    {
+      "name": "Session survives a new page instance",
+      "passed": true
+    },
+    {
+      "name": "Saved name survives a new page instance",
+      "passed": true
+    },
+    {
+      "name": "Mock REST denies cross-account profile exposure (not production RLS proof)",
+      "passed": true
+    },
+    {
+      "name": "Server validation failure removes app identity",
+      "passed": true
+    },
+    {
+      "name": "Validation failure supplies retry guidance",
+      "passed": true
+    },
+    {
+      "name": "Retry restores a server-verified session",
+      "passed": true
+    },
+    {
+      "name": "Successful retry clears stale validation error",
+      "passed": true
+    },
+    {
+      "name": "Logout clears the official SDK session and app identity",
+      "passed": true
+    },
+    {
+      "name": "Real SDK resends signup verification to Selcore",
+      "passed": true
+    },
+    {
+      "name": "Real SDK sends recovery with local redirect and PKCE",
+      "passed": true
+    },
+    {
+      "name": "Real SDK PKCE exchange identifies password recovery",
+      "passed": true
+    },
+    {
+      "name": "Callback code is scrubbed from the page URL",
+      "passed": true
+    },
+    {
+      "name": "Recovery form context survives a page refresh",
+      "passed": true
+    },
+    {
+      "name": "Successful password update closes recovery mode",
+      "passed": true
+    },
+    {
+      "name": "Completed recovery does not reopen after refresh",
+      "passed": true
+    },
+    {
+      "name": "Old password is rejected after recovery",
+      "passed": true
+    },
+    {
+      "name": "New password can sign in after recovery",
+      "passed": true
+    },
+    {
+      "name": "New login clears the previous signed-out notice",
+      "passed": true
+    },
+    {
+      "name": "Another account's recovery marker cannot activate recovery",
+      "passed": true
+    },
+    {
+      "name": "Mismatched recovery marker is removed",
+      "passed": true
+    },
+    {
+      "name": "Expired PKCE link has safe guidance and no session",
+      "passed": true
+    },
+    {
+      "name": "Invalid callback is scrubbed and cannot authorize a customer",
+      "passed": true
+    },
+    {
+      "name": "Email confirmation exchange restores a verified session",
+      "passed": true
+    },
+    {
+      "name": "Disabled Google provider gives email fallback guidance",
+      "passed": true
+    },
+    {
+      "name": "Real SDK builds Google authorization for the Selcore project",
+      "passed": true
+    },
+    {
+      "name": "Google redirect points to the clean local account page",
+      "passed": true
+    },
+    {
+      "name": "Google flow uses PKCE",
+      "passed": true
+    },
+    {
+      "name": "OAuth callback establishes the app session through real SDK exchange",
+      "passed": true
+    },
+    {
+      "name": "Recovery state cannot authorize a guest",
+      "passed": true
+    },
+    {
+      "name": "Logout removes tab-local recovery context",
+      "passed": true
+    }
+  ]
+}
