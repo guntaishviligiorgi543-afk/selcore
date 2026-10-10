@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-09T18:56:21.388Z",
+  "date": "2026-10-10T10:31:40.394Z",
   "sdkVersion": "2.110.7",
   "type": "Real SDK + application service with mocked HTTP/Auth/REST. Zero production requests; no email delivery or Google consent tested.",
-  "passed": 51,
+  "passed": 53,
   "failed": 0,
   "results": [
     {
@@ -78,6 +78,10 @@
       "passed": true
     },
     {
+      "name": "Login preserves password case and whitespace in the SDK request",
+      "passed": true
+    },
+    {
       "name": "Valid credentials initialize a verified app session",
       "passed": true
     },
@@ -139,6 +143,10 @@
     },
     {
       "name": "Recovery form context survives a page refresh",
+      "passed": true
+    },
+    {
+      "name": "Password reset preserves case and whitespace in the SDK request",
       "passed": true
     },
     {
