@@ -80,6 +80,31 @@
 .accountPage input[autocomplete="new-password"] {
   text-transform: none;
 }
+.selcoreOtp fieldset {
+  border: 0;
+  min-width: 0;
+}
+.selcoreOtp legend {
+  font-size: 1.4rem;
+}
+.selcoreOtp .selcoreOtpDigits {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  max-width: 440px;
+}
+.selcoreOtp .selcoreOtpDigits input {
+  min-width: 0;
+  padding: 12px 0;
+  text-align: center;
+  text-transform: none;
+  font-size: 1.2rem;
+}
+.selcoreOtp input:focus-visible,
+.selcoreOtp button:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
 .accountPage .featureStatus:empty {
   display: none;
 }
@@ -92,6 +117,7 @@
   margin: 12px 0;
 }
 .accountDashboard[hidden],
+.accountDashboard #emailChangeForm[hidden],
 .accountFlow[hidden] {
   display: none;
 }

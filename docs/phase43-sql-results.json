@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-09T18:56:33.871Z",
+  "date": "2026-10-10T13:07:36.932Z",
   "runtime": "PostgreSQL 18.3 (PGlite 0.5.8) on wasm32-unknown-emscripten, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.74 (1092ec30a3fb1d46b1782ff1b4db5094d3d06ae5), 32-bit",
   "migrationSource": "Read-only snapshot of deployed 20261009140454; executed only in isolated in-memory PostgreSQL",
   "productionDatabase": "Not modified; read-only audit only",

@@ -9,4 +9,8 @@ supabase/.temp/
 .env
 .env.*
 !.env.example
-!.env.sample
+# Server-only credential artifacts; the blank .env.example is reviewed separately.
+/server/otp/secrets/
+/server/otp/.secrets/
+/server/otp/*.key
+/server/otp/*.pem

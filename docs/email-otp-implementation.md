@@ -1,0 +1,83 @@
+# Selcore email OTP: local implementation and activation plan
+
+Prepared 10 October 2026 for **ffznkypurnocabqyxpps** only. The user selected strict server-controlled architecture and local implementation. That preparation made no deployments or production changes. The subsequent GitHub backup is separately authorized; see [Railway preparation](otp-railway-preparation.md). iVenue was not accessed.
+
+**Status: inactive implementation; production activation blocked pending the prerequisites below.** The browser adapter is disabled (`auth-gateway.js: enabled = false`), the backend source gate is disabled (`server/otp/runtime.cjs: serviceEnabled = false`), and the SQL enforcement flag defaults to false. Existing registration, login, recovery, Google OAuth, sessions, account cart/favorites and catalogue continue through the existing Phase 4 service.
+
+## Audit and architectural decision
+
+The browser currently uses official Supabase JavaScript SDK **2.110.7** directly against hosted Auth. Protected profiles require verified email and ownership. Read-only production inspection confirmed these rules, enabled RLS on all five public tables, one existing Auth user/profile, and no OTP database objects. No personal profile contents were retrieved. The current hosted Auth/SMTP configuration could not be retrieved through the available CLI authentication; Resend integration is user-reported and has not been independently validated in this task.
+
+Supabase supports configurable email OTP length **6–10**, so eight digits are supported, with configurable expiry and resend frequency. Native secure email changes preserve old and new address confirmation. [Configuration documentation](https://supabase.com/docs/guides/local-development/cli/config), [generateLink documentation](https://supabase.com/docs/reference/javascript/auth-admin-generatelink).
+
+Native password reauthentication treats a session created in the previous **24 hours** as recent; it cannot require this custom OTP before every password change. Available Auth Hooks do not provide a before-password-update enforcement hook. Our conclusion is that a wrapper, custom access token hook, or profile RLS policy cannot close the direct hosted `/auth/v1/user` password-update path. [Password security](https://supabase.com/docs/guides/auth/password-security), [Auth Hooks](https://supabase.com/docs/guides/auth/auth-hooks).
+
+Strict activation therefore requires an Auth service with **private, server-controlled ingress**. A public reverse proxy pointing at `ffznkypurnocabqyxpps.supabase.co` does not make that original endpoint private. The prepared server refuses public hosted origins. A private address alone also does not prove firewall isolation; ingress, issuer, session storage and database/RLS integration must be verified independently. Moving Auth requires a separately reviewed account/session/issuer migration plan; no accounts have been copied or migrated.
+
+## Implementation
+
+`server/otp/` contains an inactive Node gateway, dedicated Postgres worker adapter, pinned official SDK adapter, Resend SMTP transport, HMAC hashing and AES-256-GCM encrypted server state. Its source gate refuses startup before reading credentials, connecting or listening. The prepared listener uses Railway's `PORT` with `0.0.0.0`; without `PORT`, the future local listener uses loopback and `SELCORE_GATEWAY_PORT`/8081. Browser requests use same-origin `/api/auth/*` and an opaque HttpOnly, Secure, SameSite=Strict cookie. Supabase access/refresh tokens remain encrypted on the server and never enter browser storage or API responses. POST requests require matching Origin and JSON, bounded body size and server quotas. Customer profile queries still use the customer's JWT and existing RLS, rather than the administrative client.
+
+Native `admin.generateLink` creates signup/recovery/email-change proofs without delivering mail; the server sends the native eight-digit code through Resend. First/late login and authenticated password changes use Node cryptographic random generation. Resend is fixed to `smtp.resend.com` with verified TLS on 465 or STARTTLS on 587. Transport logging is disabled. [Resend SMTP requirements](https://resend.com/docs/send-with-smtp).
+
+OTP UI in `otp-ui.js` provides eight accessible numeric fields, focus progression, backspace/arrows, paste including leading zero, loading/duplicate-submit protection, expiry and resend timers, status messages and scoped responsive styles. `auth-gateway.js` mirrors the current account service behind the disabled switch. Only necessary script references, a hidden OTP panel, and a hidden email-change form were added to existing pages. The official SDK bundle is untouched.
+
+## Database draft and security rules
+
+Created through Supabase CLI, **not deployed**:
+
+`supabase/migrations/20261010110437_selcore_email_otp_security.sql`
+
+The draft creates private challenge, quota, approval, login-timestamp, encrypted-session and owner-only configuration tables. It adds a restrictive profile policy alongside the existing ownership/verified-email policies. It does not change catalogue, Storage, prices, inventory, cart or checkout tables. All new tables enable RLS. Customer roles cannot read hashes, encrypted bridges or server sessions, call private worker functions, or disable enforcement. The worker is NOLOGIN/NOBYPASSRLS; the actual dedicated login must inherit worker privileges and must not be an administrative role.
+
+- Code lifetime: **10 minutes**, authoritative database clock. Maximum five incorrect attempts. Verification and consumption lock the challenge row; a used proof cannot be replayed. Verification proofs must be consumed within **two minutes**.
+- Resend: **60 seconds**, shared per account/purpose across devices; issuing a replacement cancels the preceding challenge. Maximum five challenges per account/purpose/hour, with additional hashed IP/session quotas. Invalidating an earlier challenge across devices is intentional.
+- Native generation reserves that quota/cooldown **before** requesting an Auth proof. Reserved challenges are unverifiable until their hashed code/encrypted bridge is prepared once. Rejected concurrent requests therefore cannot regenerate a proof and invalidate the winning code; delivery failure cancels the reservation.
+- Password actions: HMAC-bound to user, native session, purpose and **exact proposed password**, with no password stored in the database. The browser holds the proposed password only in closure memory until verification/commit/cancel/pagehide. The server claims the proof before dispatch, so an upstream failure burns it. Success signs out all native sessions.
+- Recovery: distinct native recovery proof, two-minute, one-use server authorization. A recovery session cannot access profiles. The existing Phase 4 link-based recovery remains unchanged with the switch off.
+- Email changes: approved live session and verification in the past ten minutes, otherwise fresh step-up. Both native old/new confirmations are required; failed/expired codes leave the old address. A rotated email-change session receives approval without changing the **login OTP** timestamp.
+- Login: first password login requires OTP; a successful **login OTP** records a server timestamp. Registration OTP approves its initial session but does not set that timestamp. Subsequent devices can skip OTP only while that timestamp is less than 48 hours old. Their approvals expire at the same timestamp plus 48 hours. Expired approval denies gateway profile operations and direct authenticated profile RLS, even if a JWT has not expired. GET state never sends an email; users explicitly request a new step-up.
+- Logout/refresh: live native session ID is checked against `auth.sessions`; deleting/revoking a session immediately removes profile eligibility. Logout revokes database approval and clears the opaque handle even if native sign-out is unavailable; its response explicitly reports unconfirmed native revocation. Password mutations revoke approval on all devices before dispatch. Rotated refresh tokens are encrypted and saved with a revision comparison; stale simultaneous writers fail closed. Expired opaque handles rotate, rather than reviving old server rows.
+- Duplicate signup/unknown recovery responses are generic, with fake challenges subject to the same limits. This prevents explicit response-based account enumeration; upstream timing/availability differences still require real-service assessment.
+
+## Test evidence
+
+Completed checks: **91 OTP security**, **25 SDK/frontend adapter**, **667 browser regressions**, **53 existing Auth integrations**, **94 deployed-profile policy checks**, and **67 preview checks** passed (**997 total**), with zero failures. Browser testing confirmed all 24 products and all 24 original public image downloads in its read-only preflight. Testing boundaries are explicit:
+
+- `tests/otp-security.test.cjs`: real isolated PGlite Postgres, deployed profile SQL snapshot plus the new draft, actual RLS/worker grants/functions, actual hashing/encryption and loopback HTTP. Native Auth and SMTP are fixtures. Simultaneous calls are exercised, but PGlite uses a serialized connection; this does **not** establish multi-connection production lock behavior.
+- `tests/otp-adapters.test.cjs`: actual pinned SDK **2.110.7**, native HTTP contracts and frontend adapter against loopback/VM fixtures; Auth responses are mocked.
+- `tests/phase0.test.js`: installed Edge with an isolated browser profile; existing frontend regressions plus OTP input/loading/timer/responsive checks at 1440, 1024, 768, 390 and 320px. Auth/profile calls are mocked. Catalogue and 24 public images use read-only production preflight, then replayed fixtures.
+- `tests/phase43-auth.test.cjs`: existing real SDK/application adapter with mocked Auth HTTP responses.
+- `tests/profile-audit/run.cjs --deployed-snapshot`: original deployed profile security tested locally; no migration deployment.
+- `tests/preview-server.test.cjs`: real local preview HTTP checks, including denial of backend source/environment paths.
+- Prettier and JavaScript syntax validation; SDK integrity and product/image diff checks.
+
+`npx.cmd prettier --check .` passed. All **16** changed JavaScript/CommonJS files passed syntax validation. The unchanged official SDK SHA-256 is `2697f51bb3efa5f10b5b0bca2a39b3772b1b8f810e6885e3bb8d69c3242d5e07`. Credential-pattern scanning returned no administrative credential/private-key findings. Backend `npm audit --omit=dev` reported **zero vulnerabilities** in the pinned lockfile. A real server startup attempt with the public hosted Auth URL was refused before connecting or sending credentials.
+
+No real accounts were created, no emails sent, and no live OTP/password/email mutations tested. Passing mocks cannot prove Resend delivery, native secure-email token ordering, hosted configuration, private ingress, issuer compatibility or real concurrency.
+
+Read-only production Security Advisor reports one warning: leaked-password protection is disabled. No critical findings were returned. This setting was not changed. [Remediation](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Production still contains zero OTP tables; the migration is local only.
+
+## Changed files
+
+- New backend: `server/otp/{crypto,store,gateway,native,mail,http,serve,runtime}.cjs`, `package.json`, `package-lock.json`, blank `.env.example`.
+- New frontend adapters/UI: `auth-gateway.js`, `otp-ui.js`.
+- Necessary integration: `auth-service.js`, `supabase-client.js`, `account.js`, `account.css`, and script references in the seven HTML pages; hidden account components in `user.html`.
+- New draft migration listed above.
+- Tests: `tests/otp-security.test.cjs`, `tests/otp-adapters.test.cjs`, `tests/otp-startup.test.cjs`, `tests/phase0.test.js`, `tests/preview-server.test.cjs`.
+- This report; intentionally tracked regression JSON reports may be refreshed by the existing harness. Dependencies in `node_modules` remain ignored. `.prettierignore` exclusions are preserved.
+
+## Remaining limitations and approval-dependent cutover
+
+Do not enable the browser switch or apply the draft to the live Selcore project yet.
+
+1. **Approve an Auth hosting/ingress architecture and account migration plan.** The chosen private Auth must share the intended profiles/Auth session database or have an explicitly tested compatible ownership/issuer arrangement. Ensure every alternate Auth URL and password/email mutation endpoint is inaccessible to browsers. Keep public catalogue/Storage access unchanged.
+2. **Resolve migration history in a separate reviewed change.** Production already has `20261009140454_selcore_customer_profiles`; local draft is `20261008000000_selcore_customer_profiles.sql`. Compare its contents with the deployed snapshot. If equivalent, align the local filename/snapshot to the already-applied remote version without rerunning SQL or editing the remote ledger. If different, preserve the historical snapshot and prepare only an additive fix after review. Do not use blind `db push` while the old draft appears pending.
+3. **Approve an isolated private staging stack.** Apply the deployed profile schema and the reviewed OTP draft there, not to production. Provision a dedicated non-superuser LOGIN with INHERIT and membership in `selcore_otp_worker`, with no service-role/superuser privileges. The migration's enforcement flag stays false until the stack is ready.
+4. **Configure secrets in a protected server secret manager.** Supply the names in `server/otp/.env.example`; never fill that tracked example or paste credentials into terminal commands, reports or Git. Use distinct random base64 HMAC/encryption keys, private Auth server credentials, a least-privileged TLS-verified database connection and the existing Resend credential/verified sender. Do not retrieve administrative credentials into frontend files. Node >=22; install pinned dependencies with `npm ci --prefix server/otp --ignore-scripts`.
+5. **Approve native staging Auth configuration:** eight-digit codes, 600-second expiry, 60-second frequency, email confirmation enabled, secure old/new email change enabled, reviewed password policy and redirect allowlist. No production settings were changed or verified automatically. Server startup rejects missing credentials and public Auth origins.
+6. **Complete compatibility before cutover.** The private gateway currently blocks Google OAuth with a clear configuration error; it does not implement an OAuth callback. Add/test private OAuth state/PKCE/callback and fresh OTP approval. Also implement and test compatibility for existing recovery/confirmation links: the new recovery flow uses native email OTP, while old PKCE/hash link callbacks are preserved only in legacy mode. Do not disable working legacy flows until these are verified. GitHub Pages alone cannot host `/api/auth`; an approved same-origin server/reverse-proxy host is required. Proxy source-IP handling also needs a narrowly trusted proxy configuration before per-IP quotas can distinguish customers; client-supplied forwarding headers are currently ignored.
+7. **Approve real staging user/email tests.** Validate delivery, correct/expired/wrong codes, both email confirmations and resend ordering, refresh races, password action replay, sessions on multiple devices, revoked JWTs, and direct private/public endpoint bypass probes. Test against full PostgreSQL with multiple connections. Review timing enumeration, global Resend quotas/abuse controls and dependency advisories. Establish owner-run retention cleanup for expired challenges, encrypted sessions and rate buckets; keep challenge tombstones long enough for hourly quotas and replay audit. Keys and native token lifetimes need a documented rotation/incident plan.
+8. **Only after those pass, request separate production migration/configuration/frontend deployment approval.** Apply only the reviewed new migration. Coordinate ingress lock-down, same-origin gateway and issuer/session transition, enable `private.selcore_otp_config` as the database owner, then enable the frontend adapter and deploy. Run real acceptance tests and Supabase Security Advisor. Roll back via the reviewed configuration/frontend plan, never by dropping Auth/profile data. Deployment order must prevent a publicly reachable Auth bypass during the transition.
+
+The subsequent GitHub backup permits committing/pushing this inactive source. Database deployment, backend activation, Auth setting changes, SMTP sending and account migration remain unapproved and have not been performed.

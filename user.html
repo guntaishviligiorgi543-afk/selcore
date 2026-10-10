@@ -300,6 +300,7 @@
           <button type="submit">Update password</button>
         </form>
       </section>
+      <section id="otpPanel" class="accountFlow selcoreOtp" hidden></section>
       <section id="accountDashboard" class="accountDashboard" hidden>
         <h1 id="accountWelcome">My account</h1>
         <section>
@@ -311,6 +312,18 @@
         </section>
         <section>
           <h2>Personal information</h2>
+          <form id="emailChangeForm" method="post" hidden>
+            <label for="newEmail">New email address</label>
+            <input
+              id="newEmail"
+              type="email"
+              autocomplete="email"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+            />
+            <button type="submit">Change email</button>
+          </form>
           <form id="profileForm" method="post">
             <label for="profileName">Full name</label
             ><input id="profileName" minlength="2" maxlength="100" required />
@@ -374,6 +387,7 @@
       </section>
     </main>
     <script src="vendor/supabase-2.110.7.js"></script>
+    <script src="auth-gateway.js"></script>
     <script src="supabase-client.js"></script>
     <script src="auth-service.js"></script>
     <script src="catalogue-service.js"></script>
@@ -381,6 +395,7 @@
     <script src="auth-ui.js"></script>
     <script src="script.js"></script>
     <script src="user.js"></script>
+    <script src="otp-ui.js"></script>
     <script src="account.js"></script>
     <script src="cart.js"></script>
     <script src="favorites.js"></script>

@@ -9,8 +9,8 @@ window.SelcoreSupabase = (() => {
   }
   return window.supabase.createClient(url, key, {
     auth: {
-      persistSession: true,
-      autoRefreshToken: true,
+      persistSession: !window.SelcoreAuthGateway?.enabled,
+      autoRefreshToken: !window.SelcoreAuthGateway?.enabled,
       detectSessionInUrl: false,
       flowType: "pkce",
       storageKey: "selcore-auth-ffznkypurnocabqyxpps",

@@ -123,6 +123,10 @@
     },
     "Your profile has been saved.",
   );
+  if (window.SelcoreAuthGateway?.enabled) {
+    q("#emailChangeForm").hidden = false;
+    bindForm("#emailChangeForm", () => auth.changeEmail(q("#newEmail").value));
+  }
   const emailCooldowns = new Map();
   const cooldownKey = () => "selcore-" + emailMode + "-next";
   function nextAllowed() {
@@ -320,6 +324,51 @@
     }
   }
   document.addEventListener("selcore:auth-change", renderAuth);
+  if (window.SelcoreAuthGateway?.enabled) {
+    let otpMount = null;
+    const otpPanel = q("#otpPanel");
+    function renderOtp() {
+      otpMount?.destroy();
+      otpMount = null;
+      const state = auth.snapshot();
+      if (state.otp) {
+        hero.style.display = "none";
+        section.style.display = "none";
+        emailPanel.hidden = recoveryPanel.hidden = dashboard.hidden = true;
+        otpMount = window.SelcoreOtpUI.mount(otpPanel, {
+          challenge: state.otp,
+          onVerify: (value) => auth.verifyOtp(value),
+          onResend: () => auth.resend(),
+          onCancel: () => auth.cancelOtp(),
+        });
+      } else if (state.needsVerification) {
+        otpPanel.hidden = false;
+        const prompt = document.createElement("p");
+        prompt.textContent =
+          "Verify your email to continue using your account.";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Send verification code";
+        button.addEventListener("click", async () => {
+          button.disabled = true;
+          try {
+            await auth.stepup();
+          } catch (error) {
+            prompt.textContent = error.message;
+            button.disabled = false;
+          }
+        });
+        otpPanel.replaceChildren(prompt, button);
+        hero.style.display = section.style.display = "none";
+      } else {
+        otpPanel.replaceChildren();
+        otpPanel.hidden = true;
+      }
+    }
+    document.addEventListener("selcore:auth-change", renderOtp);
+    void auth.ready.then(renderOtp);
+    window.addEventListener("pagehide", () => otpMount?.destroy());
+  }
   for (const event of ["cart", "favorites", "catalogue"])
     document.addEventListener("selcore:" + event + "-change", () => {
       if (auth.snapshot().user) renderSaved();

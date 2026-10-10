@@ -1079,6 +1079,147 @@ async function browserTests() {
     reset();
   });
   const requests = await (await fetch("/__requests__")).json();
+  await suite("OTP interface (isolated callbacks)", async () => {
+    await load("user.html");
+    check(
+      !w.SelcoreAuthGateway.enabled,
+      "otp: gateway stays disabled by default",
+    );
+    check(
+      q("#emailChangeForm").hidden &&
+        w.getComputedStyle(q("#emailChangeForm")).display === "none",
+      "otp: legacy layout hides new email form",
+    );
+    let clock = Date.now(),
+      calls = 0,
+      resends = 0,
+      release;
+    const panel = q("#otpPanel");
+    const mount = w.SelcoreOtpUI.mount(panel, {
+      challenge: {
+        purpose: "registration",
+        destination: "f***@example.invalid",
+        expiresAt: new Date(clock + 600000).toISOString(),
+        resendAt: new Date(clock + 60000).toISOString(),
+      },
+      now: () => clock,
+      onVerify: (value) => {
+        check(
+          value === "01234567",
+          "otp: paste preserves eight digits and leading zero",
+        );
+        calls++;
+        return new Promise((resolve) => {
+          release = resolve;
+        });
+      },
+      onResend: async () => {
+        resends++;
+        throw Error("Please wait 60 seconds before requesting another code.");
+      },
+      onCancel: async () => {},
+    });
+    try {
+      const fields = [...panel.querySelectorAll("input")],
+        form = panel.querySelector("form"),
+        buttons = [...panel.querySelectorAll("button")];
+      check(
+        fields.length === 8 &&
+          fields.every(
+            (field, i) =>
+              field.getAttribute("aria-label") ===
+                `Verification code digit ${i + 1} of 8` &&
+              field.inputMode === "numeric",
+          ),
+        "otp: eight labeled numeric inputs",
+      );
+      input("#otpPanel input", "1");
+      check(d.activeElement === fields[1], "otp: automatic focus progression");
+      fields[1].dispatchEvent(
+        new w.KeyboardEvent("keydown", {
+          key: "Backspace",
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      check(
+        d.activeElement === fields[0] && fields[0].value === "",
+        "otp: backspace moves and clears previous digit",
+      );
+      input("#otpPanel input", "x");
+      check(fields[0].value === "", "otp: non-digits rejected");
+      const paste = new w.Event("paste", { bubbles: true, cancelable: true });
+      Object.defineProperty(paste, "clipboardData", {
+        value: { getData: () => "0123 4567" },
+      });
+      fields[0].dispatchEvent(paste);
+      check(
+        fields.map((field) => field.value).join("") === "01234567",
+        "otp: paste distributes digits",
+      );
+      check(
+        buttons[1].disabled && buttons[1].textContent.includes("60"),
+        "otp: resend begins with 60-second countdown",
+      );
+      form.dispatchEvent(new w.Event("submit", { cancelable: true }));
+      form.dispatchEvent(new w.Event("submit", { cancelable: true }));
+      check(
+        calls === 1 &&
+          fields.every((field) => field.disabled) &&
+          form.getAttribute("aria-busy") === "true",
+        "otp: duplicate submits blocked while loading",
+      );
+      release();
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      check(
+        !buttons[0].disabled && !form.hasAttribute("aria-busy"),
+        "otp: loading state clears after verification",
+      );
+      clock += 61000;
+      mount.tick();
+      buttons[1].click();
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      check(
+        resends === 1 &&
+          panel
+            .querySelector('[role="status"]')
+            .textContent.includes("60 seconds"),
+        "otp: server cooldown error is shown",
+      );
+      for (const width of [1440, 1024, 768, 390, 320]) {
+        frame.width = String(width);
+        await new Promise((resolve) => setTimeout(resolve, 30));
+        check(
+          d.documentElement.scrollWidth <= w.innerWidth + 1,
+          "otp: no page overflow at " + width,
+        );
+        check(
+          fields.every(
+            (field) =>
+              field.getBoundingClientRect().width >= 20 &&
+              field.getBoundingClientRect().right <= w.innerWidth,
+          ),
+          "otp: all digit controls visible at " + width,
+        );
+      }
+      clock += 600000;
+      mount.tick();
+      check(
+        buttons[0].disabled &&
+          panel.querySelector('[role="timer"]').textContent.includes("expired"),
+        "otp: expired challenge disables submit",
+      );
+      check(!buttons[1].disabled, "otp: expired challenge allows resend");
+    } finally {
+      mount.destroy();
+      frame.width = "1400";
+    }
+    check(
+      panel.hidden && panel.children.length === 0,
+      "otp: teardown hides panel and removes controls",
+    );
+    clean("otp interface");
+  });
   await suite("Phase 4 authentication", async () => {
     reset();
     localStorage.removeItem("selcore-test-session");

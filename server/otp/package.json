@@ -1,0 +1,17 @@
+{
+  "name": "selcore-private-auth-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local preparation only; private Auth ingress and approved cutover required",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node serve.cjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.110.7",
+    "nodemailer": "10.1.0",
+    "pg": "8.23.1"
+  }
+}

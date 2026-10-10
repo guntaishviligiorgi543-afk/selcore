@@ -62,6 +62,8 @@ let count = 0;
     "tests/auth-fixtures.js",
     "migration/phase2/runtime/package.json",
     "docs/phase4-report.md",
+    "server/otp/serve.cjs",
+    "server/otp/.env.example",
     "../.env",
     "%2e%2e%2f.env",
   ]) {

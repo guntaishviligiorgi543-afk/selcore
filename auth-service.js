@@ -1,5 +1,7 @@
 "use strict";
 window.SelcoreAuth = (() => {
+  if (window.SelcoreAuthGateway?.enabled)
+    return window.SelcoreAuthGateway.create();
   const client = window.SelcoreSupabase;
   let user = null,
     status = "loading",
