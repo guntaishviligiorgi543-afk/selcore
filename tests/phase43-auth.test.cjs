@@ -18,8 +18,8 @@ if (sdkVersion !== "2.110.7")
 const origin = "https://ffznkypurnocabqyxpps.supabase.co";
 const idA = "11111111-1111-4111-8111-111111111111",
   idB = "22222222-2222-4222-8222-222222222222";
-const fixturePassword = "IsolatedFixture123",
-  changedPassword = "ChangedFixture456";
+const fixturePassword = "lowerUPPER MiXeD123 ",
+  changedPassword = "resetMiXeD CASE456 ";
 const accounts = new Map(),
   profiles = new Map(),
   tokens = new Map();
@@ -305,7 +305,7 @@ async function run() {
   let app = await application();
   const registration = {
     name: "  Fixture Customer  ",
-    email: "registration@example.invalid",
+    email: "registration.MiXeD+Tag@Example.invalid",
     password: fixturePassword,
     confirm: fixturePassword,
   };
@@ -397,6 +397,11 @@ async function run() {
   await app.auth.login("customer@example.invalid", fixturePassword);
   await delay();
   check(
+    "Login preserves password case and whitespace in the SDK request",
+    requests.findLast((r) => r.path.endsWith("/token")).body.password ===
+      fixturePassword,
+  );
+  check(
     "Valid credentials initialize a verified app session",
     app.auth.snapshot().user?.id === idA,
   );
@@ -462,12 +467,14 @@ async function run() {
     resend.body.type === "signup" &&
       resend.query.get("redirect_to") === "http://127.0.0.1:8080/user.html",
   );
-  await app.auth.recover("customer@example.invalid");
+  const recoveryEmail = "customer.MiXeD+Tag@Example.invalid";
+  await app.auth.recover(recoveryEmail);
   const recovery = requests.findLast((r) => r.path.endsWith("/recover"));
   check(
     "Real SDK sends recovery with local redirect and PKCE",
     recovery.query.get("redirect_to") === "http://127.0.0.1:8080/user.html" &&
-      Boolean(recovery.body.code_challenge),
+      Boolean(recovery.body.code_challenge) &&
+      recovery.body.email === recoveryEmail,
   );
   app = await application(
     "http://127.0.0.1:8080/user.html?code=recovery-fixture",
@@ -486,6 +493,11 @@ async function run() {
     app.auth.snapshot().recovery && app.auth.snapshot().user?.id === idA,
   );
   await app.auth.updatePassword(changedPassword, changedPassword);
+  check(
+    "Password reset preserves case and whitespace in the SDK request",
+    requests.findLast((r) => r.path.endsWith("/user") && r.method === "PUT")
+      .body.password === changedPassword,
+  );
   check(
     "Successful password update closes recovery mode",
     !app.auth.snapshot().recovery,

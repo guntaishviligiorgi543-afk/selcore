@@ -1108,6 +1108,57 @@ async function browserTests() {
       "auth: protected account redirects to sign in",
     );
     check(q("#accountDashboard").hidden, "auth: guest dashboard hidden");
+    const credentialFields = [
+      ["signupEmail", "email", "email"],
+      ["signinEmail", "email", "email"],
+      ["actionEmail", "email", "email"],
+      ["signupPassword", "password", "new-password"],
+      ["confirmPassword", "password", "new-password"],
+      ["signinPassword", "password", "current-password"],
+      ["recoveryPassword", "password", "new-password"],
+      ["recoveryConfirm", "password", "new-password"],
+      ["newPassword", "password", "new-password"],
+      ["newPasswordConfirm", "password", "new-password"],
+    ];
+    for (const [id, type, autocomplete] of credentialFields) {
+      const field = q("#" + id);
+      check(
+        field.type === type &&
+          field.autocomplete === autocomplete &&
+          field.autocapitalize === "none" &&
+          !field.spellcheck,
+        "auth: credential input disables automatic capitalization " + id,
+      );
+      equal(
+        w.getComputedStyle(field).textTransform,
+        "none",
+        "auth: credential text is displayed without case conversion " + id,
+      );
+    }
+    equal(
+      w.getComputedStyle(q(".signUp")).textTransform,
+      "capitalize",
+      "auth: existing button capitalization is preserved",
+    );
+    click(".signUp");
+    for (const id of ["signupPassword", "confirmPassword", "signinPassword"]) {
+      const field = q("#" + id);
+      const value = "lowerUPPER MiXeD123";
+      input("#" + id, value);
+      field.nextElementSibling.click();
+      check(
+        field.type === "text" &&
+          field.value === value &&
+          w.getComputedStyle(field).textTransform === "none",
+        "auth: revealed password preserves exact entered case " + id,
+      );
+      field.nextElementSibling.click();
+      check(
+        field.type === "password" && field.value === value,
+        "auth: hiding password preserves exact entered case " + id,
+      );
+      input("#" + id, "");
+    }
     equal(
       [...q(".authNavigation").querySelectorAll("a")].map((a) => a.textContent),
       ["Sign In", "Sign Up"],
@@ -1115,7 +1166,7 @@ async function browserTests() {
     );
     const registration = {
       name: "სახელი გვარი",
-      email: "customer@example.invalid",
+      email: "customer.MiXeD+Tag@Example.invalid",
       password: "SafeTest123",
       confirm: "SafeTest123",
     };

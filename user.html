@@ -107,6 +107,8 @@
                   placeholder="Enter your email"
                   required
                   autocomplete="email"
+                  autocapitalize="none"
+                  spellcheck="false"
                 />
               </div>
 
@@ -122,6 +124,8 @@
                     minlength="8"
                     maxlength="128"
                     autocomplete="new-password"
+                    autocapitalize="none"
+                    spellcheck="false"
                   />
 
                   <button type="button" class="togglePassword">
@@ -152,6 +156,8 @@
                     minlength="8"
                     maxlength="128"
                     autocomplete="new-password"
+                    autocapitalize="none"
+                    spellcheck="false"
                   />
 
                   <button type="button" class="togglePassword">
@@ -200,6 +206,8 @@
                   placeholder="Enter your email"
                   required
                   autocomplete="email"
+                  autocapitalize="none"
+                  spellcheck="false"
                 />
               </div>
 
@@ -214,6 +222,8 @@
                     minlength="8"
                     maxlength="128"
                     autocomplete="current-password"
+                    autocapitalize="none"
+                    spellcheck="false"
                   />
 
                   <button type="button" class="togglePassword">
@@ -250,7 +260,14 @@
         <h2 id="emailPanelTitle">Password recovery</h2>
         <form id="emailActionForm" method="post">
           <label for="actionEmail">Email</label
-          ><input id="actionEmail" type="email" autocomplete="email" required />
+          ><input
+            id="actionEmail"
+            type="email"
+            autocomplete="email"
+            autocapitalize="none"
+            spellcheck="false"
+            required
+          />
           <button type="submit">Send email</button>
         </form>
         <button type="button" id="backToSignin">Back to sign in</button>
@@ -263,6 +280,8 @@
             id="recoveryPassword"
             type="password"
             autocomplete="new-password"
+            autocapitalize="none"
+            spellcheck="false"
             minlength="8"
             maxlength="128"
             required
@@ -272,6 +291,8 @@
             id="recoveryConfirm"
             type="password"
             autocomplete="new-password"
+            autocapitalize="none"
+            spellcheck="false"
             minlength="8"
             maxlength="128"
             required
@@ -307,6 +328,8 @@
               id="newPassword"
               type="password"
               autocomplete="new-password"
+              autocapitalize="none"
+              spellcheck="false"
               minlength="8"
               maxlength="128"
               required
@@ -316,6 +339,8 @@
               id="newPasswordConfirm"
               type="password"
               autocomplete="new-password"
+              autocapitalize="none"
+              spellcheck="false"
               minlength="8"
               maxlength="128"
               required

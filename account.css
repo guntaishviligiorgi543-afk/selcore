@@ -74,6 +74,12 @@
 .accountPage > header {
   top: 0;
 }
+/* Preserve credential case, including passwords revealed as text. */
+.accountPage input[type="email"],
+.accountPage input[autocomplete="current-password"],
+.accountPage input[autocomplete="new-password"] {
+  text-transform: none;
+}
 .accountPage .featureStatus:empty {
   display: none;
 }
