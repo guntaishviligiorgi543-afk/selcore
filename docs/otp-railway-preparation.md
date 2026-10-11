@@ -1,3 +1,5 @@
+> Superseded on 11 October 2026 by [Supabase-only architecture](supabase-only-architecture.md). Retained as historical evidence; private Auth, Railway and gateway instructions are no longer an implementation plan.
+
 # Selcore OTP GitHub backup and Railway preparation
 
 10 October 2026. Selcore only: repository `guntaishviligiorgi543-afk/selcore`, branch `main`, Supabase `ffznkypurnocabqyxpps`. No iVenue access, migrations, production Auth changes, enforcement activation, DNS changes, or production OTP service deployment.

@@ -1,7 +1,5 @@
 "use strict";
 window.SelcoreAuth = (() => {
-  if (window.SelcoreAuthGateway?.enabled)
-    return window.SelcoreAuthGateway.create();
   const client = window.SelcoreSupabase;
   let user = null,
     status = "loading",
@@ -45,6 +43,12 @@ window.SelcoreAuth = (() => {
     if (code === "same_password") return "Choose a different password.";
     if (code === "weak_password")
       return "Choose a stronger password with at least 8 characters.";
+    if (
+      ["otp_expired", "otp_disabled", "invalid_token", "invalid_otp"].includes(
+        code,
+      )
+    )
+      return "This code is invalid or expired. Request a new code.";
     if (
       ["over_email_send_rate_limit", "over_request_rate_limit"].includes(code)
     )
@@ -200,13 +204,14 @@ window.SelcoreAuth = (() => {
       try {
         if (!client || callbackError) throw new Error("Invalid callback");
         const data = checked(await client.auth.exchangeCodeForSession(code));
-        recovery = data.redirectType === "recovery";
-        message = recovery
-          ? "Choose your new password."
-          : "Email verification or sign-in completed.";
+        if (data.redirectType === "recovery") {
+          await client.auth.signOut({ scope: "local" });
+          throw new Error("Recovery links are not used");
+        }
+        message = "Email verification or sign-in completed.";
       } catch {
         message =
-          "This verification or recovery link is invalid or expired. Request a new link and open it in the same browser.";
+          "This verification link is invalid or expired. For a password reset, request a new email code.";
       }
     }
     await refresh();
@@ -230,7 +235,6 @@ window.SelcoreAuth = (() => {
       password,
       options: {
         data: { full_name: name.trim() },
-        emailRedirectTo: redirectUrl(),
       },
     });
     if (
@@ -244,7 +248,7 @@ window.SelcoreAuth = (() => {
         "Email verification is required before using your account.",
       );
     }
-    return "If this address can be registered, check your email for a verification link. Existing customers can sign in or reset their password.";
+    return "If this address can be registered, check your email for an 8-digit verification code. Existing customers can sign in or reset their password.";
   }
   async function login(email, password) {
     if (!validEmail(email) || !password)
@@ -274,24 +278,93 @@ window.SelcoreAuth = (() => {
       await client.auth.resend({
         type: "signup",
         email: email.trim(),
-        options: { emailRedirectTo: redirectUrl() },
       }),
     );
-    return "If verification is available for this address, a new link has been requested.";
+    return "If verification is available for this address, a new code has been requested.";
+  }
+  async function verifyRegistrationOtp(email, token) {
+    if (!validEmail(email)) throw new Error("Request a new verification code.");
+    if (typeof token !== "string" || !/^\d{8}$/.test(token))
+      throw new Error("Enter the 8-digit code from your email.");
+    const data = checked(
+      await client.auth.verifyOtp({
+        email: email.trim(),
+        token,
+        type: "email",
+      }),
+    );
+    const account = checked(await client.auth.getUser()).user;
+    if (
+      !data.session ||
+      !account ||
+      account.id !== data.user?.id ||
+      !account.email_confirmed_at
+    ) {
+      await client.auth.signOut({ scope: "local" });
+      throw new Error("This verification session is no longer valid. Request a new code.");
+    }
+    recovery = false;
+    rememberRecovery(null);
+    await refresh();
+    requireUser();
   }
   async function recover(email) {
     if (!validEmail(email)) throw new Error("Enter a valid email address.");
-    checked(
-      await client.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: redirectUrl(),
+    checked(await client.auth.resetPasswordForEmail(email.trim()));
+    return "If an account exists, a recovery code has been requested.";
+  }
+  async function verifyRecoveryOtp(email, token) {
+    if (!validEmail(email)) throw new Error("Request a new recovery code.");
+    if (typeof token !== "string" || !/^\d{8}$/.test(token))
+      throw new Error("Enter the 8-digit code from your email.");
+    const data = checked(
+      await client.auth.verifyOtp({
+        email: email.trim(),
+        token,
+        type: "recovery",
       }),
     );
-    return "If an account exists, a recovery email has been requested. Open it in this browser.";
+    const account = checked(await client.auth.getUser()).user;
+    if (!data.session || !account || account.id !== data.user?.id) {
+      await client.auth.signOut({ scope: "local" });
+      throw new Error("This recovery session is no longer valid. Request a new code.");
+    }
+    recovery = true;
+    rememberRecovery(account.id);
+    await refresh();
+    if (!recovery || user?.id !== account.id)
+      throw new Error("This recovery session is no longer valid. Request a new code.");
   }
-  async function updatePassword(password, confirm) {
-    requireUser();
+  async function updatePassword(password, confirm, currentPassword) {
+    const account = requireUser();
     validatePassword(password, confirm);
-    checked(await client.auth.updateUser({ password }));
+    const attributes = { password };
+    if (recovery) {
+      const session = checked(await client.auth.getSession()).session;
+      const verified = checked(await client.auth.getUser()).user;
+      if (
+        !session ||
+        !verified ||
+        verified.id !== account.id ||
+        recoveryOwner() !== account.id
+      )
+        throw new Error("This recovery session is no longer valid. Request a new code.");
+    } else {
+      if (typeof currentPassword !== "string" || !currentPassword)
+        throw new Error("Enter your current password.");
+      // Native password authentication also covers sessions whose update endpoint
+      // exempts current-password checks (for example email OTP sessions).
+      const authenticated = checked(await client.auth.signInWithPassword({
+        email: account.email,
+        password: currentPassword,
+      }));
+      if (authenticated.user?.id !== account.id)
+        throw new Error("Please sign in again before changing your password.");
+      attributes.current_password = currentPassword;
+    }
+    checked(await client.auth.updateUser(attributes));
+    if (recovery) checked(await client.auth.signOut({ scope: "local" }));
+    if (recovery) user = null;
     recovery = false;
     rememberRecovery(null);
     message = "";
@@ -374,7 +447,9 @@ window.SelcoreAuth = (() => {
     login,
     logout,
     resend,
+    verifyRegistrationOtp,
     recover,
+    verifyRecoveryOtp,
     updatePassword,
     google,
     getProfile,

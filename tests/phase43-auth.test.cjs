@@ -31,6 +31,8 @@ const state = {
   autoConfirm: false,
   userError: false,
   signupMode: "normal",
+  registrationCodeAvailable: false,
+  recoveryCodeAvailable: false,
 };
 let counter = 0;
 const copy = (x) => JSON.parse(JSON.stringify(x));
@@ -171,6 +173,7 @@ async function fetchFixture(input, init = {}) {
     user.user_metadata.full_name = body.data.full_name;
     profiles.get(user.id).full_name = body.data.full_name; // Mock trigger only; real SQL is tested separately.
     accounts.get(body.email).password = body.password;
+    state.registrationCodeAvailable = true;
     return response({ user });
   }
   if (url.pathname === "/auth/v1/token") {
@@ -204,11 +207,44 @@ async function fetchFixture(input, init = {}) {
       );
     if (!customer)
       return response({ code: "bad_jwt", msg: "Fixture invalid session" }, 401);
-    if (method === "PUT" && body.password) customer.password = body.password;
+    if (method === "PUT" && body.password) {
+      if (body.current_password !== undefined && body.current_password !== customer.password)
+        return response({ code: "invalid_credentials" }, 400);
+      customer.password = body.password;
+    }
     return response(copy(customer.user));
   }
   if (url.pathname === "/auth/v1/logout") return response({});
-  if (["/auth/v1/recover", "/auth/v1/resend"].includes(url.pathname))
+  if (url.pathname === "/auth/v1/recover") {
+    state.recoveryCodeAvailable = true;
+    return response({});
+  }
+  if (url.pathname === "/auth/v1/verify") {
+    if (body.type === "email") {
+      if (body.token === "00000000")
+        return response({ code: "invalid_otp" }, 400);
+      if (body.token === "99999999")
+        return response({ code: "otp_expired" }, 400);
+      if (!state.registrationCodeAvailable || body.token !== "12345678")
+        return response({ code: "otp_expired" }, 400);
+      const account = accounts.get(body.email);
+      if (!account) return response({ code: "otp_expired" }, 400);
+      state.registrationCodeAvailable = false;
+      account.user.email_confirmed_at = "2026-10-11T00:00:00Z";
+      return response(session(account.user));
+    }
+    if (body.type !== "recovery" || body.token === "00000000")
+      return response({ code: "invalid_otp" }, 400);
+    if (body.token === "99999999")
+      return response({ code: "otp_expired" }, 400);
+    if (!state.recoveryCodeAvailable || body.token !== "12345678")
+      return response({ code: "otp_expired" }, 400);
+    state.recoveryCodeAvailable = false;
+    const account = accounts.get(body.email);
+    if (!account) return response({ code: "otp_expired" }, 400);
+    return response(session(account.user));
+  }
+  if (url.pathname === "/auth/v1/resend")
     return response({});
   if (url.pathname === "/rest/v1/profiles") {
     if (!customer?.user.email_confirmed_at || customer.user.is_anonymous)
@@ -339,15 +375,7 @@ async function run() {
     signup.body.email === registration.email &&
       signup.body.password === fixturePassword,
   );
-  check(
-    "Real SDK sends a PKCE challenge",
-    Boolean(signup.body.code_challenge) &&
-      signup.body.code_challenge_method === "s256",
-  );
-  check(
-    "Registration targets the clean local Selcore callback",
-    signup.query.get("redirect_to") === "http://127.0.0.1:8080/user.html",
-  );
+  check("Registration does not request a user-facing verification link", !signup.query.has("redirect_to"));
   check(
     "Registration has no customer session before verification",
     !app.auth.snapshot().user && message.includes("check your email"),
@@ -357,6 +385,25 @@ async function run() {
     profiles.get("44444444-4444-4444-8444-444444444444").full_name ===
       "Fixture Customer",
   );
+  await rejects("Invalid eight-digit registration OTP is rejected", () =>
+    app.auth.verifyRegistrationOtp(registration.email, "00000000"), /invalid or expired/);
+  await rejects("Expired registration OTP is rejected", () =>
+    app.auth.verifyRegistrationOtp(registration.email, "99999999"), /invalid or expired/);
+  await app.auth.verifyRegistrationOtp(registration.email, "12345678");
+  const registrationVerify = requests.findLast((r) => r.path.endsWith("/verify"));
+  check(
+    "Real SDK verifies registration OTP with the email type",
+    registrationVerify.body.type === "email" &&
+      registrationVerify.body.email === registration.email &&
+      registrationVerify.body.token === "12345678",
+  );
+  check(
+    "Verified registration OTP creates a verified app session",
+    app.auth.snapshot().user?.id === "44444444-4444-4444-8444-444444444444",
+  );
+  await rejects("Consumed registration OTP cannot be submitted twice", () =>
+    app.auth.verifyRegistrationOtp(registration.email, "12345678"), /invalid or expired/);
+  await app.auth.logout();
   for (const mode of ["errorDuplicate", "obfuscatedDuplicate"]) {
     state.signupMode = mode;
     check(
@@ -463,35 +510,44 @@ async function run() {
   await app.auth.resend("customer@example.invalid");
   const resend = requests.findLast((r) => r.path.endsWith("/resend"));
   check(
-    "Real SDK resends signup verification to Selcore",
+    "Real SDK resends signup verification without a user-facing link",
     resend.body.type === "signup" &&
-      resend.query.get("redirect_to") === "http://127.0.0.1:8080/user.html",
+      resend.body.email === "customer@example.invalid" &&
+      !resend.query.has("redirect_to"),
   );
-  const recoveryEmail = "customer.MiXeD+Tag@Example.invalid";
+  const recoveryEmail = "customer@example.invalid";
   await app.auth.recover(recoveryEmail);
   const recovery = requests.findLast((r) => r.path.endsWith("/recover"));
   check(
-    "Real SDK sends recovery with local redirect and PKCE",
-    recovery.query.get("redirect_to") === "http://127.0.0.1:8080/user.html" &&
-      Boolean(recovery.body.code_challenge) &&
+    "Real SDK requests recovery without a user-facing redirect link",
+    !recovery.query.has("redirect_to") &&
       recovery.body.email === recoveryEmail,
   );
-  app = await application(
-    "http://127.0.0.1:8080/user.html?code=recovery-fixture",
+  await rejects("Recovery password update requires an authenticated recovery session", () =>
+    app.auth.updatePassword(changedPassword, changedPassword), /Sign in/);
+  await rejects("Invalid eight-digit recovery OTP is rejected", () =>
+    app.auth.verifyRecoveryOtp(recoveryEmail, "00000000"), /invalid or expired/);
+  await rejects("Expired recovery OTP is rejected", () =>
+    app.auth.verifyRecoveryOtp(recoveryEmail, "99999999"), /invalid or expired/);
+  await app.auth.verifyRecoveryOtp(recoveryEmail, "12345678");
+  const verify = requests.findLast((r) => r.path.endsWith("/verify"));
+  check(
+    "Real SDK verifies recovery OTP with the recovery type",
+    verify.body.type === "recovery" &&
+      verify.body.email === recoveryEmail &&
+      verify.body.token === "12345678",
   );
   check(
-    "Real SDK PKCE exchange identifies password recovery",
+    "Verified recovery OTP creates a recovery session",
     app.auth.snapshot().recovery && app.auth.snapshot().user?.id === idA,
   );
-  check(
-    "Callback code is scrubbed from the page URL",
-    !new URL(app.window.location.href).searchParams.has("code"),
-  );
-  app = await application();
-  check(
-    "Recovery form context survives a page refresh",
-    app.auth.snapshot().recovery && app.auth.snapshot().user?.id === idA,
-  );
+  await rejects("Consumed recovery OTP cannot be submitted twice", () =>
+    app.auth.verifyRecoveryOtp(recoveryEmail, "12345678"), /invalid or expired/);
+  await app.client.auth.signOut({ scope: "local" });
+  await rejects("Expired recovery session cannot reset a password", () =>
+    app.auth.updatePassword(changedPassword, changedPassword), /Sign in/);
+  await app.auth.recover(recoveryEmail);
+  await app.auth.verifyRecoveryOtp(recoveryEmail, "12345678");
   await app.auth.updatePassword(changedPassword, changedPassword);
   check(
     "Password reset preserves case and whitespace in the SDK request",
@@ -499,15 +555,9 @@ async function run() {
       .body.password === changedPassword,
   );
   check(
-    "Successful password update closes recovery mode",
-    !app.auth.snapshot().recovery,
+    "Successful password reset closes recovery mode and local session",
+    !app.auth.snapshot().recovery && !app.auth.snapshot().user,
   );
-  app = await application();
-  check(
-    "Completed recovery does not reopen after refresh",
-    !app.auth.snapshot().recovery,
-  );
-  await app.auth.logout();
   await rejects(
     "Old password is rejected after recovery",
     () => app.auth.login("customer@example.invalid", fixturePassword),
@@ -523,6 +573,16 @@ async function run() {
     !app.auth.snapshot().message.includes("signed out"),
   );
   tab.setItem("selcore-recovery-ffznkypurnocabqyxpps", idB);
+  await rejects("Normal change requires current password", () =>
+    app.auth.updatePassword(fixturePassword, fixturePassword), /current password/);
+  await rejects("Incorrect current password rejected by native Auth", () =>
+    app.auth.updatePassword(fixturePassword, fixturePassword, "incorrect"), /incorrect/);
+  await rejects("Mismatched new password confirmation rejected", () =>
+    app.auth.updatePassword(fixturePassword, "different", changedPassword), /match/);
+  await app.auth.updatePassword(fixturePassword, fixturePassword, changedPassword);
+  check("Normal password update sends current password through real SDK",
+    requests.findLast((r) => r.path.endsWith("/user") && r.method === "PUT").body.current_password === changedPassword);
+  await app.auth.updatePassword(changedPassword, changedPassword, fixturePassword);
   app = await application();
   check(
     "Another account's recovery marker cannot activate recovery",

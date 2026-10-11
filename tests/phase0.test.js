@@ -1082,8 +1082,8 @@ async function browserTests() {
   await suite("OTP interface (isolated callbacks)", async () => {
     await load("user.html");
     check(
-      !w.SelcoreAuthGateway.enabled,
-      "otp: gateway stays disabled by default",
+      w.SelcoreAuthGateway === undefined,
+      "auth: abandoned gateway is absent",
     );
     check(
       q("#emailChangeForm").hidden &&
@@ -1353,14 +1353,33 @@ async function browserTests() {
       "auth: duplicate registration prevented",
     );
     check(
-      q("#signupForm").textContent.includes("check your email"),
-      "auth: verification confirmation",
+      q("#signupForm").textContent.includes("check your email") &&
+        !q("#otpPanel").hidden &&
+        q("#otpPanel").querySelectorAll("input").length === 8,
+      "auth: registration immediately shows the eight-digit OTP form",
+    );
+    const registrationOtpBounds = q("#otpPanel input").getBoundingClientRect();
+    check(
+      registrationOtpBounds.top >= 0 && registrationOtpBounds.bottom <= w.innerHeight,
+      "auth: registration OTP input is visible in the active viewport",
     );
     equal(
       q("#signupPassword").value,
       "",
       "auth: password cleared after request",
     );
+    const registrationOtpInputs = q("#otpPanel").querySelectorAll("input");
+    "12345678".split("").forEach((digit, index) => {
+      registrationOtpInputs[index].value = digit;
+    });
+    submit("#otpPanel form");
+    await wait(() => !q("#otpPanel form").hasAttribute("aria-busy"));
+    check(
+      !q("#accountDashboard").hidden &&
+        w.SelcoreAuth.snapshot().user?.email === registration.email,
+      "auth: verified registration OTP opens the account",
+    );
+    await w.SelcoreAuth.logout();
     const generic = await w.SelcoreAuth.register({
       ...registration,
       email: "existing@example.invalid",
@@ -1504,6 +1523,7 @@ async function browserTests() {
       "auth: account cart restored",
     );
     input("#newPassword", "NewSafe123");
+    input("#currentPassword", "SafeTest123");
     input("#newPasswordConfirm", "NewSafe123");
     submit("#changePasswordForm");
     await wait(() => !q("#changePasswordForm").hasAttribute("aria-busy"));
@@ -1542,37 +1562,41 @@ async function browserTests() {
     await wait(() => !q("#emailActionForm").hasAttribute("aria-busy"));
     equal(w.__authFixture.calls.recovery, 1, "auth: password recovery request");
     check(
-      q("#emailActionForm").textContent.includes("If an account"),
+      q("#emailActionForm").textContent.includes("If an account") &&
+        !q("#otpPanel").hidden,
       "auth: recovery avoids account enumeration",
     );
-    await load("user.html?code=expired");
+    const otpInputBounds = q("#otpPanel input").getBoundingClientRect();
     check(
-      q("#authStateStatus").textContent.includes("invalid or expired"),
-      "auth: expired link handled",
+      otpInputBounds.top >= 0 && otpInputBounds.bottom <= w.innerHeight,
+      "auth: recovery OTP input is visible in the active viewport",
     );
     check(
-      !w.location.search.includes("code"),
-      "auth: callback code scrubbed from URL",
+      q("#recoveryPanel").hidden,
+      "auth: recovery password form stays hidden before OTP verification",
     );
-    await load("user.html?code=verification");
+    for (const input of q("#otpPanel").querySelectorAll("input"))
+      input.value = "0";
+    submit("#otpPanel form");
+    await wait(() => !q("#otpPanel form").hasAttribute("aria-busy"));
     check(
-      Boolean(w.SelcoreAuth.snapshot().user),
-      "auth mock: verification callback",
+      q("#otpPanel").textContent.includes("invalid or expired"),
+      "auth: invalid recovery OTP is rejected",
     );
-    check(
-      !w.SelcoreAuth.snapshot().recovery,
-      "auth: verification cannot grant recovery flow",
-    );
-    await w.SelcoreAuth.logout();
-    await load("user.html?code=recovery");
+    const recoveryInputs = q("#otpPanel").querySelectorAll("input");
+    "12345678".split("").forEach((digit, index) => {
+      recoveryInputs[index].value = digit;
+    });
+    submit("#otpPanel form");
+    await wait(() => q("#otpPanel").hidden);
     check(
       !q("#recoveryPanel").hidden,
-      "auth mock: recovery callback shows password form",
+      "auth: verified recovery OTP shows password form",
     );
     await load("user.html");
     check(
       !q("#recoveryPanel").hidden && w.SelcoreAuth.snapshot().recovery,
-      "auth: recovery form survives refresh with a verified session",
+      "auth: recovery form survives refresh with a verified session marker",
     );
     input("#recoveryPassword", "NewSafe123");
     input("#recoveryConfirm", "NewSafe123");

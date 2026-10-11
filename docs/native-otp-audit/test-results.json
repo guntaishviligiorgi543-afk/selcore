@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-11T16:46:30.579Z",
+  "project": "ffznkypurnocabqyxpps",
+  "passed": 29,
+  "failed": 0,
+  "boundary": "No network. SDK HTTP capture does not demonstrate server acceptance. Real isolated PostgreSQL uses existing deployed profile SQL snapshot. Upstream checks inspect immutable official v2.197.0 source, not a running Auth server.",
+  "authenticatedHostedBypassTest": "Not performed: production mutations/accounts/emails forbidden; requires separately authorized isolated managed Supabase environment",
+  "results": [
+    {
+      "name": "Hosted health matches pinned upstream version",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/api/user.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/api/user_test.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/api/token.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/api/mail.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/api/verify.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/conf/configuration.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/crypto/crypto.go",
+      "passed": true
+    },
+    {
+      "name": "Pinned source integrity: internal/mailer/mailer.go",
+      "passed": true
+    },
+    {
+      "name": "Eight digits manually confirmed",
+      "passed": true
+    },
+    {
+      "name": "Native mailer accepts configurable length including eight",
+      "passed": true
+    },
+    {
+      "name": "Native OTP generator uses cryptographic randomness and left padding",
+      "passed": true
+    },
+    {
+      "name": "Native password grant accepts credentials and issues tokens without device OTP input",
+      "passed": true
+    },
+    {
+      "name": "Native secure password change has a 24-hour recent-session exception",
+      "passed": true
+    },
+    {
+      "name": "Current password is a distinct control with recovery exemption",
+      "passed": true
+    },
+    {
+      "name": "Upstream native test identifies OTP sessions as exempt from current password",
+      "passed": true
+    },
+    {
+      "name": "Native AAL2 only applies when MFA enrolled",
+      "passed": true
+    },
+    {
+      "name": "Native secure email change requires separate confirmation state",
+      "passed": true
+    },
+    {
+      "name": "Native email change consumes proof for the confirmed address",
+      "passed": true
+    },
+    {
+      "name": "Active normal password update passes current password after native verification",
+      "passed": true
+    },
+    {
+      "name": "SDK can request password grant directly without OTP or device proof",
+      "passed": true
+    },
+    {
+      "name": "Direct SDK password-update request bypasses frontend and contains no OTP nonce",
+      "passed": true
+    },
+    {
+      "name": "SDK performs no automatic reauthentication before direct update",
+      "passed": true
+    },
+    {
+      "name": "SDK preserves leading zero in native eight-digit verification request",
+      "passed": true
+    },
+    {
+      "name": "SDK supports native recovery OTP type",
+      "passed": true
+    },
+    {
+      "name": "SDK supports native email-change OTP type",
+      "passed": true
+    },
+    {
+      "name": "Direct SQL access under deployed RLS allows confirmed owner without login OTP or live session",
+      "passed": true
+    },
+    {
+      "name": "Direct profile update does not require first-login or device-trust approval",
+      "passed": true
+    },
+    {
+      "name": "Existing profile ownership RLS still denies another user",
+      "passed": true
+    }
+  ]
+}

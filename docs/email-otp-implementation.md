@@ -1,3 +1,5 @@
+> Superseded on 11 October 2026 by [Supabase-only architecture](supabase-only-architecture.md). Retained as historical evidence; private Auth, Railway and gateway instructions are no longer an implementation plan.
+
 # Selcore email OTP: local implementation and activation plan
 
 Prepared 10 October 2026 for **ffznkypurnocabqyxpps** only. The user selected strict server-controlled architecture and local implementation. That preparation made no deployments or production changes. The subsequent GitHub backup is separately authorized; see [Railway preparation](otp-railway-preparation.md). iVenue was not accessed.

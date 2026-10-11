@@ -268,7 +268,7 @@
             spellcheck="false"
             required
           />
-          <button type="submit">Send email</button>
+          <button type="submit">Send recovery code</button>
         </form>
         <button type="button" id="backToSignin">Back to sign in</button>
       </section>
@@ -336,6 +336,8 @@
         <section>
           <h2>Security</h2>
           <form id="changePasswordForm" method="post">
+            <label for="currentPassword">Current password</label>
+            <input id="currentPassword" type="password" autocomplete="current-password" required />
             <label for="newPassword">New password</label
             ><input
               id="newPassword"
@@ -360,7 +362,7 @@
             /><button type="submit">Change password</button>
           </form>
           <button type="button" id="accountRecovery">
-            Send a recovery email</button
+            Send a recovery code</button
           ><button type="button" id="accountLogout">Logout</button>
         </section>
         <section>
@@ -387,16 +389,15 @@
       </section>
     </main>
     <script src="vendor/supabase-2.110.7.js"></script>
-    <script src="auth-gateway.js"></script>
-    <script src="supabase-client.js"></script>
-    <script src="auth-service.js"></script>
+    <script src="supabase-client.js?v=20261011-registration-otp"></script>
+    <script src="auth-service.js?v=20261011-registration-otp"></script>
     <script src="catalogue-service.js"></script>
     <script src="store.js"></script>
     <script src="auth-ui.js"></script>
     <script src="script.js"></script>
     <script src="user.js"></script>
-    <script src="otp-ui.js"></script>
-    <script src="account.js"></script>
+    <script src="otp-ui.js?v=20261011-registration-otp"></script>
+    <script src="account.js?v=20261011-registration-otp"></script>
     <script src="cart.js"></script>
     <script src="favorites.js"></script>
   </body>

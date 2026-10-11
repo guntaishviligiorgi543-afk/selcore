@@ -1,0 +1,70 @@
+{
+  "removed": [
+    "server/otp/.dockerignore",
+    "server/otp/.env.example",
+    "server/otp/crypto.cjs",
+    "server/otp/Dockerfile",
+    "server/otp/gateway.cjs",
+    "server/otp/hosted-data-adapter.cjs",
+    "server/otp/http.cjs",
+    "server/otp/mail.cjs",
+    "server/otp/mailpit-isolated.cjs",
+    "server/otp/native.cjs",
+    "server/otp/package-lock.json",
+    "server/otp/package.json",
+    "server/otp/phase1-boundary.cjs",
+    "server/otp/phase2-policy.cjs",
+    "server/otp/phase2-store.cjs",
+    "server/otp/phase5-isolated-gateway.cjs",
+    "server/otp/phase5-isolated-server.cjs",
+    "server/otp/private-auth/.env.example",
+    "server/otp/private-auth/docker-compose.phase1.yml",
+    "server/otp/private-auth/docker-compose.phase3.yml",
+    "server/otp/private-auth/docker-compose.phase4-loopback.yml",
+    "server/otp/private-auth/docker-compose.phase5-isolated.yml",
+    "server/otp/private-auth/Dockerfile",
+    "server/otp/private-auth/gotrue-v2.197.0-contract.json",
+    "server/otp/private-auth/phase2-application-schema.sql",
+    "server/otp/private-auth/phase3-hosted-data-role.sql",
+    "server/otp/private-auth/phase3.env.example",
+    "server/otp/private-auth/phase4-gotrue-integration.cjs",
+    "server/otp/private-auth/phase5-http-integration.cjs",
+    "server/otp/private-auth/phase5-isolated-gateway-schema.sql",
+    "server/otp/private-auth/railway.toml",
+    "server/otp/private-auth-adapter.cjs",
+    "server/otp/private-native-adapter.cjs",
+    "server/otp/railpack.json",
+    "server/otp/resend-sandbox.cjs",
+    "server/otp/runtime.cjs",
+    "server/otp/serve.cjs",
+    "server/otp/store.cjs",
+    "tests/otp-adapters.test.cjs",
+    "tests/otp-phase1-boundary.test.cjs",
+    "tests/otp-phase2-schema.test.cjs",
+    "tests/otp-phase2-security.test.cjs",
+    "tests/otp-phase3-readiness.test.cjs",
+    "tests/otp-phase5a-integration.test.cjs",
+    "tests/otp-private-auth-contract.test.cjs",
+    "tests/otp-security.test.cjs",
+    "tests/otp-startup.test.cjs",
+    "auth-gateway.js"
+  ],
+  "migrations": [
+    {
+      "file": "supabase/migrations/20261008000000_selcore_customer_profiles.sql",
+      "sha256": "18ac27bb2aafe7b5b2e6c5da0e78117d0d67cfbd7974fe19366e2262f90e80a3"
+    },
+    {
+      "file": "supabase/migrations/20261008124517_create_selcore_catalog_phase1.sql",
+      "sha256": "ae5e5a8a5239d6939a12907f1582adebe281f7579c04502cda41c290043b1e14"
+    },
+    {
+      "file": "supabase/migrations/20261008125807_create_product_images_storage_bucket.sql",
+      "sha256": "e2589179e21746f8be6b7477c7c4d3f66119f5ce807a6052a4256ed06335a035"
+    },
+    {
+      "file": "supabase/migrations/20261010110437_selcore_email_otp_security.sql",
+      "sha256": "f142651d30dc9589759db6708ce4a1c0ff3d15d263bb2255af1c51d73e77ce65"
+    }
+  ]
+}

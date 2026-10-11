@@ -10,15 +10,18 @@
     signin = q(".signInForm");
   const emailPanel = q("#emailPanel"),
     recoveryPanel = q("#recoveryPanel"),
+    otpPanel = q("#otpPanel"),
     dashboard = q("#accountDashboard");
   let emailMode = "recovery",
     working = false,
     profileOwner = null,
-    profileVersion = 0;
+    profileVersion = 0,
+    otpView = null;
   function showForms(mode = "signin") {
     hero.style.display = "none";
     section.style.display = "flex";
     emailPanel.hidden = true;
+    clearOtp();
     signup.classList.toggle("hidden", mode === "signin");
     signin.classList.toggle("hidden", mode !== "signin");
   }
@@ -82,15 +85,18 @@
       }
     });
   }
-  bindForm("#signupForm", () => {
+  bindForm("#signupForm", async () => {
     if (!q("#terms").checked)
       throw new Error("Please agree to the Terms & Conditions.");
-    return auth.register({
+    const email = q("#signupEmail").value.trim();
+    const result = await auth.register({
       name: q("#signupName").value,
-      email: q("#signupEmail").value,
+      email,
       password: q("#signupPassword").value,
       confirm: q("#confirmPassword").value,
     });
+    showRegistrationOtp(email);
+    return result;
   });
   bindForm(
     "#signinForm",
@@ -103,6 +109,7 @@
       auth.updatePassword(
         q("#newPassword").value,
         q("#newPasswordConfirm").value,
+        q("#currentPassword").value,
       ),
     "Your password has been updated.",
   );
@@ -123,10 +130,6 @@
     },
     "Your profile has been saved.",
   );
-  if (window.SelcoreAuthGateway?.enabled) {
-    q("#emailChangeForm").hidden = false;
-    bindForm("#emailChangeForm", () => auth.changeEmail(q("#newEmail").value));
-  }
   const emailCooldowns = new Map();
   const cooldownKey = () => "selcore-" + emailMode + "-next";
   function nextAllowed() {
@@ -145,9 +148,67 @@
     button.disabled =
       seconds > 0 || q("#emailActionForm").hasAttribute("aria-busy");
     button.textContent =
-      seconds > 0 ? "Try again in " + seconds + "s" : "Send email";
+      seconds > 0
+        ? "Try again in " + seconds + "s"
+        : emailMode === "recovery"
+          ? "Send recovery code"
+          : "Send email";
   }
-  bindForm("#emailActionForm", () => {
+  function clearOtp() {
+    otpView?.destroy();
+    otpView = null;
+  }
+  function showOtp(email, purpose, onVerify, onResend) {
+    clearOtp();
+    emailPanel.hidden = true;
+    recoveryPanel.hidden = true;
+    dashboard.hidden = true;
+    const requestTime = Date.now();
+    otpView = window.SelcoreOtpUI.mount(otpPanel, {
+      challenge: {
+        purpose,
+        destination: email,
+        expiresAt: new Date(requestTime + 3600000).toISOString(),
+        resendAt: new Date(requestTime + 60000).toISOString(),
+      },
+      onVerify,
+      onResend,
+      onCancel: async () => {
+        clearOtp();
+        showForms("signin");
+      },
+    });
+    otpPanel.scrollIntoView?.({ block: "start" });
+  }
+  function showRegistrationOtp(email) {
+    showOtp(
+      email,
+      "registration",
+      async (token) => {
+        await auth.verifyRegistrationOtp(email, token);
+        clearOtp();
+      },
+      async () => {
+        await auth.resend(email);
+        showRegistrationOtp(email);
+      },
+    );
+  }
+  function showRecoveryOtp(email) {
+    showOtp(
+      email,
+      "password recovery",
+      async (token) => {
+        await auth.verifyRecoveryOtp(email, token);
+        clearOtp();
+      },
+      async () => {
+        await auth.recover(email);
+        showRecoveryOtp(email);
+      },
+    );
+  }
+  bindForm("#emailActionForm", async () => {
     const email = q("#actionEmail").value;
     if (!auth.validEmail(email))
       throw new Error("Enter a valid email address.");
@@ -160,9 +221,14 @@
     } catch {
       /* Server enforces rate limits. */
     }
-    return emailMode === "verification"
-      ? auth.resend(email)
-      : auth.recover(email);
+    if (emailMode === "verification") {
+      const result = await auth.resend(email);
+      showRegistrationOtp(email.trim());
+      return result;
+    }
+    const result = await auth.recover(email);
+    showRecoveryOtp(email.trim());
+    return result;
   });
   const timer = setInterval(updateCooldown, 1000);
   window.addEventListener("pagehide", (event) => {
@@ -173,6 +239,7 @@
     hero.style.display = "none";
     section.style.display = "none";
     emailPanel.hidden = false;
+    clearOtp();
     q("#emailPanelTitle").textContent =
       mode === "verification" ? "Resend verification" : "Password recovery";
     q("#actionEmail").value =
@@ -292,6 +359,7 @@
       hero.style.display = "none";
       section.style.display = "none";
       emailPanel.hidden = true;
+      clearOtp();
       dashboard.hidden = state.recovery;
       q("#accountEmail").textContent = state.user.email;
       q("#accountCreated").textContent =
@@ -324,51 +392,6 @@
     }
   }
   document.addEventListener("selcore:auth-change", renderAuth);
-  if (window.SelcoreAuthGateway?.enabled) {
-    let otpMount = null;
-    const otpPanel = q("#otpPanel");
-    function renderOtp() {
-      otpMount?.destroy();
-      otpMount = null;
-      const state = auth.snapshot();
-      if (state.otp) {
-        hero.style.display = "none";
-        section.style.display = "none";
-        emailPanel.hidden = recoveryPanel.hidden = dashboard.hidden = true;
-        otpMount = window.SelcoreOtpUI.mount(otpPanel, {
-          challenge: state.otp,
-          onVerify: (value) => auth.verifyOtp(value),
-          onResend: () => auth.resend(),
-          onCancel: () => auth.cancelOtp(),
-        });
-      } else if (state.needsVerification) {
-        otpPanel.hidden = false;
-        const prompt = document.createElement("p");
-        prompt.textContent =
-          "Verify your email to continue using your account.";
-        const button = document.createElement("button");
-        button.type = "button";
-        button.textContent = "Send verification code";
-        button.addEventListener("click", async () => {
-          button.disabled = true;
-          try {
-            await auth.stepup();
-          } catch (error) {
-            prompt.textContent = error.message;
-            button.disabled = false;
-          }
-        });
-        otpPanel.replaceChildren(prompt, button);
-        hero.style.display = section.style.display = "none";
-      } else {
-        otpPanel.replaceChildren();
-        otpPanel.hidden = true;
-      }
-    }
-    document.addEventListener("selcore:auth-change", renderOtp);
-    void auth.ready.then(renderOtp);
-    window.addEventListener("pagehide", () => otpMount?.destroy());
-  }
   for (const event of ["cart", "favorites", "catalogue"])
     document.addEventListener("selcore:" + event + "-change", () => {
       if (auth.snapshot().user) renderSaved();

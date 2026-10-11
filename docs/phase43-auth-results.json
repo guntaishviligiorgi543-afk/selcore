@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-10T13:07:24.408Z",
+  "date": "2026-10-11T16:46:27.827Z",
   "sdkVersion": "2.110.7",
   "type": "Real SDK + application service with mocked HTTP/Auth/REST. Zero production requests; no email delivery or Google consent tested.",
-  "passed": 53,
+  "passed": 64,
   "failed": 0,
   "results": [
     {
@@ -34,11 +34,7 @@
       "passed": true
     },
     {
-      "name": "Real SDK sends a PKCE challenge",
-      "passed": true
-    },
-    {
-      "name": "Registration targets the clean local Selcore callback",
+      "name": "Registration does not request a user-facing verification link",
       "passed": true
     },
     {
@@ -47,6 +43,26 @@
     },
     {
       "name": "Registration metadata reaches the mock profile",
+      "passed": true
+    },
+    {
+      "name": "Invalid eight-digit registration OTP is rejected",
+      "passed": true
+    },
+    {
+      "name": "Expired registration OTP is rejected",
+      "passed": true
+    },
+    {
+      "name": "Real SDK verifies registration OTP with the email type",
+      "passed": true
+    },
+    {
+      "name": "Verified registration OTP creates a verified app session",
+      "passed": true
+    },
+    {
+      "name": "Consumed registration OTP cannot be submitted twice",
       "passed": true
     },
     {
@@ -126,23 +142,39 @@
       "passed": true
     },
     {
-      "name": "Real SDK resends signup verification to Selcore",
+      "name": "Real SDK resends signup verification without a user-facing link",
       "passed": true
     },
     {
-      "name": "Real SDK sends recovery with local redirect and PKCE",
+      "name": "Real SDK requests recovery without a user-facing redirect link",
       "passed": true
     },
     {
-      "name": "Real SDK PKCE exchange identifies password recovery",
+      "name": "Recovery password update requires an authenticated recovery session",
       "passed": true
     },
     {
-      "name": "Callback code is scrubbed from the page URL",
+      "name": "Invalid eight-digit recovery OTP is rejected",
       "passed": true
     },
     {
-      "name": "Recovery form context survives a page refresh",
+      "name": "Expired recovery OTP is rejected",
+      "passed": true
+    },
+    {
+      "name": "Real SDK verifies recovery OTP with the recovery type",
+      "passed": true
+    },
+    {
+      "name": "Verified recovery OTP creates a recovery session",
+      "passed": true
+    },
+    {
+      "name": "Consumed recovery OTP cannot be submitted twice",
+      "passed": true
+    },
+    {
+      "name": "Expired recovery session cannot reset a password",
       "passed": true
     },
     {
@@ -150,11 +182,7 @@
       "passed": true
     },
     {
-      "name": "Successful password update closes recovery mode",
-      "passed": true
-    },
-    {
-      "name": "Completed recovery does not reopen after refresh",
+      "name": "Successful password reset closes recovery mode and local session",
       "passed": true
     },
     {
@@ -167,6 +195,22 @@
     },
     {
       "name": "New login clears the previous signed-out notice",
+      "passed": true
+    },
+    {
+      "name": "Normal change requires current password",
+      "passed": true
+    },
+    {
+      "name": "Incorrect current password rejected by native Auth",
+      "passed": true
+    },
+    {
+      "name": "Mismatched new password confirmation rejected",
+      "passed": true
+    },
+    {
+      "name": "Normal password update sends current password through real SDK",
       "passed": true
     },
     {

@@ -14,3 +14,6 @@ supabase/.temp/
 /server/otp/.secrets/
 /server/otp/*.key
 /server/otp/*.pem
+
+# Local recovery copies of removed architecture (may contain private work)
+/.local-recovery/

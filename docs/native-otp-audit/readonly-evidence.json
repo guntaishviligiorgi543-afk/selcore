@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-11T15:44:02.614Z",
+  "project": "ffznkypurnocabqyxpps",
+  "methods": [
+    "GET"
+  ],
+  "customerAccountsAccessed": false,
+  "emailsSent": false,
+  "publicSettings": {
+    "status": 200,
+    "body": {
+      "external": {
+        "anonymous_users": false,
+        "apple": false,
+        "azure": false,
+        "bitbucket": false,
+        "discord": false,
+        "facebook": false,
+        "snapchat": false,
+        "figma": false,
+        "fly": false,
+        "github": false,
+        "gitlab": false,
+        "google": false,
+        "keycloak": false,
+        "kakao": false,
+        "linkedin": false,
+        "linkedin_oidc": false,
+        "notion": false,
+        "spotify": false,
+        "slack": false,
+        "slack_oidc": false,
+        "workos": false,
+        "twitch": false,
+        "twitter": false,
+        "email": true,
+        "phone": false,
+        "zoom": false
+      },
+      "disable_signup": false,
+      "mailer_autoconfirm": false,
+      "phone_autoconfirm": false,
+      "sms_provider": "twilio",
+      "saml_enabled": false,
+      "saml_private_key_next_configured": true,
+      "passkeys_enabled": false
+    }
+  },
+  "health": {
+    "status": 200,
+    "body": {
+      "version": "v2.197.0",
+      "name": "GoTrue",
+      "description": "GoTrue is a user registration and authentication API"
+    }
+  },
+  "unauthenticatedUser": {
+    "status": 401,
+    "body": {
+      "code": 401,
+      "error_code": "no_authorization",
+      "msg": "This endpoint requires a valid Bearer token"
+    }
+  },
+  "anonymousProfiles": {
+    "status": 401,
+    "body": {
+      "code": "42501",
+      "details": null,
+      "hint": "Grant the required privileges to the current role with: GRANT SELECT ON public.profiles TO anon;",
+      "message": "permission denied for table profiles"
+    }
+  },
+  "managementConfig": {
+    "status": "unavailable",
+    "reason": "No management configuration tool, connected dashboard browser, or SUPABASE_ACCESS_TOKEN"
+  },
+  "upstreamVersion": "v2.197.0",
+  "upstreamCommit": "4eee58f296d9698a1c2c0ae14d7a0b379c7622d3",
+  "upstreamSources": [
+    {
+      "file": "internal/api/user.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/api/user.go",
+      "local": "docs/native-otp-audit/source/internal__api__user.go",
+      "sha256": "bae046e8931bf9e6929f5588ad49b3007881c8e9e6d61cb77268db9491791b01"
+    },
+    {
+      "file": "internal/api/user_test.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/api/user_test.go",
+      "local": "docs/native-otp-audit/source/internal__api__user_test.go",
+      "sha256": "3ffa3b9b528597cf0b032ba40c6b85f02b1836e3e6ae7ff948a66084754205e8"
+    },
+    {
+      "file": "internal/api/token.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/api/token.go",
+      "local": "docs/native-otp-audit/source/internal__api__token.go",
+      "sha256": "f10e7b08e185958cbd7831b373c0ab610c3762f81253f7acfe044ddcfd85c810"
+    },
+    {
+      "file": "internal/api/mail.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/api/mail.go",
+      "local": "docs/native-otp-audit/source/internal__api__mail.go",
+      "sha256": "1ba60509401f6ec35b1cab59a98c9cffc8a641b2e74abcaf340f5dcda66f368c"
+    },
+    {
+      "file": "internal/api/verify.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/api/verify.go",
+      "local": "docs/native-otp-audit/source/internal__api__verify.go",
+      "sha256": "62c3fb12370a8f33ce44267d147a142aeda48af788fd45c27fea380c076449c1"
+    },
+    {
+      "file": "internal/conf/configuration.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/conf/configuration.go",
+      "local": "docs/native-otp-audit/source/internal__conf__configuration.go",
+      "sha256": "b27faebba541f907b23d2ce2dcab8c4679b5ce49cf1fcee007778f1b53230773"
+    },
+    {
+      "file": "internal/crypto/crypto.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/crypto/crypto.go",
+      "local": "docs/native-otp-audit/source/internal__crypto__crypto.go",
+      "sha256": "d457f1fee03ceba68118fc7184ca82d1380ffa8da4975b5e0d51de2707a14f6c"
+    },
+    {
+      "file": "internal/mailer/mailer.go",
+      "url": "https://raw.githubusercontent.com/supabase/auth/4eee58f296d9698a1c2c0ae14d7a0b379c7622d3/internal/mailer/mailer.go",
+      "local": "docs/native-otp-audit/source/internal__mailer__mailer.go",
+      "sha256": "b25ae210ffd06735f38eb6a72dc711976e29f8255630ff64b4fc5fbb65ddf09e"
+    }
+  ]
+}

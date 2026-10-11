@@ -26,7 +26,7 @@ python -m http.server 8000
 
 Then visit [http://localhost:8000](http://localhost:8000).
 
-You can also open `index.html` directly, although running a local server is recommended for a browser-like development environment.
+For the restricted local preview, run `node tools/serve.cjs`. Authentication requires HTTPS or localhost; opening HTML files directly is unsupported.
 
 ## Project structure
 
@@ -49,4 +49,6 @@ HTML, CSS, and vanilla JavaScript. The home page also loads [AOS](https://michal
 
 ## Notes
 
-The catalogue and cart are demo functionality: product data is stored in front-end JavaScript and cart/favorite selections are kept in the browser's `localStorage`. No backend, authentication service, or payment processor is connected.
+GitHub Pages hosts the static frontend. Hosted Supabase Auth handles signup, password login, email confirmation and password recovery; Supabase Database, Storage and RLS serve catalogue and profile data. Cart and favorites remain in browser storage; checkout remains a demo without payment processing.
+
+The target email architecture uses Supabase Email OTP with eight digits and Resend SMTP delivery. The current frontend still uses confirmation/recovery links; native OTP entry and additional device/sensitive-action policies remain follow-up work. See [the Supabase-only architecture and cleanup audit](docs/supabase-only-architecture.md). No Railway, Docker, private Auth server or custom OTP gateway is required.

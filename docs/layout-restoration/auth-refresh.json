@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-09T10:07:35.698Z",
+  "date": "2026-10-11T15:22:48.006Z",
   "reference": "830aaff",
   "records": [
     {
@@ -1104,5 +1104,6 @@
     }
   ],
   "assetErrors": [],
+  "catalogueSource": "Local prepared catalogue and manifest; original image SHA-256 validated. Live verification is separate.",
   "notes": "Isolated real Edge with local Auth fixtures. Public catalogue/images preflight read-only. Both versions replay the same cached external assets. Overview captures preserve viewport layout and scale only the screenshot."
 }

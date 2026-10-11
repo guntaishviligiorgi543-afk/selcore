@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-11",
+  "project": "ffznkypurnocabqyxpps",
+  "provenance": "User manually confirmed hosted settings during this audit; private configuration was not independently retrieved by the agent",
+  "emailOtpLength": 8,
+  "emailOtpExpirySeconds": 3600,
+  "secureEmailChange": true,
+  "securePasswordChange": true,
+  "currentPasswordRequired": true,
+  "smtpHost": "smtp.resend.com",
+  "enabledAuthHooks": []
+}

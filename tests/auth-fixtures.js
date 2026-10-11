@@ -8,6 +8,7 @@
     profileMissing: false,
     profileDenied: false,
     userError: false,
+    registrationCodeAvailable: false,
   });
   const idA = "11111111-1111-4111-8111-111111111111",
     idB = "22222222-2222-4222-8222-222222222222";
@@ -51,6 +52,7 @@
     signUp: async (input) => {
       call("signUp");
       await delay();
+      state.registrationCodeAvailable = true;
       return input.email.startsWith("existing")
         ? { data: {}, error: { code: "user_already_exists" } }
         : okay({ user: account(input.email), session: null });
@@ -82,6 +84,30 @@
       call("recovery");
       await delay();
       return okay({});
+    },
+    verifyOtp: async (input) => {
+      call("verifyOtp");
+      await delay();
+      if (input.token === "00000000")
+        return { data: {}, error: { code: "invalid_otp" } };
+      if (input.token === "99999999")
+        return { data: {}, error: { code: "otp_expired" } };
+      if (input.type === "email") {
+        if (!state.registrationCodeAvailable || input.token !== "12345678")
+          return { data: {}, error: { code: "otp_expired" } };
+        state.registrationCodeAvailable = false;
+        const customer = account(input.email);
+        customer.email_confirmed_at = "2026-10-11T00:00:00Z";
+        set(customer);
+        emit("SIGNED_IN");
+        return okay({ user: customer, session: session() });
+      }
+      if (input.type !== "recovery")
+        return { data: {}, error: { code: "invalid_otp" } };
+      const customer = account(input.email);
+      set(customer);
+      emit("PASSWORD_RECOVERY");
+      return okay({ user: customer, session: session() });
     },
     updateUser: async () => {
       call("updatePassword");

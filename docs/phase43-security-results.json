@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-09T19:04:43.475Z",
+  "date": "2026-10-11T16:46:30.816Z",
   "type": "Assertions on read-only captured production metadata and real anonymous REST response, plus local source integrity/secret pattern scan. Not a real authenticated customer integration test.",
   "passed": 56,
   "failed": 0,
-  "frontendFilesScanned": 20,
+  "frontendFilesScanned": 21,
   "credentialViolations": [],
   "googleConfigured": false,
   "results": [
