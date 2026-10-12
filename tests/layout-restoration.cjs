@@ -18,6 +18,7 @@ if (
     "auth-refresh",
     "checkout-refresh",
     "home-refresh",
+    "account-redesign",
   ].includes(stage)
 )
   throw Error(
@@ -468,11 +469,15 @@ let edge;
       await cdp.evaluate(
         "document.querySelector('.toSign').click();document.querySelector('#showResend').click()",
       );
-    if (state === "account") {
+    if (state === "account" || state.startsWith("dashboard-")) {
       await cdp.evaluate(
         "window.SelcoreAuth.login('customer@example.invalid','SafeTest123')",
       );
     }
+    if (state.startsWith("dashboard-"))
+      await cdp.evaluate(`document.querySelector('.dashboardSidebar [data-account-section="${state.slice(10)}"]').click()`);
+    if (state === "otp")
+      await cdp.evaluate(`window.SelcoreOtpUI.mount(document.querySelector('#otpPanel'), { challenge: {purpose:'registration', destination:'customer@example.invalid', expiresAt:new Date(Date.now()+3600000).toISOString(), resendAt:new Date(Date.now()+60000).toISOString()}, onVerify:async()=>{}, onResend:async()=>{}, onCancel:async()=>{} })`);
     if (state === "navigation")
       await cdp.evaluate("document.querySelector('#burger')?.click()");
     if (state === "account-menu")
@@ -577,7 +582,13 @@ let edge;
       }),
     );
   }
-  if (stage === "inspect") await capture("after", "index.html", 320);
+  if (stage === "account-redesign") {
+    for (const width of [1440, 768, 375, 320]) {
+      for (const state of ["account", "dashboard-security", "dashboard-cart", "otp"])
+        await capture("after", "user.html", width, state);
+      await capture("after", "checkout.html", width);
+    }
+  } else if (stage === "inspect") await capture("after", "index.html", 320);
   else if (stage === "home-refresh") {
     for (const state of ["guest", "account", "navigation", "account-menu"])
       await capture("after", "index.html", 320, state);

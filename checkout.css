@@ -137,9 +137,13 @@ header {
 }
 
 .checkoutSection {
-  padding: 30px;
+  padding: 40px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 32px;
+  align-items: start;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   font-family: Arial, Helvetica, sans-serif;
 }
 h1 {
@@ -152,23 +156,19 @@ h1 {
 }
 .form-buy {
   display: flex;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
+  position: static;
   flex-direction: column;
   justify-content: space-evenly;
 
   gap: 30px;
   align-items: center;
-  padding-top: 30px;
-  padding-right: 30px;
-  padding-left: 10px;
+  padding: 0;
+  min-width: 0;
 }
 .checkoutProducts {
   align-items: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
   gap: 15px;
 }
@@ -178,7 +178,17 @@ h1 {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  gap: 16px;
+  overflow-wrap: anywhere;
 }
+.checkoutProduct img { max-width: 180px; height: 160px; object-fit: contain; }
+.title-prodicts { min-width: 0; }
+.title-prodicts h1 { margin-bottom: 24px; }
 .checkoutProductContent {
   display: flex;
   flex-direction: column;
@@ -198,7 +208,7 @@ h1 {
 .addressForm {
   padding: 30px;
   width: 100%;
-  transform: translateX(20px);
+  transform: none;
   background: #fff;
   border: 1px solid #000;
 
@@ -257,7 +267,17 @@ h1 {
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+  padding: 24px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 12px;
 }
+.addressRow > div, .addressRow input { min-width: 0; }
+.addressForm label { display: block; font-size: 14px; font-weight: 600; }
+.addressRow label { margin-bottom: 8px; }
+.checkoutSection button:focus-visible, .checkoutSection input:focus-visible { outline: 2px solid #5b21b6; outline-offset: 3px; }
+.checkoutSection button:disabled { opacity: .6; cursor: not-allowed; }
 .sumPrice {
   color: #050505;
 }
@@ -315,7 +335,7 @@ h1 {
   }
   .checkoutSection {
     grid-template-columns: 1fr;
-    padding: 92px 20px 32px;
+    padding: 32px 20px;
     gap: 28px;
   }
   .form-buy {
@@ -338,7 +358,7 @@ h1 {
     padding: 12px 16px;
   }
   .checkoutSection {
-    padding: 80px 12px 24px;
+    padding: 24px 12px;
   }
   h1 {
     font-size: 38px;

@@ -303,27 +303,31 @@
       <section id="otpPanel" class="accountFlow selcoreOtp" hidden></section>
       <section id="accountDashboard" class="accountDashboard" hidden>
         <h1 id="accountWelcome">My account</h1>
-        <section>
-          <h2>Overview</h2>
+        <div class="dashboardLayout">
+        <nav class="dashboardSidebar" aria-label="Account sections">
+          <button type="button" data-account-section="overview" aria-controls="dashboardOverview" aria-current="page">Overview</button>
+          <button type="button" data-account-section="profile" aria-controls="dashboardProfile">Profile</button>
+          <button type="button" data-account-section="security" aria-controls="dashboardSecurity">Security</button>
+          <button type="button" data-account-section="cart" aria-controls="dashboardCart">Cart</button>
+          <button type="button" id="accountLogout" class="dangerAction">Log Out</button>
+        </nav>
+        <div class="dashboardContent">
+        <section id="dashboardOverview" data-account-panel="overview" aria-labelledby="overviewHeading">
+          <h2 id="overviewHeading" tabindex="-1">Overview</h2>
           <p id="accountEmail"></p>
           <p id="accountCreated"></p>
           <p id="accountProfileStatus" role="status"></p>
           <button id="retryProfile" type="button" hidden>Retry profile</button>
+          <p id="overviewName"></p>
+          <p id="overviewCart"></p>
+          <button type="button" data-account-section="profile">Edit profile</button>
+          <button type="button" data-account-section="security">Manage security</button>
+          <h3>Favorites</h3>
+          <p>Saved for this account in this browser.</p>
+          <div id="accountFavorites"></div>
         </section>
-        <section>
-          <h2>Personal information</h2>
-          <form id="emailChangeForm" method="post" hidden>
-            <label for="newEmail">New email address</label>
-            <input
-              id="newEmail"
-              type="email"
-              autocomplete="email"
-              autocapitalize="none"
-              spellcheck="false"
-              required
-            />
-            <button type="submit">Change email</button>
-          </form>
+        <section id="dashboardProfile" data-account-panel="profile" hidden aria-labelledby="profileHeading">
+          <h2 id="profileHeading" tabindex="-1">Personal information</h2>
           <form id="profileForm" method="post">
             <label for="profileName">Full name</label
             ><input id="profileName" minlength="2" maxlength="100" required />
@@ -331,10 +335,12 @@
               Email is managed securely by Supabase Auth and is shown above.
             </p>
             <button type="submit" disabled>Save profile</button>
+            <button type="button" id="cancelProfile">Cancel</button>
           </form>
         </section>
-        <section>
-          <h2>Security</h2>
+        <section id="dashboardSecurity" data-account-panel="security" hidden aria-labelledby="securityHeading">
+          <h2 id="securityHeading" tabindex="-1">Security</h2>
+          <h3>Change password</h3>
           <form id="changePasswordForm" method="post">
             <label for="currentPassword">Current password</label>
             <input id="currentPassword" type="password" autocomplete="current-password" required />
@@ -363,29 +369,51 @@
           </form>
           <button type="button" id="accountRecovery">
             Send a recovery code</button
-          ><button type="button" id="accountLogout">Logout</button>
+          >
+          <hr />
+          <h3>Change email</h3>
+          <p>Current email: <span id="securityEmail"></span></p>
+          <form id="emailChangeForm" method="post">
+            <label for="newEmail">New email address</label>
+            <input id="newEmail" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" required />
+            <button type="submit">Request email change</button>
+          </form>
+          <p id="emailChangeStatus" role="status" aria-live="polite"></p>
+          <div id="emailVerification" hidden>
+            <label for="emailCodeDestination">If your email contains a code, select its recipient</label>
+            <select id="emailCodeDestination"></select>
+            <div id="emailChangeOtp" class="accountFlow selcoreOtp" hidden></div>
+          </div>
+          <button type="button" id="refreshEmail">Check verification status</button>
+          <div class="dangerZone">
+            <h3>Danger Zone</h3>
+            <p>Account deletion is permanent. Secure deletion is not available yet; no account data will be deleted.</p>
+            <button type="button" id="reviewDeletion" class="dangerAction">Review account deletion</button>
+          </div>
+          <dialog id="deleteAccountDialog" aria-labelledby="deleteHeading" aria-describedby="deleteDescription">
+            <h2 id="deleteHeading">Delete account permanently?</h2>
+            <p id="deleteDescription">This would permanently remove your account and eligible personal data. Secure server-side deletion and fresh identity verification must be configured before this action becomes available.</p>
+            <label for="deleteConfirmation">Type DELETE to confirm your understanding</label>
+            <input id="deleteConfirmation" autocomplete="off" />
+            <p role="status">Deletion unavailable — no request will be sent.</p>
+            <button type="button" disabled>Delete account (unavailable)</button>
+            <button type="button" id="cancelDeletion">Cancel</button>
+          </dialog>
         </section>
-        <section>
-          <h2>Favorites</h2>
-          <p>
-            Saved for this account in this browser. Guest items are kept
-            separately.
-          </p>
-          <div id="accountFavorites"></div>
-        </section>
-        <section>
-          <h2>Shopping cart</h2>
+        <section id="dashboardCart" data-account-panel="cart" hidden aria-labelledby="cartHeading">
+          <h2 id="cartHeading" tabindex="-1">Shopping cart</h2>
           <p>This is a demo cart. Purchases remain unavailable.</p>
           <div id="accountCart"></div>
+          <p id="accountCartTotal"></p>
           <a href="cart.html">View cart</a>
-        </section>
-        <section>
-          <h2>Orders</h2>
+          <a href="checkout.html">Continue to checkout</a>
           <p>
             Order history will be available in a future release. No orders have
             been placed through this demo.
           </p>
         </section>
+        </div>
+        </div>
       </section>
     </main>
     <script src="vendor/supabase-2.110.7.js"></script>

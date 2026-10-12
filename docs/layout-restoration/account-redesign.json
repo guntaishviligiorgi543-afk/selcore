@@ -1,0 +1,1642 @@
+{
+  "date": "2026-10-12T16:03:04.939Z",
+  "reference": "830aaff",
+  "records": [
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "account",
+      "screenshot": "after/user-1440-account.png",
+      "overview": "after/user-1440-account-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1440,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 1378,
+          "y": 38,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 220,
+          "y": 0,
+          "width": 1000,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "dashboard-security",
+      "screenshot": "after/user-1440-dashboard-security.png",
+      "overview": "after/user-1440-dashboard-security-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1425,
+      "height": 1462,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 1462,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 1363,
+          "y": 38,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 212.5,
+          "y": 0,
+          "width": 1000,
+          "height": 1462,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "dashboard-cart",
+      "screenshot": "after/user-1440-dashboard-cart.png",
+      "overview": "after/user-1440-dashboard-cart-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1440,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 1378,
+          "y": 38,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 220,
+          "y": 0,
+          "width": 1000,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 1440,
+      "state": "otp",
+      "screenshot": "after/user-1440-otp.png",
+      "overview": "after/user-1440-otp-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 1440,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "display": "grid",
+        "font": "16px \"Times New Roman\"",
+        "padding": "100px 16px 24px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountFlow selcoreOtp",
+          "x": 520,
+          "y": 338,
+          "width": 400,
+          "height": 400,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "24px",
+          "background": "rgb(22, 16, 44)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 1440,
+      "state": "guest",
+      "screenshot": "after/checkout-1440-guest.png",
+      "overview": "after/checkout-1440-guest-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 1425,
+      "height": 1043,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 112,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "30px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 112,
+        "width": 1425,
+        "height": 930.5625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 30,
+        "y": 30,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 30,
+          "y": 30,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "account",
+      "screenshot": "after/user-768-account.png",
+      "overview": "after/user-768-account-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 768,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 716,
+          "y": 18,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "dashboard-security",
+      "screenshot": "after/user-768-dashboard-security.png",
+      "overview": "after/user-768-dashboard-security-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 753,
+      "height": 1436,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 1436,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 701,
+          "y": 18,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 1436,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "dashboard-cart",
+      "screenshot": "after/user-768-dashboard-cart.png",
+      "overview": "after/user-768-dashboard-cart-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 768,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 716,
+          "y": 18,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "120px 24px 40px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 768,
+      "state": "otp",
+      "screenshot": "after/user-768-otp.png",
+      "overview": "after/user-768-otp-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 768,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 72,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1000,
+        "display": "grid",
+        "font": "16px \"Times New Roman\"",
+        "padding": "100px 16px 24px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountFlow selcoreOtp",
+          "x": 184,
+          "y": 338,
+          "width": 400,
+          "height": 400,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "24px",
+          "background": "rgb(22, 16, 44)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 768,
+      "state": "guest",
+      "screenshot": "after/checkout-768-guest.png",
+      "overview": "after/checkout-768-guest-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 753,
+      "height": 1381,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 84,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "16px 20px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 84,
+        "width": 753,
+        "height": 1296.78125,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 20,
+        "y": 16,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 20,
+          "y": 16,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "burger",
+          "x": 693,
+          "y": 27,
+          "width": 40,
+          "height": 30,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 375,
+      "state": "account",
+      "screenshot": "after/user-375-account.png",
+      "overview": "after/user-375-account-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 360,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 308,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 375,
+      "state": "dashboard-security",
+      "screenshot": "after/user-375-dashboard-security.png",
+      "overview": "after/user-375-dashboard-security-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 360,
+      "height": 1598,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 1598,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 308,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 1598,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 375,
+      "state": "dashboard-cart",
+      "screenshot": "after/user-375-dashboard-cart.png",
+      "overview": "after/user-375-dashboard-cart-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 375,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 323,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 375,
+      "state": "otp",
+      "screenshot": "after/user-375-otp.png",
+      "overview": "after/user-375-otp-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 375,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1000,
+        "display": "grid",
+        "font": "16px \"Times New Roman\"",
+        "padding": "100px 16px 24px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountFlow selcoreOtp",
+          "x": 16,
+          "y": 338,
+          "width": 343,
+          "height": 400,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "20px 12px",
+          "background": "rgb(22, 16, 44)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 375,
+      "state": "guest",
+      "screenshot": "after/checkout-375-guest.png",
+      "overview": "after/checkout-375-guest-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 360,
+      "height": 1837,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 76,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 76,
+        "width": 360,
+        "height": 1760.5625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 12,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 12,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "burger",
+          "x": 304,
+          "y": 23,
+          "width": 40,
+          "height": 30,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "account",
+      "screenshot": "after/user-320-account.png",
+      "overview": "after/user-320-account-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 305,
+      "height": 1067,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 1067,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 253,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 1067,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "dashboard-security",
+      "screenshot": "after/user-320-dashboard-security.png",
+      "overview": "after/user-320-dashboard-security-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 305,
+      "height": 1640,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 1640,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 253,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 305,
+          "height": 1640,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "dashboard-cart",
+      "screenshot": "after/user-320-dashboard-cart.png",
+      "overview": "after/user-320-dashboard-cart-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 320,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1000,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "authNavigation",
+          "x": 268,
+          "y": 16,
+          "width": 32,
+          "height": 36,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountDashboard",
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1000,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "100px 16px 24px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "user.html",
+      "width": 320,
+      "state": "otp",
+      "screenshot": "after/user-320-otp.png",
+      "overview": "after/user-320-otp-overview.png",
+      "url": "/after/user.html",
+      "scrollWidth": 320,
+      "height": 1000,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 68,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1000,
+        "display": "grid",
+        "font": "16px \"Times New Roman\"",
+        "padding": "100px 16px 24px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 14,
+        "width": 124.1875,
+        "height": 40,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "4px 0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 14,
+          "width": 124.1875,
+          "height": 40,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "4px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [
+        {
+          "name": "accountFlow selcoreOtp",
+          "x": 16,
+          "y": 338,
+          "width": 288,
+          "height": 400,
+          "display": "block",
+          "font": "16px Arial, sans-serif",
+          "padding": "20px 12px",
+          "background": "rgb(22, 16, 44)"
+        }
+      ],
+      "products": 0,
+      "images": [],
+      "footer": null,
+      "exceptions": []
+    },
+    {
+      "source": "after",
+      "page": "checkout.html",
+      "width": 320,
+      "state": "guest",
+      "screenshot": "after/checkout-320-guest.png",
+      "overview": "after/checkout-320-guest-overview.png",
+      "url": "/after/checkout.html",
+      "scrollWidth": 305,
+      "height": 1837,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 76,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "12px 16px",
+        "background": "rgb(0, 0, 0)"
+      },
+      "main": {
+        "x": 0,
+        "y": 76,
+        "width": 305,
+        "height": 1760.5625,
+        "display": "block",
+        "font": "16px \"Times New Roman\"",
+        "padding": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "logo": {
+        "x": 16,
+        "y": 12,
+        "width": 158.6875,
+        "height": 52,
+        "display": "flex",
+        "font": "16px \"Times New Roman\"",
+        "padding": "10px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "navigation": [
+        {
+          "name": "logo",
+          "x": 16,
+          "y": 12,
+          "width": 158.6875,
+          "height": 52,
+          "display": "flex",
+          "font": "16px \"Times New Roman\"",
+          "padding": "10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "burger",
+          "x": 249,
+          "y": 23,
+          "width": 40,
+          "height": 30,
+          "display": "block",
+          "font": "16px \"Times New Roman\"",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "overflow": [],
+      "forms": [],
+      "products": 0,
+      "images": [
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/1/a455b5fe97ad3be6158150120fe29507a0ca9326123b1cfc7ae61b23fb36e36f.png",
+          "loaded": true
+        },
+        {
+          "src": "/__image__/storage/v1/object/public/product-images/products/5/9f91380281e023da6a3fe4abd73f3f169261874102bcd4bade96633b414a4ee9.png",
+          "loaded": true
+        }
+      ],
+      "footer": null,
+      "exceptions": []
+    }
+  ],
+  "assetErrors": [],
+  "catalogueSource": "Local prepared catalogue and manifest; original image SHA-256 validated. Live verification is separate.",
+  "notes": "Isolated real Edge with local Auth fixtures. Public catalogue/images preflight read-only. Both versions replay the same cached external assets. Overview captures preserve viewport layout and scale only the screenshot."
+}

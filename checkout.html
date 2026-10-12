@@ -54,16 +54,19 @@
             method="post"
             data-unavailable="Address confirmation is not connected yet. Your address has not been saved and no order has been placed."
           >
-            <input type="text" placeholder="Full Name" required />
+            <label for="checkoutName">Full name</label>
+            <input id="checkoutName" type="text" placeholder="Full Name" autocomplete="name" required />
 
-            <input type="text" placeholder="Address" required />
+            <label for="checkoutAddress">Address</label>
+            <input id="checkoutAddress" type="text" placeholder="Address" autocomplete="street-address" required />
 
             <div class="addressRow">
-              <input type="text" placeholder="City" required />
-              <input type="text" placeholder="ZIP Code" required />
+              <div><label for="checkoutCity">City</label><input id="checkoutCity" type="text" placeholder="City" autocomplete="address-level2" required /></div>
+              <div><label for="checkoutZip">ZIP code</label><input id="checkoutZip" type="text" placeholder="ZIP Code" autocomplete="postal-code" required /></div>
             </div>
 
-            <input type="tel" placeholder="Phone Number" required />
+            <label for="checkoutPhone">Phone number</label>
+            <input id="checkoutPhone" type="tel" placeholder="Phone Number" autocomplete="tel" required />
 
             <button type="submit">Confirm Address</button>
           </form>

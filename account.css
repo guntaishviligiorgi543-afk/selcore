@@ -257,3 +257,46 @@
     padding: 16px;
   }
 }
+
+/* Account dashboard: one selected panel, sharing the existing account store. */
+.accountDashboard { width: 100%; max-width: 1000px; padding: 120px 24px 40px; }
+.accountDashboard *, .selcoreOtp * { text-transform: none; }
+.dashboardLayout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: start; }
+.dashboardSidebar { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: #16102c; border: 1px solid #593494; border-radius: 12px; }
+.accountDashboard .dashboardSidebar button { margin: 0; width: 100%; text-align: left; background: transparent; }
+.accountDashboard .dashboardSidebar button[aria-current="page"] { background: #5b21b6; box-shadow: inset 3px 0 #c084fc; }
+.dashboardContent, .dashboardContent section, .accountProduct > a { min-width: 0; overflow-wrap: anywhere; }
+.accountDashboard [data-account-panel][hidden], .accountDashboard [hidden] { display: none; }
+.accountDashboard a { color: #d8b4fe; display: inline-block; margin: 8px 14px 8px 0; }
+.accountDashboard h3 { margin: 24px 0 12px; }
+.accountDashboard hr { border-top: 1px solid #593494; margin: 28px 0; }
+.accountDashboard :focus-visible { outline: 2px solid #c084fc; outline-offset: 3px; }
+.accountDashboard .dangerAction { color: #fecaca; background: #7f1d1d; }
+.accountDashboard .dashboardSidebar .dangerAction { border-top: 1px solid #593494; margin-top: 16px; color: #fecaca; }
+.dangerZone { border: 1px solid #b45353; padding: 16px; border-radius: 8px; margin-top: 28px; }
+.dangerZone h3 { margin-top: 0; }
+.accountDashboard dialog { position: fixed; inset: 0; margin: auto; width: min(480px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow: auto; padding: 24px; color: #fff; background: #16102c; border: 1px solid #b45353; border-radius: 12px; }
+.accountDashboard dialog::backdrop { background: #000b; }
+.accountDashboard select { width: 100%; padding: 12px; color: #fff; background: #251a40; border: 1px solid #765499; border-radius: 6px; }
+
+/* A compact card centered in the space below the header. */
+.accountPage main:has(> .selcoreOtp:not([hidden])) { min-height: 100dvh; padding: 100px 16px 24px; display: grid; place-content: center; }
+.accountPage main:has(> .selcoreOtp:not([hidden])) > .userHeroSec,
+.accountPage main:has(> .selcoreOtp:not([hidden])) > .userSec2 { display: none !important; }
+.accountFlow.selcoreOtp { width: min(400px, 100%); min-height: 400px; padding: 24px; margin: auto; background: #16102c; border: 1px solid #593494; border-radius: 16px; text-align: center; }
+.selcoreOtp form { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: center; gap: 8px; min-height: 350px; }
+.selcoreOtp fieldset, .selcoreOtp form > p { width: 100%; }
+.selcoreOtp legend { width: 100%; line-height: 1.4; }
+.selcoreOtp .selcoreOtpDigits { width: 100%; margin: 20px auto 0; gap: 5px; }
+.selcoreOtp .selcoreOtpDigits input { width: 100%; padding: 12px 0; }
+.selcoreOtp form > button { margin: 0; padding: 10px 12px; font: 14px/1.4 Arial, sans-serif; }
+.selcoreOtp form > p:empty { display: none; }
+.dashboardContent .accountFlow.selcoreOtp { margin-top: 20px; }
+@media (max-width: 640px) {
+  .accountDashboard { padding: 100px 16px 24px; }
+  .dashboardLayout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .dashboardSidebar { flex-direction: row; flex-wrap: wrap; padding: 10px; }
+  .accountDashboard .dashboardSidebar button { width: auto; flex: 1 1 auto; text-align: center; padding: 12px; }
+  .accountDashboard .dashboardSidebar .dangerAction { border-top: 0; margin-top: 0; }
+  .accountFlow.selcoreOtp { padding: 20px 12px; }
+}

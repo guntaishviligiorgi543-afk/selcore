@@ -17,6 +17,83 @@
     profileOwner = null,
     profileVersion = 0,
     otpView = null;
+  let savedName = "", emailOtpView = null, emailResendAt = 0, emailExpiresAt = 0;
+  function selectSection(name, focus = false) {
+    for (const panel of dashboard.querySelectorAll("[data-account-panel]"))
+      panel.hidden = panel.dataset.accountPanel !== name;
+    for (const button of dashboard.querySelectorAll(".dashboardSidebar [data-account-section]")) {
+      if (button.dataset.accountSection === name) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    }
+    if (focus) dashboard.querySelector(`[data-account-panel="${name}"] h2`)?.focus();
+  }
+  dashboard.querySelectorAll("[data-account-section]").forEach(button => {
+    button.addEventListener("click", () => selectSection(button.dataset.accountSection, true));
+  });
+  q("#cancelProfile").addEventListener("click", () => {
+    if (q("#profileForm").hasAttribute("aria-busy")) return;
+    q("#profileName").value = savedName;
+    store.showMessage(q("#profileForm"), "Changes cancelled.");
+  });
+  q("#reviewDeletion").addEventListener("click", () => {
+    q("#deleteConfirmation").value = "";
+    q("#deleteAccountDialog").showModal();
+  });
+  q("#cancelDeletion").addEventListener("click", () => q("#deleteAccountDialog").close());
+  function clearEmailOtp() {
+    emailOtpView?.destroy();
+    emailOtpView = null;
+    q("#emailVerification").hidden = true;
+  }
+  function renderEmailStatus() {
+    const account = auth.snapshot().user;
+    q("#securityEmail").textContent = account?.email || "";
+    const pending = account?.new_email;
+    q("#emailChangeStatus").textContent = pending
+      ? `Verification pending for ${pending}. Complete the instructions in both inboxes. If a code or link has expired, request a new email change.`
+      : "Your displayed email is the address confirmed by Supabase.";
+    if (!pending) clearEmailOtp();
+    else {
+      const select = q("#emailCodeDestination"), value = select.value;
+      select.replaceChildren();
+      for (const email of [account.email, pending]) {
+        const option = document.createElement("option");
+        option.value = option.textContent = email;
+        select.append(option);
+      }
+      if ([account.email, pending].includes(value)) select.value = value;
+      q("#emailVerification").hidden = false;
+      if (!emailOtpView) mountEmailOtp();
+    }
+  }
+  function mountEmailOtp() {
+    emailOtpView?.destroy();
+    const email = q("#emailCodeDestination").value;
+    emailOtpView = window.SelcoreOtpUI.mount(q("#emailChangeOtp"), {
+      challenge: { purpose: "email change", destination: email,
+        expiresAt: new Date(emailExpiresAt || Date.now() + 3600000).toISOString(),
+        resendAt: new Date(emailResendAt).toISOString() },
+      onVerify: async token => {
+        await auth.verifyEmailChange(email, token);
+        renderEmailStatus();
+        if (auth.snapshot().user?.new_email)
+          throw new Error("This address was confirmed. Complete verification in the other inbox; your account email is still unchanged.");
+      },
+      onResend: async () => {
+        await auth.resendEmailChange(auth.snapshot().user.email);
+        emailResendAt = Date.now() + 60000;
+        emailExpiresAt = Date.now() + 3600000;
+        mountEmailOtp();
+      },
+      onCancel: async () => { clearEmailOtp(); },
+    });
+  }
+  q("#emailCodeDestination").addEventListener("change", mountEmailOtp);
+  q("#refreshEmail").addEventListener("click", async event => {
+    event.currentTarget.disabled = true;
+    try { await auth.refresh(); renderEmailStatus(); }
+    finally { q("#refreshEmail").disabled = false; }
+  });
   function showForms(mode = "signin") {
     hero.style.display = "none";
     section.style.display = "flex";
@@ -126,10 +203,21 @@
     "#profileForm",
     async () => {
       const profile = await auth.saveProfile(q("#profileName").value);
+      savedName = profile.full_name;
+      q("#overviewName").textContent = "Full name: " + savedName;
       q("#accountWelcome").textContent = "Welcome, " + profile.full_name;
     },
     "Your profile has been saved.",
   );
+  bindForm("#emailChangeForm", async () => {
+    if (emailResendAt > Date.now()) throw new Error("Please wait 60 seconds before requesting another change.");
+    const message = await auth.changeEmail(q("#newEmail").value);
+    emailResendAt = Date.now() + 60000;
+    emailExpiresAt = Date.now() + 3600000;
+    clearEmailOtp();
+    renderEmailStatus();
+    return message;
+  });
   const emailCooldowns = new Map();
   const cooldownKey = () => "selcore-" + emailMode + "-next";
   function nextAllowed() {
@@ -287,6 +375,8 @@
       if (version !== profileVersion || auth.snapshot().user?.id !== account.id)
         return;
       q("#profileName").value = profile.full_name;
+      savedName = profile.full_name;
+      q("#overviewName").textContent = "Full name: " + savedName;
       q("#accountWelcome").textContent = "Welcome, " + profile.full_name;
       q("#accountProfileStatus").textContent = "Your email is verified.";
       q("#profileForm button").disabled = false;
@@ -300,6 +390,11 @@
   }
   q("#retryProfile").addEventListener("click", loadProfile);
   function renderSaved() {
+    const cartItems = store.getCart();
+    const quantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const total = cartItems.reduce((sum, item) => sum + store.effectivePrice(item) * item.quantity, 0);
+    q("#overviewCart").textContent = `Cart: ${quantity} items · ${total.toFixed(2)} ₾`;
+    q("#accountCartTotal").textContent = `Total: ${total.toFixed(2)} ₾`;
     for (const [mount, items, cart] of [
       [q("#accountFavorites"), store.getFavorites(), false],
       [q("#accountCart"), store.getCart(), true],
@@ -362,6 +457,7 @@
       clearOtp();
       dashboard.hidden = state.recovery;
       q("#accountEmail").textContent = state.user.email;
+      renderEmailStatus();
       q("#accountCreated").textContent =
         "Registered: " + new Date(state.user.created_at).toLocaleDateString();
       if (profileOwner !== state.user.id) {
@@ -370,6 +466,12 @@
       }
       renderSaved();
     } else {
+      clearEmailOtp();
+      q("#deleteAccountDialog").close();
+      emailResendAt = emailExpiresAt = 0;
+      savedName = "";
+      q("#newEmail").value = "";
+      selectSection("overview");
       ++profileVersion;
       profileOwner = null;
       q("#profileName").value = "";

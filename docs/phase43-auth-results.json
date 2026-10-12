@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-11T16:46:27.827Z",
+  "date": "2026-10-12T08:25:48.815Z",
   "sdkVersion": "2.110.7",
   "type": "Real SDK + application service with mocked HTTP/Auth/REST. Zero production requests; no email delivery or Google consent tested.",
   "passed": 64,

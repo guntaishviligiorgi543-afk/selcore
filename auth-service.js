@@ -383,6 +383,39 @@ window.SelcoreAuth = (() => {
       }),
     );
   }
+  async function changeEmail(email) {
+    const account = requireUser();
+    if (recovery) throw new Error("Finish password recovery before changing your email.");
+    email = email.trim();
+    if (!validEmail(email)) throw new Error("Enter a valid email address.");
+    if (email.toLowerCase() === account.email.toLowerCase())
+      throw new Error("Choose a different email address.");
+    checked(await client.auth.updateUser({ email }, { emailRedirectTo: redirectUrl() }));
+    await refresh();
+    return "Verification requested. Follow the instructions sent to your current and new email addresses. Your email stays unchanged until Supabase confirms the change.";
+  }
+  async function verifyEmailChange(email, token) {
+    const account = requireUser();
+    if (recovery) throw new Error("Finish password recovery before changing your email.");
+    if (![account.email, account.new_email].includes(email.trim()))
+      throw new Error("Select an address belonging to your pending email change.");
+    if (!validEmail(email) || !/^\d{8}$/.test(token))
+      throw new Error("Enter the 8-digit code sent to the selected address.");
+    // The first secure confirmation can succeed without returning a user/session.
+    const data = checked(await client.auth.verifyOtp({ email: email.trim(), token, type: "email_change" }));
+    if (data.user && data.user.id !== account.id) {
+      await logout();
+      throw new Error("Your account changed. Sign in again.");
+    }
+    await refresh();
+  }
+  async function resendEmailChange(email) {
+    const account = requireUser();
+    if (recovery || email.trim() !== account.email || !account.new_email)
+      throw new Error("Request an email change from your account first.");
+    if (!validEmail(email)) throw new Error("Enter a valid email address.");
+    checked(await client.auth.resend({ type: "email_change", email: email.trim(), options: { emailRedirectTo: redirectUrl() } }));
+  }
   async function getProfile(attempt = 0) {
     const account = requireUser();
     let response = await client
@@ -452,6 +485,9 @@ window.SelcoreAuth = (() => {
     verifyRecoveryOtp,
     updatePassword,
     google,
+    changeEmail,
+    verifyEmailChange,
+    resendEmailChange,
     getProfile,
     saveProfile,
     validEmail,

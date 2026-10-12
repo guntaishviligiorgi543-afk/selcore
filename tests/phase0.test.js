@@ -1086,9 +1086,8 @@ async function browserTests() {
       "auth: abandoned gateway is absent",
     );
     check(
-      q("#emailChangeForm").hidden &&
-        w.getComputedStyle(q("#emailChangeForm")).display === "none",
-      "otp: legacy layout hides new email form",
+      q("#accountDashboard").hidden && q("#dashboardSecurity").hidden,
+      "account: email-change controls inaccessible to guests",
     );
     let clock = Date.now(),
       calls = 0,
@@ -1373,7 +1372,7 @@ async function browserTests() {
       registrationOtpInputs[index].value = digit;
     });
     submit("#otpPanel form");
-    await wait(() => !q("#otpPanel form").hasAttribute("aria-busy"));
+    await wait(() => q("#otpPanel").hidden);
     check(
       !q("#accountDashboard").hidden &&
         w.SelcoreAuth.snapshot().user?.email === registration.email,
@@ -1463,6 +1462,32 @@ async function browserTests() {
       q("#accountCreated").textContent.includes("Registered"),
       "auth: registration date",
     );
+    for (const name of ["profile", "security", "cart", "overview"]) {
+      const url = w.location.href;
+      click(`.dashboardSidebar [data-account-section="${name}"]`);
+      equal(all("[data-account-panel]").filter(p => !p.hidden).map(p => p.dataset.accountPanel), [name], "dashboard: only selected panel " + name);
+      check(q(`.dashboardSidebar [data-account-section="${name}"]`).getAttribute("aria-current") === "page", "dashboard: active navigation " + name);
+      equal(w.location.href, url, "dashboard: navigation preserves page " + name);
+    }
+    check(q("#overviewName").textContent.includes("Test Customer"), "dashboard: profile summary");
+    const profileName = q("#profileName").value;
+    input("#profileName", "Unsaved name");
+    click("#cancelProfile");
+    equal(q("#profileName").value, profileName, "dashboard: cancel restores saved profile");
+    click('.dashboardSidebar [data-account-section="security"]');
+    click("#reviewDeletion");
+    check(q("#deleteAccountDialog").open && q("#deleteAccountDialog button").disabled, "deletion: confirmation dialog cannot submit without backend");
+    input("#deleteConfirmation", "DELETE");
+    check(q("#deleteAccountDialog button").disabled, "deletion: typed confirmation cannot bypass unavailable backend");
+    click("#cancelDeletion");
+    check(!q("#deleteAccountDialog").open, "deletion: cancel closes dialog");
+    for (const width of [1400, 768, 375, 320]) {
+      frame.width = String(width);
+      await new Promise(r => setTimeout(r, 30));
+      check(d.documentElement.scrollWidth <= w.innerWidth, "dashboard: no overflow at " + width);
+    }
+    frame.width = "1400";
+    click('.dashboardSidebar [data-account-section="profile"]');
     equal(
       w.__authFixture.lastProfileFilter.value,
       w.SelcoreAuth.snapshot().user.id,
@@ -1531,6 +1556,21 @@ async function browserTests() {
       q("#changePasswordForm").textContent.includes("updated"),
       "auth: change password",
     );
+    click('.dashboardSidebar [data-account-section="security"]');
+    input("#newEmail", "changed@example.invalid");
+    submit("#emailChangeForm");
+    await wait(() => !q("#emailChangeForm").hasAttribute("aria-busy"));
+    equal(q("#accountEmail").textContent, registration.email, "email: pending address is not displayed as confirmed");
+    check(q("#emailChangeStatus").textContent.includes("pending"), "email: dual verification pending");
+    check(q("#emailChangeOtp").querySelectorAll("button")[1].disabled, "email: initial resend cooldown");
+    await reject(() => w.SelcoreAuth.verifyEmailChange(registration.email, "99999999"), "email: expired code rejected");
+    await reject(() => w.SelcoreAuth.verifyEmailChange("other@example.invalid", "11112222"), "email: unrelated recipient rejected");
+    await w.SelcoreAuth.verifyEmailChange(registration.email, "11112222");
+    equal(q("#accountEmail").textContent, registration.email, "email: first confirmation without session stays pending");
+    await reject(() => w.SelcoreAuth.verifyEmailChange(registration.email, "11112222"), "email: replay rejected");
+    await w.SelcoreAuth.verifyEmailChange("changed@example.invalid", "33334444");
+    equal(q("#accountEmail").textContent, "changed@example.invalid", "email: canonical email updates after both confirmations");
+    check(q("#emailVerification").hidden, "email: pending verification clears on completion");
     await w.SelcoreAuth.logout();
     equal(
       w.Selcore.getCart().map((x) => x.id),

@@ -92,6 +92,21 @@
         return { data: {}, error: { code: "invalid_otp" } };
       if (input.token === "99999999")
         return { data: {}, error: { code: "otp_expired" } };
+      if (input.type === "email_change") {
+        const customer = session()?.user;
+        const destination = input.token === "11112222" ? customer?.email
+          : input.token === "33334444" ? customer?.new_email : null;
+        state.emailConfirmations ||= new Set();
+        if (!destination || input.email !== destination || state.emailConfirmations.has(destination))
+          return { data: {}, error: { code: "invalid_otp" } };
+        state.emailConfirmations.add(destination);
+        if (state.emailConfirmations.size === 1) return okay({ user: null, session: null });
+        customer.email = customer.new_email;
+        delete customer.new_email;
+        set(customer);
+        emit("USER_UPDATED");
+        return okay({ user: customer, session: session() });
+      }
       if (input.type === "email") {
         if (!state.registrationCodeAvailable || input.token !== "12345678")
           return { data: {}, error: { code: "otp_expired" } };
@@ -109,9 +124,16 @@
       emit("PASSWORD_RECOVERY");
       return okay({ user: customer, session: session() });
     },
-    updateUser: async () => {
-      call("updatePassword");
+    updateUser: async (input) => {
+      call(input.email ? "changeEmail" : "updatePassword");
       await delay();
+      if (input.email) {
+        const customer = session().user;
+        customer.new_email = input.email;
+        state.emailConfirmations = new Set();
+        set(customer);
+        emit("USER_UPDATED");
+      }
       return okay({ user: session()?.user });
     },
     signInWithOAuth: async () => {
